@@ -11,6 +11,7 @@
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
+#include "MyData.h"
 
 
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
@@ -20,12 +21,12 @@ class CAboutDlg : public CDialogEx
 public:
 	CAboutDlg();
 
-// 对话框数据
+	// 对话框数据
 #ifdef AFX_DESIGN_TIME
 	enum { IDD = IDD_ABOUTBOX };
 #endif
 
-	protected:
+protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
 
 // 实现
@@ -59,12 +60,17 @@ CMainMFCDlg::CMainMFCDlg(CWnd* pParent /*=nullptr*/)
 void CMainMFCDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_EDIT1, R1);
+	DDX_Control(pDX, IDC_EDIT2, R2);
+	DDX_Control(pDX, IDC_EDIT3, R3);
+	DDX_Control(pDX, IDC_EDIT4, R4);
 }
 
 BEGIN_MESSAGE_MAP(CMainMFCDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_BN_CLICKED(IDC_BUTTON_SAVE, &CMainMFCDlg::OnSave)
 END_MESSAGE_MAP()
 
 
@@ -153,3 +159,28 @@ HCURSOR CMainMFCDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+
+
+void CMainMFCDlg::OnSave()
+{
+	CString r1, r2, r3, r4;
+	MyData mydata;
+	CString fileName = L"D:\\tmp.dat";
+	CFile file;
+	//获取数据
+	R1.GetWindowText(r1);
+	R2.GetWindowText(r2);
+	R3.GetWindowText(r3);
+	R4.GetWindowText(r4);
+	mydata.r1 = r1;
+	mydata.r2 = r2;
+	mydata.r3 = r3;
+	mydata.r4 = r4;
+	//打开文件
+	file.Open(fileName, CFile::modeCreate | CFile::modeReadWrite);
+	CArchive ar(&file, CArchive::store);
+	mydata.Serialize(ar);
+	//file.Write(r1, r1.GetLength()*2);
+	file.Close();
+	ar.Close();
+}

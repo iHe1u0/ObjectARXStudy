@@ -186,6 +186,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="MainMFC.h" />
     <ClInclude Include="MainMFCDlg.h" />
+    <ClInclude Include="MyData.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
@@ -193,6 +194,7 @@
   <ItemGroup>
     <ClCompile Include="MainMFC.cpp" />
     <ClCompile Include="MainMFCDlg.cpp" />
+    <ClCompile Include="MyData.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

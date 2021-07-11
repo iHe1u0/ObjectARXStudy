@@ -31,4 +31,11 @@ protected:
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
+public:
+//	CButton SAVE_BUTTON;
+	afx_msg void OnSave();
+	CEdit R1;
+	CEdit R2;
+	CEdit R3;
+	CEdit R4;
 };
