@@ -60,4 +60,5 @@ public:
 	double RADIUS5 = 0.0;
 
 	afx_msg void OnMenuOpen();
+	afx_msg void OnMenuExit();
 };

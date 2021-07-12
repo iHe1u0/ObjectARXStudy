@@ -53,6 +53,7 @@ BEGIN_MESSAGE_MAP(CMainMFCDlg, CDialogEx)
 	ON_WM_CTLCOLOR()
 	ON_COMMAND(ID_MENU_SHOW_ABOUT, &CMainMFCDlg::OnMenuShowAbout)
 	ON_COMMAND(ID_MENU_OPEN, &CMainMFCDlg::OnMenuOpen)
+	ON_COMMAND(ID_MENU_EXIT, &CMainMFCDlg::OnMenuExit)
 END_MESSAGE_MAP()
 
 
@@ -249,4 +250,10 @@ void CMainMFCDlg::OnMenuOpen()
 		CString path = dlg.GetPathName();
 		InitData(path);
 	}
+}
+
+
+void CMainMFCDlg::OnMenuExit()
+{
+	SendMessage(WM_CLOSE);
 }
