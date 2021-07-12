@@ -6,6 +6,7 @@
 
 #ifndef PCH_H
 #define PCH_H
+#define CONFIG_NAME L"data.ini"
 
 // 添加要在此处预编译的标头
 #include "framework.h"

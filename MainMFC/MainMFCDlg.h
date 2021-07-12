@@ -4,11 +4,13 @@
 
 #pragma once
 
+#pragma warning(disable:6031)
+
 
 // CMainMFCDlg 对话框
 class CMainMFCDlg : public CDialogEx
 {
-// 构造
+	// 构造
 public:
 	CMainMFCDlg(CWnd* pParent = nullptr);	// 标准构造函数
 
@@ -17,7 +19,7 @@ public:
 	enum { IDD = IDD_MAINMFC_DIALOG };
 #endif
 
-	protected:
+protected:
 	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV 支持
 
 
@@ -32,26 +34,29 @@ protected:
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
 public:
-	afx_msg void InitData();
+	afx_msg void InitData(CString fileName = L"D:\\mydata\\default.ini");
 	afx_msg void OnSave();
 	CBrush m_brush;
 	CFont m_font;
 	CMenu menu;
-	CEdit R1;
-	CEdit R2;
-	CEdit R3;
-	CEdit R4;
-	CEdit R5;
-	CEdit H1;
-	CEdit H2;
-	CEdit H_2;
-	CEdit RADIUS1;
-	CEdit RADIUS_1;
-	CEdit RADIUS2;
-	CEdit RADIUS3;
-	CEdit RADIUS4;
-	CEdit RADIUS5;
+
 	CStatic INFO_TEXT;
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	afx_msg void OnMenuShowAbout();
+
+	double R1 = 0.0;
+	double R2 = 0.0;
+	double R3 = 0.0;
+	double R4 = 0.0;
+	double R5 = 0.0;
+	double H1 = 0.0;
+	double H2 = 0.0;
+	double H_2 = 0.0;
+	double RADIUS1 = 0.0;
+	double RADIUS_1 = 0.0;
+	double RADIUS2 = 0.0;
+	double RADIUS3 = 0.0;
+	double RADIUS4 = 0.0;
+	double RADIUS5 = 0.0;
+
 };

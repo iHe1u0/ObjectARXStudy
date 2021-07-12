@@ -28,20 +28,20 @@ CMainMFCDlg::CMainMFCDlg(CWnd* pParent /*=nullptr*/)
 void CMainMFCDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
-	DDX_Control(pDX, IDC_EDIT1, R1);
-	DDX_Control(pDX, IDC_EDIT2, R2);
-	DDX_Control(pDX, IDC_EDIT3, R3);
-	DDX_Control(pDX, IDC_EDIT4, R4);
-	DDX_Control(pDX, IDC_EDIT5, R5);
-	DDX_Control(pDX, IDC_EDIT6, H1);
-	DDX_Control(pDX, IDC_EDIT7, H2);
-	DDX_Control(pDX, IDC_EDIT8, H_2);
-	DDX_Control(pDX, IDC_EDIT11, RADIUS1);
-	DDX_Control(pDX, IDC_EDIT12, RADIUS_1);
-	DDX_Control(pDX, IDC_EDIT13, RADIUS2);
-	DDX_Control(pDX, IDC_EDIT14, RADIUS3);
-	DDX_Control(pDX, IDC_EDIT15, RADIUS4);
-	DDX_Control(pDX, IDC_EDIT16, RADIUS5);
+	DDX_Text(pDX, IDC_EDIT1, R1);
+	DDX_Text(pDX, IDC_EDIT2, R2);
+	DDX_Text(pDX, IDC_EDIT3, R3);
+	DDX_Text(pDX, IDC_EDIT4, R4);
+	DDX_Text(pDX, IDC_EDIT5, R5);
+	DDX_Text(pDX, IDC_EDIT6, H1);
+	DDX_Text(pDX, IDC_EDIT7, H2);
+	DDX_Text(pDX, IDC_EDIT8, H_2);
+	DDX_Text(pDX, IDC_EDIT11, RADIUS1);
+	DDX_Text(pDX, IDC_EDIT12, RADIUS_1);
+	DDX_Text(pDX, IDC_EDIT13, RADIUS2);
+	DDX_Text(pDX, IDC_EDIT14, RADIUS3);
+	DDX_Text(pDX, IDC_EDIT15, RADIUS4);
+	DDX_Text(pDX, IDC_EDIT16, RADIUS5);
 	DDX_Control(pDX, IDC_STATIC_INFO, INFO_TEXT);
 }
 
@@ -85,7 +85,9 @@ BOOL CMainMFCDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
 	// 反序列化读取并赋值
-	InitData();
+
+	CString fileName = L"D:\\mydata\\default.ini";
+	InitData(fileName);
 	//字的大小和格式
 	m_font.CreatePointFont(125, L"微软雅黑");
 	//画刷的颜色，GetSysColor(COLOR_3DFACE)是当前对话框的背景颜色
@@ -150,59 +152,47 @@ HCURSOR CMainMFCDlg::OnQueryDragIcon()
 
 
 
-void CMainMFCDlg::InitData()
+void CMainMFCDlg::InitData(CString fileName)
 {
-	MyData mydata;
-	CString fileName = L"D:\\mydata\\default.ldat";
-	CFile file;
-	file.Open(fileName, CFile::modeRead);
-	CArchive ar(&file, CArchive::load);
-	mydata.Serialize(ar);
-	R1.SetWindowTextW(mydata.r1);
-	R2.SetWindowTextW(mydata.r2);
-	R3.SetWindowTextW(mydata.r3);
-	R4.SetWindowTextW(mydata.r4);
-	R5.SetWindowTextW(mydata.r5);
-	H1.SetWindowTextW(mydata.h1);
-	H2.SetWindowTextW(mydata.h2);
-	H_2.SetWindowTextW(mydata.h_2);
-	RADIUS1.SetWindowTextW(mydata.radius1);
-	RADIUS_1.SetWindowTextW(mydata.radius_1);
-	RADIUS2.SetWindowTextW(mydata.radius2);
-	RADIUS3.SetWindowTextW(mydata.radius3);
-	RADIUS4.SetWindowTextW(mydata.radius4);
-	RADIUS5.SetWindowTextW(mydata.radius5);
-	file.Close();
-	ar.Close();
+	MyData data(fileName);
+	data.Read(data, L"R1", R1);
+	data.Read(data, L"R2", R2);
+	data.Read(data, L"R3", R2);
+	data.Read(data, L"R4", R4);
+	data.Read(data, L"H1", H1);
+	data.Read(data, L"H2", H2);
+	data.Read(data, L"H'2", H_2);
+	data.Read(data, L"θ1", RADIUS1);
+	data.Read(data, L"θ'1", RADIUS_1);
+	data.Read(data, L"θ2", RADIUS2);
+	data.Read(data, L"θ3", RADIUS3);
+	data.Read(data, L"θ4", RADIUS4);
+	data.Read(data, L"θ5", RADIUS5);
+	UpdateData(FALSE);
 }
 
 void CMainMFCDlg::OnSave()
 {
-	MyData mydata;
-	CString fileName = L"D:\\mydata\\default.ldat";
-	CFile file;
-	//获取数据
-	R1.GetWindowText(mydata.r1);
-	R2.GetWindowText(mydata.r2);
-	R3.GetWindowText(mydata.r3);
-	R4.GetWindowText(mydata.r4);
-	R5.GetWindowText(mydata.r5);
-	H1.GetWindowText(mydata.h1);
-	H2.GetWindowText(mydata.h2);
-	H_2.GetWindowText(mydata.h_2);
-	RADIUS1.GetWindowText(mydata.radius1);
-	RADIUS_1.GetWindowText(mydata.radius_1);
-	RADIUS2.GetWindowText(mydata.radius2);
-	RADIUS3.GetWindowText(mydata.radius3);
-	RADIUS4.GetWindowText(mydata.radius4);
-	RADIUS5.GetWindowText(mydata.radius5);
-	//打开文件
-	file.Open(fileName, CFile::modeCreate | CFile::modeReadWrite);
-	CArchive ar(&file, CArchive::store);
-	mydata.Serialize(ar);
-	ar.Close();
-	file.Close();
-	MessageBox(L"保存成功", L"提示", MB_OK);
+	UpdateData(TRUE);
+	CString fileName = L"D:\\mydata\\default.ini";
+	MyData mydata(fileName);
+	mydata.r1 = R1;
+	mydata.r2 = R2;
+	mydata.r3 = R3;
+	mydata.r4 = R4;
+	mydata.r5 = R5;
+
+	mydata.h1 = H1;
+	mydata.h2 = H2;
+	mydata.h_2 = H_2;
+
+	mydata.radius1 = RADIUS1;
+	mydata.radius_1 = RADIUS_1;
+	mydata.radius2 = RADIUS2;
+	mydata.radius3 = RADIUS3;
+	mydata.radius4 = RADIUS4;
+	mydata.radius5 = RADIUS5;
+	mydata.Save(mydata);
 }
 
 

@@ -1,25 +1,41 @@
 #include "pch.h"
 #include "MyData.h"
+#include "resource.h"
 
-IMPLEMENT_SERIAL(MyData, CObject, VERSION)
 
-void MyData::Serialize(CArchive& ar)
-{
-	if (ar.IsStoring())
-	{
-		//序列化
-		//CString r1, r2, r3, r4, r5;
-		//CString h1, h2, h_2;
-		//CString radius1, radius_1, radius2, radius3, radius4, radius5;
-		ar << r1 << r2 << r3 << r4 << r5;
-		ar << h1 << h2 << h_2;
-		ar << radius1 << radius_1 << radius2 << radius3 << radius4 << radius5;
-
-	}
-	else {
-		//反序列化
-		ar >> r1 >> r2 >> r3 >> r4 >> r5;
-		ar >> h1 >> h2 >> h_2;
-		ar >> radius1 >> radius_1 >> radius2 >> radius3 >> radius4 >> radius5;
-	}
+BOOL _Save(CString filePath, CString key, double value) {
+	CString str;
+	str.Format(_T("%lf"), value);
+	return ::WritePrivateProfileString(CONFIG_NAME, key, str, filePath);
 }
+MyData::MyData(CString filePath) {
+	this->filePath = filePath;
+}
+
+CString MyData::Save(MyData data)
+{
+	_Save(filePath, L"R1", data.r1);
+	_Save(filePath, L"R2", data.r2);
+	_Save(filePath, L"R3", data.r3);
+	_Save(filePath, L"R4", data.r4);
+	_Save(filePath, L"H1", data.h1);
+	_Save(filePath, L"H2", data.h2);
+	_Save(filePath, L"H'2", data.h_2);
+	_Save(filePath, L"θ1", data.radius1);
+	_Save(filePath, L"θ'1", data.radius_1);
+	_Save(filePath, L"θ2", data.radius2);
+	_Save(filePath, L"θ3", data.radius3);
+	_Save(filePath, L"θ4", data.radius4);
+	_Save(filePath, L"θ5", data.radius5);
+	return filePath;
+}
+
+
+
+void MyData::Read(MyData data, CString key, double& re)
+{
+	CString content;
+	GetPrivateProfileString(CONFIG_NAME, key, L"0.0000", content.GetBuffer(MAX_PATH), MAX_PATH, filePath);
+	re = _tstof(content);
+}
+

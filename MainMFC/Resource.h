@@ -7,6 +7,7 @@
 #define IDS_ABOUTBOX                    101
 #define IDD_MAINMFC_DIALOG              102
 #define IDS_STRING_INFO                 102
+#define IDS_STRING_DATA_FORMAT          103
 #define IDR_MAINFRAME                   128
 #define IDR_MENU_MAIN                   130
 #define IDC_EDIT1                       1000
