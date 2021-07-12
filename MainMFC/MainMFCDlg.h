@@ -32,10 +32,20 @@ protected:
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
 public:
-//	CButton SAVE_BUTTON;
+	afx_msg void InitData();
 	afx_msg void OnSave();
 	CEdit R1;
 	CEdit R2;
 	CEdit R3;
 	CEdit R4;
+	CEdit R5;
+	CEdit H1;
+	CEdit H2;
+	CEdit H_2;
+	CEdit RADIUS1;
+	CEdit RADIUS_1;
+	CEdit RADIUS2;
+	CEdit RADIUS3;
+	CEdit RADIUS4;
+	CEdit RADIUS5;
 };

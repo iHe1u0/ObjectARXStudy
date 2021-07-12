@@ -64,6 +64,16 @@ void CMainMFCDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_EDIT2, R2);
 	DDX_Control(pDX, IDC_EDIT3, R3);
 	DDX_Control(pDX, IDC_EDIT4, R4);
+	DDX_Control(pDX, IDC_EDIT5, R5);
+	DDX_Control(pDX, IDC_EDIT6, H1);
+	DDX_Control(pDX, IDC_EDIT7, H2);
+	DDX_Control(pDX, IDC_EDIT8, H_2);
+	DDX_Control(pDX, IDC_EDIT11, RADIUS1);
+	DDX_Control(pDX, IDC_EDIT12, RADIUS_1);
+	DDX_Control(pDX, IDC_EDIT13, RADIUS2);
+	DDX_Control(pDX, IDC_EDIT14, RADIUS3);
+	DDX_Control(pDX, IDC_EDIT15, RADIUS4);
+	DDX_Control(pDX, IDC_EDIT16, RADIUS5);
 }
 
 BEGIN_MESSAGE_MAP(CMainMFCDlg, CDialogEx)
@@ -105,7 +115,8 @@ BOOL CMainMFCDlg::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// 设置大图标
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
-	// TODO: 在此添加额外的初始化代码
+	// 反序列化读取并赋值
+	InitData();
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
@@ -161,21 +172,52 @@ HCURSOR CMainMFCDlg::OnQueryDragIcon()
 
 
 
+void CMainMFCDlg::InitData()
+{
+	MyData mydata;
+	CString fileName = L"D:\\mydata\\tmp.dat";
+	CFile file;
+	file.Open(fileName, CFile::modeRead);
+	CArchive ar(&file, CArchive::load);
+	mydata.Serialize(ar);
+	R1.SetWindowTextW(mydata.r1);
+	R2.SetWindowTextW(mydata.r2);
+	R3.SetWindowTextW(mydata.r3);
+	R4.SetWindowTextW(mydata.r4);
+	R5.SetWindowTextW(mydata.r5);
+	H1.SetWindowTextW(mydata.h1);
+	H2.SetWindowTextW(mydata.h2);
+	H_2.SetWindowTextW(mydata.h_2);
+	RADIUS1.SetWindowTextW(mydata.radius1);
+	RADIUS_1.SetWindowTextW(mydata.radius_1);
+	RADIUS2.SetWindowTextW(mydata.radius2);
+	RADIUS3.SetWindowTextW(mydata.radius3);
+	RADIUS4.SetWindowTextW(mydata.radius4);
+	RADIUS5.SetWindowTextW(mydata.radius5);
+	file.Close();
+	ar.Close();
+}
+
 void CMainMFCDlg::OnSave()
 {
-	CString r1, r2, r3, r4;
 	MyData mydata;
 	CString fileName = L"D:\\mydata\\tmp.dat";
 	CFile file;
 	//获取数据
-	R1.GetWindowText(r1);
-	R2.GetWindowText(r2);
-	R3.GetWindowText(r3);
-	R4.GetWindowText(r4);
-	mydata.r1 = r1;
-	mydata.r2 = r2;
-	mydata.r3 = r3;
-	mydata.r4 = r4;
+	R1.GetWindowText(mydata.r1);
+	R2.GetWindowText(mydata.r2);
+	R3.GetWindowText(mydata.r3);
+	R4.GetWindowText(mydata.r4);
+	R5.GetWindowText(mydata.r5);
+	H1.GetWindowText(mydata.h1);
+	H2.GetWindowText(mydata.h2);
+	H_2.GetWindowText(mydata.h_2);
+	RADIUS1.GetWindowText(mydata.radius1);
+	RADIUS_1.GetWindowText(mydata.radius_1);
+	RADIUS2.GetWindowText(mydata.radius2);
+	RADIUS3.GetWindowText(mydata.radius3);
+	RADIUS4.GetWindowText(mydata.radius4);
+	RADIUS5.GetWindowText(mydata.radius5);
 	//打开文件
 	file.Open(fileName, CFile::modeCreate | CFile::modeReadWrite);
 	CArchive ar(&file, CArchive::store);
