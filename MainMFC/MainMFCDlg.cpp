@@ -52,6 +52,7 @@ BEGIN_MESSAGE_MAP(CMainMFCDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_SAVE, &CMainMFCDlg::OnSave)
 	ON_WM_CTLCOLOR()
 	ON_COMMAND(ID_MENU_SHOW_ABOUT, &CMainMFCDlg::OnMenuShowAbout)
+	ON_COMMAND(ID_MENU_OPEN, &CMainMFCDlg::OnMenuOpen)
 END_MESSAGE_MAP()
 
 
@@ -86,8 +87,8 @@ BOOL CMainMFCDlg::OnInitDialog()
 
 	// 反序列化读取并赋值
 
-	CString fileName = L"D:\\mydata\\default.ini";
-	InitData(fileName);
+	//CString fileName = L"D:\\mydata\\default.ini";
+	//InitData(fileName);
 	//字的大小和格式
 	m_font.CreatePointFont(125, L"微软雅黑");
 	//画刷的颜色，GetSysColor(COLOR_3DFACE)是当前对话框的背景颜色
@@ -174,25 +175,32 @@ void CMainMFCDlg::InitData(CString fileName)
 void CMainMFCDlg::OnSave()
 {
 	UpdateData(TRUE);
-	CString fileName = L"D:\\mydata\\default.ini";
-	MyData mydata(fileName);
-	mydata.r1 = R1;
-	mydata.r2 = R2;
-	mydata.r3 = R3;
-	mydata.r4 = R4;
-	mydata.r5 = R5;
+	CFileDialog dlg(FALSE);
+	dlg.m_ofn.lpstrTitle = L"保存配置文件";
+	dlg.m_ofn.lpstrFilter = CONFIG_EXT_NAME;
+	CString fileName;
+	if (dlg.DoModal() == IDOK)
+	{
+		fileName = dlg.GetPathName() + CONFIG_EXT;
+		MyData mydata(fileName);
+		mydata.r1 = R1;
+		mydata.r2 = R2;
+		mydata.r3 = R3;
+		mydata.r4 = R4;
+		mydata.r5 = R5;
 
-	mydata.h1 = H1;
-	mydata.h2 = H2;
-	mydata.h_2 = H_2;
+		mydata.h1 = H1;
+		mydata.h2 = H2;
+		mydata.h_2 = H_2;
 
-	mydata.radius1 = RADIUS1;
-	mydata.radius_1 = RADIUS_1;
-	mydata.radius2 = RADIUS2;
-	mydata.radius3 = RADIUS3;
-	mydata.radius4 = RADIUS4;
-	mydata.radius5 = RADIUS5;
-	mydata.Save(mydata);
+		mydata.radius1 = RADIUS1;
+		mydata.radius_1 = RADIUS_1;
+		mydata.radius2 = RADIUS2;
+		mydata.radius3 = RADIUS3;
+		mydata.radius4 = RADIUS4;
+		mydata.radius5 = RADIUS5;
+		mydata.Save(mydata);
+	}
 }
 
 
@@ -219,4 +227,26 @@ void CMainMFCDlg::OnMenuShowAbout()
 	CAboutDlg* dlg = new CAboutDlg;
 	dlg->Create(IDD_ABOUTBOX, NULL);
 	dlg->ShowWindow(SW_SHOW);
+}
+
+
+void CMainMFCDlg::OnMenuOpen()
+{
+	// Constructors
+	// explicit CFileDialog(BOOL bOpenFileDialog, // TRUE for FileOpen, FALSE for FileSaveAs
+	//	LPCTSTR lpszDefExt = NULL,
+	//	LPCTSTR lpszFileName = NULL,
+	//	DWORD dwFlags = OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT,
+	//	LPCTSTR lpszFilter = NULL,
+	//	CWnd * pParentWnd = NULL,
+	//	DWORD dwSize = 0,
+	//	BOOL bVistaStyle = TRUE);
+	CFileDialog dlg(TRUE);
+	dlg.m_ofn.lpstrTitle = L"选择配置文件";
+	dlg.m_ofn.lpstrFilter = CONFIG_EXT_NAME;
+	if (dlg.DoModal() == IDOK)
+	{
+		CString path = dlg.GetPathName();
+		InitData(path);
+	}
 }

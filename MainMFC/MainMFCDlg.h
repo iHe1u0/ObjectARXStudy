@@ -34,7 +34,7 @@ protected:
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
 public:
-	afx_msg void InitData(CString fileName = L"D:\\mydata\\default.ini");
+	afx_msg void InitData(CString fileName = L"D:\\mydata\\default.txt");
 	afx_msg void OnSave();
 	CBrush m_brush;
 	CFont m_font;
@@ -59,4 +59,5 @@ public:
 	double RADIUS4 = 0.0;
 	double RADIUS5 = 0.0;
 
+	afx_msg void OnMenuOpen();
 };

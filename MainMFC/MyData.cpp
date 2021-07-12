@@ -6,7 +6,7 @@
 BOOL _Save(CString filePath, CString key, double value) {
 	CString str;
 	str.Format(_T("%lf"), value);
-	return ::WritePrivateProfileString(CONFIG_NAME, key, str, filePath);
+	return ::WritePrivateProfileString(APP_NAME, key, str, filePath);
 }
 MyData::MyData(CString filePath) {
 	this->filePath = filePath;
@@ -35,7 +35,7 @@ CString MyData::Save(MyData data)
 void MyData::Read(MyData data, CString key, double& re)
 {
 	CString content;
-	GetPrivateProfileString(CONFIG_NAME, key, L"0.0000", content.GetBuffer(MAX_PATH), MAX_PATH, filePath);
+	GetPrivateProfileString(APP_NAME, key, L"0.0000", content.GetBuffer(MAX_PATH), MAX_PATH, filePath);
 	re = _tstof(content);
 }
 

@@ -6,7 +6,11 @@
 
 #ifndef PCH_H
 #define PCH_H
-#define CONFIG_NAME L"data.ini"
+
+#define CONFIG_EXT_NAME L"配置文件(*.ini)\0*.ini\0"
+#define CONFIG_EXT L".ini"
+
+#define APP_NAME L"DataConfig"
 
 // 添加要在此处预编译的标头
 #include "framework.h"
