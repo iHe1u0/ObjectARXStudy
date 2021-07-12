@@ -153,7 +153,7 @@ HCURSOR CMainMFCDlg::OnQueryDragIcon()
 void CMainMFCDlg::InitData()
 {
 	MyData mydata;
-	CString fileName = L"D:\\mydata\\tmp.dat";
+	CString fileName = L"D:\\mydata\\default.ldat";
 	CFile file;
 	file.Open(fileName, CFile::modeRead);
 	CArchive ar(&file, CArchive::load);
@@ -179,7 +179,7 @@ void CMainMFCDlg::InitData()
 void CMainMFCDlg::OnSave()
 {
 	MyData mydata;
-	CString fileName = L"D:\\mydata\\tmp.dat";
+	CString fileName = L"D:\\mydata\\default.ldat";
 	CFile file;
 	//获取数据
 	R1.GetWindowText(mydata.r1);
