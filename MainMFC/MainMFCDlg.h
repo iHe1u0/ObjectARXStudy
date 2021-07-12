@@ -36,7 +36,7 @@ public:
 	afx_msg void OnSave();
 	CBrush m_brush;
 	CFont m_font;
-
+	CMenu menu;
 	CEdit R1;
 	CEdit R2;
 	CEdit R3;
@@ -53,4 +53,5 @@ public:
 	CEdit RADIUS5;
 	CStatic INFO_TEXT;
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+	afx_msg void OnMenuShowAbout();
 };

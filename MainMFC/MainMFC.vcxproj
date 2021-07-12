@@ -183,6 +183,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CAboutDlg.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="MainMFC.h" />
     <ClInclude Include="MainMFCDlg.h" />
@@ -192,6 +193,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CAboutDlg.cpp" />
     <ClCompile Include="MainMFC.cpp" />
     <ClCompile Include="MainMFCDlg.cpp" />
     <ClCompile Include="MyData.cpp" />

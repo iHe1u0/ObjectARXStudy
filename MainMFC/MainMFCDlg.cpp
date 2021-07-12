@@ -12,39 +12,7 @@
 #define new DEBUG_NEW
 #endif
 #include "MyData.h"
-
-
-// 用于应用程序“关于”菜单项的 CAboutDlg 对话框
-
-class CAboutDlg : public CDialogEx
-{
-public:
-	CAboutDlg();
-
-	// 对话框数据
-#ifdef AFX_DESIGN_TIME
-	enum { IDD = IDD_ABOUTBOX };
-#endif
-
-protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
-
-// 实现
-protected:
-	DECLARE_MESSAGE_MAP()
-};
-
-CAboutDlg::CAboutDlg() : CDialogEx(IDD_ABOUTBOX)
-{
-}
-
-void CAboutDlg::DoDataExchange(CDataExchange* pDX)
-{
-	CDialogEx::DoDataExchange(pDX);
-}
-
-BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
-END_MESSAGE_MAP()
+#include "CAboutDlg.h"
 
 
 // CMainMFCDlg 对话框
@@ -83,6 +51,7 @@ BEGIN_MESSAGE_MAP(CMainMFCDlg, CDialogEx)
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDC_BUTTON_SAVE, &CMainMFCDlg::OnSave)
 	ON_WM_CTLCOLOR()
+	ON_COMMAND(ID_MENU_SHOW_ABOUT, &CMainMFCDlg::OnMenuShowAbout)
 END_MESSAGE_MAP()
 
 
@@ -91,8 +60,6 @@ END_MESSAGE_MAP()
 BOOL CMainMFCDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
-
-	// 将“关于...”菜单项添加到系统菜单中。
 
 	// IDM_ABOUTBOX 必须在系统命令范围内。
 	ASSERT((IDM_ABOUTBOX & 0xFFF0) == IDM_ABOUTBOX);
@@ -126,6 +93,9 @@ BOOL CMainMFCDlg::OnInitDialog()
 	CString info;
 	info.LoadStringW(IDS_STRING_INFO);
 	INFO_TEXT.SetWindowTextW(info);
+	//添加菜单
+	menu.LoadMenuW(IDR_MENU_MAIN);
+	SetMenu(&menu);
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
@@ -251,4 +221,12 @@ HBRUSH CMainMFCDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	}
 	// TODO:  如果默认的不是所需画笔，则返回另一个画笔
 	return hbr;
+}
+
+
+void CMainMFCDlg::OnMenuShowAbout()
+{
+	CAboutDlg* dlg = new CAboutDlg;
+	dlg->Create(IDD_ABOUTBOX, NULL);
+	dlg->ShowWindow(SW_SHOW);
 }
