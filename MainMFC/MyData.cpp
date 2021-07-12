@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "MyData.h"
 
-IMPLEMENT_SERIAL(MyData, CObject, 1)
+IMPLEMENT_SERIAL(MyData, CObject, VERSION)
 
 void MyData::Serialize(CArchive& ar)
 {

@@ -74,6 +74,7 @@ void CMainMFCDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_EDIT14, RADIUS3);
 	DDX_Control(pDX, IDC_EDIT15, RADIUS4);
 	DDX_Control(pDX, IDC_EDIT16, RADIUS5);
+	DDX_Control(pDX, IDC_STATIC_INFO, INFO_TEXT);
 }
 
 BEGIN_MESSAGE_MAP(CMainMFCDlg, CDialogEx)
@@ -81,6 +82,7 @@ BEGIN_MESSAGE_MAP(CMainMFCDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDC_BUTTON_SAVE, &CMainMFCDlg::OnSave)
+	ON_WM_CTLCOLOR()
 END_MESSAGE_MAP()
 
 
@@ -117,7 +119,13 @@ BOOL CMainMFCDlg::OnInitDialog()
 
 	// 反序列化读取并赋值
 	InitData();
-
+	//字的大小和格式
+	m_font.CreatePointFont(125, L"微软雅黑");
+	//画刷的颜色，GetSysColor(COLOR_3DFACE)是当前对话框的背景颜色
+	m_brush.CreateSolidBrush(GetSysColor(COLOR_3DFACE));
+	CString info;
+	info.LoadStringW(IDS_STRING_INFO);
+	INFO_TEXT.SetWindowTextW(info);
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
@@ -224,4 +232,23 @@ void CMainMFCDlg::OnSave()
 	mydata.Serialize(ar);
 	ar.Close();
 	file.Close();
+	MessageBox(L"保存成功", L"提示", MB_OK);
+}
+
+
+HBRUSH CMainMFCDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+{
+	HBRUSH hbr = CDialog::OnCtlColor(pDC, pWnd, nCtlColor);
+
+	// TODO:  在此更改 DC 的任何特性
+	if (pWnd->GetDlgCtrlID() == IDC_STATIC_INFO)
+	{
+
+		pDC->SetBkColor(RGB(255, 255, 255));//背景色
+		pDC->SetTextColor(RGB(0, 0, 0));//文字颜色
+		pDC->SelectObject(&m_font);//文字为初始化文字
+		return m_brush;
+	}
+	// TODO:  如果默认的不是所需画笔，则返回另一个画笔
+	return hbr;
 }

@@ -34,6 +34,9 @@ protected:
 public:
 	afx_msg void InitData();
 	afx_msg void OnSave();
+	CBrush m_brush;
+	CFont m_font;
+
 	CEdit R1;
 	CEdit R2;
 	CEdit R3;
@@ -48,4 +51,6 @@ public:
 	CEdit RADIUS3;
 	CEdit RADIUS4;
 	CEdit RADIUS5;
+	CStatic INFO_TEXT;
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 };

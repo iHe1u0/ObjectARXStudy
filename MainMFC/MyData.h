@@ -1,4 +1,6 @@
 #pragma once
+
+#define VERSION 1
 class MyData :public CObject
 {
 	DECLARE_SERIAL(MyData)

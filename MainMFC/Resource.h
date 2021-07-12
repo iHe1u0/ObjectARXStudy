@@ -6,6 +6,7 @@
 #define IDD_ABOUTBOX                    100
 #define IDS_ABOUTBOX                    101
 #define IDD_MAINMFC_DIALOG              102
+#define IDS_STRING_INFO                 102
 #define IDR_MAINFRAME                   128
 #define IDC_EDIT1                       1000
 #define IDC_EDIT2                       1001
@@ -16,6 +17,7 @@
 #define IDC_EDIT6                       1006
 #define IDC_EDIT7                       1007
 #define IDC_EDIT8                       1008
+#define IDC_STATIC_INFO                 1009
 #define IDC_EDIT11                      1016
 #define IDC_EDIT12                      1017
 #define IDC_EDIT13                      1018
@@ -29,7 +31,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        130
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1006
+#define _APS_NEXT_CONTROL_VALUE         1010
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
