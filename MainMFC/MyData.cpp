@@ -8,18 +8,11 @@ void MyData::Serialize(CArchive& ar)
 	if (ar.IsStoring())
 	{
 		//序列化
-		ar << r1;
-		ar << r2;
-		ar << r3;
-		ar << r4;
+		ar << r1 << r2 << r3 << r4;
 
 	}
 	else {
 		//反序列化
-		ar >> r1;
-		ar >> r2;
-		ar >> r3;
-		ar >> r4;
-
+		ar >> r1 >> r2 >> r3 >> r4;
 	}
 }

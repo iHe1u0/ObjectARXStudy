@@ -180,6 +180,7 @@ void CMainMFCDlg::OnSave()
 	file.Open(fileName, CFile::modeCreate | CFile::modeReadWrite);
 	CArchive ar(&file, CArchive::store);
 	mydata.Serialize(ar);
+	//file.Write(r1, r1.GetLength()*2);
 	ar.Close();
 	file.Close();
 }
