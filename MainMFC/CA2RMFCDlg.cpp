@@ -7,6 +7,10 @@ constexpr double PI = 3.14159265358979323846;
 CA2RMFCDlg::CA2RMFCDlg(CWnd* pParent)
 {
 	result = 0.0;
+	HICON	m_hIcon;
+	m_hIcon = AfxGetApp()->LoadIcon(IDB_BITMAP_A2R_BMP);
+	SetIcon(m_hIcon, TRUE); // Set big icon 
+	SetIcon(m_hIcon, FALSE); // Set small icon;
 }
 
 CA2RMFCDlg::~CA2RMFCDlg()

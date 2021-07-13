@@ -1,11 +1,10 @@
-﻿
-// MainMFCDlg.h: 头文件
+﻿// MainMFCDlg.h: 头文件
 //
 
 #pragma once
-#pragma warning(disable:6031)
 
 #include "CA2RMFCDlg.h";
+
 
 // CMainMFCDlg 对话框
 class CMainMFCDlg : public CDialogEx
@@ -14,7 +13,7 @@ class CMainMFCDlg : public CDialogEx
 public:
 	CMainMFCDlg(CWnd* pParent = nullptr);	// 标准构造函数
 	~CMainMFCDlg();
-// 对话框数据
+	// 对话框数据
 #ifdef AFX_DESIGN_TIME
 	enum { IDD = IDD_MAINMFC_DIALOG };
 #endif
@@ -44,7 +43,6 @@ public:
 	CStatic INFO_TEXT;
 	//更改提示文本框颜色
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
-	afx_msg void OnMenuShowAbout();
 
 	double R1 = 0.0;
 	double R2 = 0.0;
@@ -60,8 +58,10 @@ public:
 	double RADIUS3 = 0.0;
 	double RADIUS4 = 0.0;
 	double RADIUS5 = 0.0;
-
+	//有关菜单栏的一些操作
 	afx_msg void OnMenuOpen();
+	afx_msg void OnMenuSave();
 	afx_msg void OnMenuExit();
 	afx_msg void OnMenuToolsA2r();
+	afx_msg void OnMenuShowAbout();
 };

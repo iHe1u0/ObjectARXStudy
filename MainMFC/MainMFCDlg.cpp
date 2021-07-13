@@ -10,6 +10,8 @@
 #include "MyData.h"
 #include "CAboutDlg.h"
 #include "CA2RMFCDlg.h"
+//#include "CA2RMFCDlg.h";
+
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -28,7 +30,7 @@ CMainMFCDlg::CMainMFCDlg(CWnd* pParent /*=nullptr*/)
 
 CMainMFCDlg::~CMainMFCDlg()
 {
-	if (angelToRadianDlg!=NULL)
+	if (angelToRadianDlg != NULL)
 	{
 		delete angelToRadianDlg;
 	}
@@ -65,6 +67,7 @@ BEGIN_MESSAGE_MAP(CMainMFCDlg, CDialogEx)
 	ON_COMMAND(ID_MENU_OPEN, &CMainMFCDlg::OnMenuOpen)
 	ON_COMMAND(ID_MENU_EXIT, &CMainMFCDlg::OnMenuExit)
 	ON_COMMAND(ID_MENU_TOOLS_A2R, &CMainMFCDlg::OnMenuToolsA2r)
+	ON_COMMAND(ID_MENU_SAVE, &CMainMFCDlg::OnMenuSave)
 END_MESSAGE_MAP()
 
 
@@ -95,13 +98,8 @@ BOOL CMainMFCDlg::OnInitDialog()
 	// 设置此对话框的图标。  当应用程序主窗口不是对话框时，框架将自动
 	//  执行此操作
 	SetIcon(m_hIcon, TRUE);			// 设置大图标
-	SetIcon(m_hIcon, FALSE);		// 设置小图标
+	SetIcon(m_hIcon, TRUE);		// 设置小图标
 
-	// 反序列化读取并赋值
-
-	//CString fileName = L"D:\\mydata\\default.ini";
-	//InitData(fileName);
-	//字的大小和格式
 	m_font.CreatePointFont(125, L"微软雅黑");
 	//画刷的颜色，GetSysColor(COLOR_3DFACE)是当前对话框的背景颜色
 	m_brush.CreateSolidBrush(GetSysColor(COLOR_3DFACE));
@@ -244,15 +242,6 @@ void CMainMFCDlg::OnMenuShowAbout()
 
 void CMainMFCDlg::OnMenuOpen()
 {
-	// Constructors
-	// explicit CFileDialog(BOOL bOpenFileDialog, // TRUE for FileOpen, FALSE for FileSaveAs
-	//	LPCTSTR lpszDefExt = NULL,
-	//	LPCTSTR lpszFileName = NULL,
-	//	DWORD dwFlags = OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT,
-	//	LPCTSTR lpszFilter = NULL,
-	//	CWnd * pParentWnd = NULL,
-	//	DWORD dwSize = 0,
-	//	BOOL bVistaStyle = TRUE);
 	CFileDialog dlg(TRUE);
 	dlg.m_ofn.lpstrTitle = L"选择配置文件";
 	dlg.m_ofn.lpstrFilter = CONFIG_EXT_NAME;
@@ -264,19 +253,24 @@ void CMainMFCDlg::OnMenuOpen()
 }
 
 
-void CMainMFCDlg::OnMenuExit()
-{
-	SendMessage(WM_CLOSE);
-}
 
+void CMainMFCDlg::OnMenuSave()
+{
+	this->OnSave();
+}
 
 void CMainMFCDlg::OnMenuToolsA2r()
 {
-	if (angelToRadianDlg!=NULL)
+	if (angelToRadianDlg != NULL)
 	{
 		delete angelToRadianDlg;
 	}
 	angelToRadianDlg = new CA2RMFCDlg();
 	angelToRadianDlg->Create(IDD_DIALOG_A2RTools);
 	angelToRadianDlg->ShowWindow(SW_SHOWNORMAL);
+}
+
+void CMainMFCDlg::OnMenuExit()
+{
+	SendMessage(WM_CLOSE);
 }
