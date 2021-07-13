@@ -7,6 +7,7 @@
 #include "MainMFC.h"
 #include "MainMFCDlg.h"
 
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif

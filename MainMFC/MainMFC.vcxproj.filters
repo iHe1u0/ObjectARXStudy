@@ -39,6 +39,12 @@
     <ClInclude Include="CAboutDlg.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="NumEditText.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CA2RMFCDlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainMFC.cpp">
@@ -54,6 +60,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="CAboutDlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="NumEditText.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CA2RMFCDlg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

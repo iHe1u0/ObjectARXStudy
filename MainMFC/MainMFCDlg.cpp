@@ -7,16 +7,16 @@
 #include "MainMFC.h"
 #include "MainMFCDlg.h"
 #include "afxdialogex.h"
+#include "MyData.h"
+#include "CAboutDlg.h"
+#include "CA2RMFCDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
-#include "MyData.h"
-#include "CAboutDlg.h"
 
 
 // CMainMFCDlg 对话框
-
 
 
 CMainMFCDlg::CMainMFCDlg(CWnd* pParent /*=nullptr*/)
@@ -24,6 +24,7 @@ CMainMFCDlg::CMainMFCDlg(CWnd* pParent /*=nullptr*/)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
+
 
 void CMainMFCDlg::DoDataExchange(CDataExchange* pDX)
 {
@@ -54,6 +55,7 @@ BEGIN_MESSAGE_MAP(CMainMFCDlg, CDialogEx)
 	ON_COMMAND(ID_MENU_SHOW_ABOUT, &CMainMFCDlg::OnMenuShowAbout)
 	ON_COMMAND(ID_MENU_OPEN, &CMainMFCDlg::OnMenuOpen)
 	ON_COMMAND(ID_MENU_EXIT, &CMainMFCDlg::OnMenuExit)
+	ON_COMMAND(ID_MENU_TOOLS_A2R, &CMainMFCDlg::OnMenuToolsA2r)
 END_MESSAGE_MAP()
 
 
@@ -152,8 +154,7 @@ HCURSOR CMainMFCDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
-
-
+//加载指定文件
 void CMainMFCDlg::InitData(CString fileName)
 {
 	MyData data(fileName);
@@ -173,6 +174,7 @@ void CMainMFCDlg::InitData(CString fileName)
 	UpdateData(FALSE);
 }
 
+//保存各项数据到文件
 void CMainMFCDlg::OnSave()
 {
 	UpdateData(TRUE);
@@ -256,4 +258,17 @@ void CMainMFCDlg::OnMenuOpen()
 void CMainMFCDlg::OnMenuExit()
 {
 	SendMessage(WM_CLOSE);
+}
+
+
+void CMainMFCDlg::OnMenuToolsA2r()
+{
+	CA2RMFCDlg* angelToRadianDlg = new CA2RMFCDlg;
+	if (angelToRadianDlg != nullptr)
+	{
+		delete angelToRadianDlg;
+	}
+	angelToRadianDlg = new CA2RMFCDlg();
+	angelToRadianDlg->Create(IDD_DIALOG_A2RTools);
+	angelToRadianDlg->ShowWindow(SW_SHOWNORMAL);
 }

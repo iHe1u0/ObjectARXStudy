@@ -183,20 +183,24 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CA2RMFCDlg.h" />
     <ClInclude Include="CAboutDlg.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="MainMFC.h" />
     <ClInclude Include="MainMFCDlg.h" />
     <ClInclude Include="MyData.h" />
+    <ClInclude Include="NumEditText.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CA2RMFCDlg.cpp" />
     <ClCompile Include="CAboutDlg.cpp" />
     <ClCompile Include="MainMFC.cpp" />
     <ClCompile Include="MainMFCDlg.cpp" />
     <ClCompile Include="MyData.cpp" />
+    <ClCompile Include="NumEditText.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

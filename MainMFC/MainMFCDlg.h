@@ -13,7 +13,6 @@ class CMainMFCDlg : public CDialogEx
 	// 构造
 public:
 	CMainMFCDlg(CWnd* pParent = nullptr);	// 标准构造函数
-
 // 对话框数据
 #ifdef AFX_DESIGN_TIME
 	enum { IDD = IDD_MAINMFC_DIALOG };
@@ -34,13 +33,15 @@ protected:
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
 public:
-	afx_msg void InitData(CString fileName = L"D:\\mydata\\default.txt");
+	
+	afx_msg void InitData(CString fileName);
 	afx_msg void OnSave();
 	CBrush m_brush;
 	CFont m_font;
 	CMenu menu;
-
+	//提示信息文本框
 	CStatic INFO_TEXT;
+	//更改提示文本框颜色
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	afx_msg void OnMenuShowAbout();
 
@@ -61,4 +62,5 @@ public:
 
 	afx_msg void OnMenuOpen();
 	afx_msg void OnMenuExit();
+	afx_msg void OnMenuToolsA2r();
 };
