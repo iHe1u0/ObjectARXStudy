@@ -68,15 +68,19 @@ void CA2RMFCDlg::OnResultClicked()
 	if (!OpenClipboard())
 		return;
 	EmptyClipboard();
-	HGLOBAL hglbCopy = GlobalAlloc(GMEM_MOVEABLE, (strData.GetLength() + 1));
+	int length = strData.GetLength() + 1;
+	HGLOBAL hglbCopy = GlobalAlloc(GMEM_MOVEABLE, (length));
 	if (hglbCopy == NULL)
 	{
 		CloseClipboard();
 		return;
 	}
 	char* lptstrCopy = (char*)GlobalLock(hglbCopy);
-	strcpy_s(lptstrCopy, strData.GetLength() + 1,(CStringA)strData);
-	GlobalUnlock(hglbCopy);
-	SetClipboardData(CF_TEXT, hglbCopy);
+	if (lptstrCopy != 0)
+	{
+		strcpy_s(lptstrCopy, length, (CStringA)strData);
+		GlobalUnlock(hglbCopy);
+		SetClipboardData(CF_TEXT, hglbCopy);
+	}
 	CloseClipboard();
 }

@@ -23,6 +23,7 @@ CMainMFCDlg::CMainMFCDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_MAINMFC_DIALOG, pParent)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
+	angelToRadianDlg = NULL;
 }
 
 CMainMFCDlg::~CMainMFCDlg()

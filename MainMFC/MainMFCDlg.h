@@ -3,10 +3,10 @@
 //
 
 #pragma once
-
 #pragma warning(disable:6031)
 
 #include "CA2RMFCDlg.h";
+
 // CMainMFCDlg 对话框
 class CMainMFCDlg : public CDialogEx
 {
