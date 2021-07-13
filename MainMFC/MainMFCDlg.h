@@ -6,13 +6,14 @@
 
 #pragma warning(disable:6031)
 
-
+#include "CA2RMFCDlg.h";
 // CMainMFCDlg 对话框
 class CMainMFCDlg : public CDialogEx
 {
 	// 构造
 public:
 	CMainMFCDlg(CWnd* pParent = nullptr);	// 标准构造函数
+	~CMainMFCDlg();
 // 对话框数据
 #ifdef AFX_DESIGN_TIME
 	enum { IDD = IDD_MAINMFC_DIALOG };
@@ -33,7 +34,7 @@ protected:
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
 public:
-	
+	CA2RMFCDlg* angelToRadianDlg;
 	afx_msg void InitData(CString fileName);
 	afx_msg void OnSave();
 	CBrush m_brush;

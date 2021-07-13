@@ -63,5 +63,20 @@ void CA2RMFCDlg::calculateResult()
 
 void CA2RMFCDlg::OnResultClicked()
 {
-	
+	CString strData;
+	strData.Format(L"%lf", result);
+	if (!OpenClipboard())
+		return;
+	EmptyClipboard();
+	HGLOBAL hglbCopy = GlobalAlloc(GMEM_MOVEABLE, (strData.GetLength() + 1));
+	if (hglbCopy == NULL)
+	{
+		CloseClipboard();
+		return;
+	}
+	char* lptstrCopy = (char*)GlobalLock(hglbCopy);
+	strcpy_s(lptstrCopy, strData.GetLength() + 1,(CStringA)strData);
+	GlobalUnlock(hglbCopy);
+	SetClipboardData(CF_TEXT, hglbCopy);
+	CloseClipboard();
 }

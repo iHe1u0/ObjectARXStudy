@@ -25,6 +25,14 @@ CMainMFCDlg::CMainMFCDlg(CWnd* pParent /*=nullptr*/)
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
 
+CMainMFCDlg::~CMainMFCDlg()
+{
+	if (angelToRadianDlg!=NULL)
+	{
+		delete angelToRadianDlg;
+	}
+}
+
 
 void CMainMFCDlg::DoDataExchange(CDataExchange* pDX)
 {
@@ -263,8 +271,7 @@ void CMainMFCDlg::OnMenuExit()
 
 void CMainMFCDlg::OnMenuToolsA2r()
 {
-	CA2RMFCDlg* angelToRadianDlg = new CA2RMFCDlg;
-	if (angelToRadianDlg != nullptr)
+	if (angelToRadianDlg!=NULL)
 	{
 		delete angelToRadianDlg;
 	}
