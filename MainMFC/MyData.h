@@ -1,14 +1,17 @@
 #pragma once
 
-class MyData
+#define VERSION 20210714
+class DataStruct
 {
 
 public:
-	MyData(CString configFilePath);
+	DataStruct(CString configFilePath);
 	//保存
-	CString Save(MyData data);
+	CString Save(DataStruct data);
 	//读取
-	void Read(MyData data, CString key, double& re);
+	void Read(DataStruct data, double result[14]);
+	//版本信息
+	int version;
 	//数据
 	double r1, r2, r3, r4, r5;
 	double h1, h2, h_2;

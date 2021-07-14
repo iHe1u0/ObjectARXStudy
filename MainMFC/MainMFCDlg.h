@@ -3,8 +3,8 @@
 
 #pragma once
 
-#include "CA2RMFCDlg.h";
-
+#include "CA2RMFCDlg.h"
+#include "MyData.h"
 
 // CMainMFCDlg 对话框
 class CMainMFCDlg : public CDialogEx
@@ -43,7 +43,8 @@ public:
 	CStatic INFO_TEXT;
 	//更改提示文本框颜色
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
-
+	//当前文件
+	DataStruct* mydata;
 	double R1 = 0.0;
 	double R2 = 0.0;
 	double R3 = 0.0;
