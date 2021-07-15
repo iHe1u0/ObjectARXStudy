@@ -1,41 +1,22 @@
-﻿
-// MainMFCDlg.h: 头文件
+﻿// MainMFCDlg.h: 头文件
 //
 
 #pragma once
 
-
 // CMainMFCDlg 对话框
 class CMainMFCDlg : public CDialogEx
 {
-// 构造
+	// 构造
 public:
 	CMainMFCDlg(CWnd* pParent = nullptr);	// 标准构造函数
-
-// 对话框数据
-#ifdef AFX_DESIGN_TIME
+	~CMainMFCDlg();
+	// 对话框数据
 	enum { IDD = IDD_MAINMFC_DIALOG };
-#endif
 
-	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV 支持
+	SdNeiKuo  m_Data;
 
-
-// 实现
 protected:
-	HICON m_hIcon;
-
-	// 生成的消息映射函数
+	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV 支持
 	virtual BOOL OnInitDialog();
-	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
-	afx_msg void OnPaint();
-	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
-public:
-//	CButton SAVE_BUTTON;
-	afx_msg void OnSave();
-	CEdit R1;
-	CEdit R2;
-	CEdit R3;
-	CEdit R4;
 };
