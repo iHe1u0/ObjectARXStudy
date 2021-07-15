@@ -6,15 +6,12 @@
 CMainMFCDlg::CMainMFCDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_MAINMFC_DIALOG, pParent)
 {
-
 }
 
 CMainMFCDlg::~CMainMFCDlg()
 {
 
 }
-
-#define  PI   3.14
 
 void DDX_TextRAD(CDataExchange* pDX, int nIDC, double& value)
 {
@@ -64,6 +61,14 @@ void CMainMFCDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_TextDFM(pDX, IDC_EDIT14, m_Data.RADIUS3);
 	DDX_TextDFM(pDX, IDC_EDIT15, m_Data.RADIUS4);
 	DDX_TextDFM(pDX, IDC_EDIT16, m_Data.RADIUS5);
+}
+
+BOOL CMainMFCDlg::OnInitDialog()
+{
+	CString tips;
+	[[maybe_unused]] BOOL tmp=tips.LoadStringW(IDS_STRING_INFO);
+	GetDlgItem(IDC_STATIC_INFO)->SetWindowTextW(tips);
+	return CDialog::OnInitDialog();
 }
 
 BEGIN_MESSAGE_MAP(CMainMFCDlg, CDialogEx)

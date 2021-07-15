@@ -190,6 +190,7 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SdNeiKuo.h" />
     <ClInclude Include="SplashDlg.h" />
+    <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainMFC.cpp" />

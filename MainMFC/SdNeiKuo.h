@@ -13,7 +13,7 @@ public:
 
 public:
 	virtual BOOL  Read(CFile* pFile);
-	virtual void  Write(CFile* pFile);
+	virtual BOOL  Write(CFile* pFile);
 	virtual BOOL  Modify();
 };
 
