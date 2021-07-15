@@ -7,12 +7,13 @@
 #ifndef PCH_H
 #define PCH_H
 
-constexpr double PI = 3.1415926535897932384626;
-constexpr double VERSION = 20210715.154300;
-
 // 添加要在此处预编译的标头
 #include "framework.h"
 #include "resource.h"
 #include "SdNeiKuo.h"
+
+constexpr double PI = 3.1415926535897932384626;
+constexpr double VERSION = 20210715.154300;
+
 
 #endif //PCH_H

@@ -183,7 +183,6 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="CA2RMFCDlg.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="MainMFC.h" />
     <ClInclude Include="MainMFCDlg.h" />
@@ -193,7 +192,6 @@
     <ClInclude Include="SplashDlg.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CA2RMFCDlg.cpp" />
     <ClCompile Include="MainMFC.cpp" />
     <ClCompile Include="MainMFCDlg.cpp" />
     <ClCompile Include="pch.cpp">
@@ -212,7 +210,6 @@
     <None Include="res\MainMFC.rc2" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\..\..\Pictures\Projects\angel_to_radian.ico" />
     <Image Include="res\A2RMFC.ico" />
     <Image Include="res\MainMFC.ico" />
   </ItemGroup>

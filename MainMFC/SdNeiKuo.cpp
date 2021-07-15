@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "SdNeiKuo.h"
 #include "MainMFCDlg.h"
+#include <iostream>
 
 Tunnel  Tunnel::m_Sd;
 
@@ -14,12 +15,38 @@ Tunnel::~Tunnel()
 
 }
 
+BOOL Tunnel::Read(CFile* pFile)
+{
+	return 0;
+}
+
+void Tunnel::Write(CFile* pFile)
+{
+}
+
+
+SdNeiKuo::SdNeiKuo()
+{
+}
+
+SdNeiKuo::~SdNeiKuo()
+{
+}
 
 SdNeiKuo& SdNeiKuo::operator=(const SdNeiKuo& data)
 {
 	R1 = data.R1;
 
 	return *this;
+}
+
+BOOL SdNeiKuo::Read(CFile* pFile)
+{
+	return 0;
+}
+
+void SdNeiKuo::Write(CFile* pFile)
+{
 }
 
 
@@ -119,3 +146,29 @@ void  OnSave()
 	MessageBox(L"保存成功", L"提示", MB_OK);
 }
 
+BOOL Draw_SdNeiKuo::Draw()
+{
+	return 0;
+}
+
+SdProp::SdProp()
+{
+}
+
+SdProp::~SdProp()
+{
+}
+
+BOOL SdProp::Read(CFile* pFile)
+{
+	return 0;
+}
+
+void SdProp::Write(CFile* pFile)
+{
+}
+
+BOOL SdProp::Modify()
+{
+	return 0;
+}

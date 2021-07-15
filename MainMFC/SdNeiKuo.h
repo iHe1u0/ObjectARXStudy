@@ -1,21 +1,5 @@
 #pragma once
 
-class Tunnel
-{
-public:
-	static Tunnel  m_Sd;
-
-public:
-	SdNeiKuo  m_nk;
-
-public:
-	Tunnel();
-	~Tunnel();
-
-public:
-	virtual BOOL  Read(CFile* pFile);
-	virtual void  Write(CFile* pFile);
-};
 
 class SdProp
 {
@@ -64,6 +48,22 @@ public:
 };
 
 
+class Tunnel
+{
+public:
+	static Tunnel  m_Sd;
+
+public:
+	SdNeiKuo  m_nk;
+
+public:
+	Tunnel();
+	~Tunnel();
+
+public:
+	virtual BOOL  Read(CFile* pFile);
+	virtual void  Write(CFile* pFile);
+};
 
 class Draw_Tunnel
 {
@@ -82,3 +82,4 @@ public:
 	BOOL  Draw();
 
 };
+

@@ -5,18 +5,14 @@
 #define IDC_READ                        3
 #define ID_WRITE                        4
 #define IDB_BITMAP_A2R_BMP              5
-#define IDCANCEL4                       5
-#define IDM_ABOUTBOX                    0x0010
-#define IDD_ABOUTBOX                    100
-#define IDS_ABOUTBOX                    101
 #define IDD_MAINMFC_DIALOG              102
 #define IDS_STRING_INFO                 102
 #define IDS_STRING_DATA_FORMAT          103
 #define IDR_MAINFRAME                   128
 #define IDR_MENU_MAIN                   130
-#define IDD_DIALOG_A2RTools             131
 #define IDI_ICON1                       137
 #define IDD_DIALOG1                     138
+#define IDD_DIALOG_SPLASH               138
 #define IDC_EDIT1                       1000
 #define IDC_EDIT2                       1001
 #define IDC_EDIT3                       1002
@@ -27,7 +23,6 @@
 #define IDC_EDIT7                       1007
 #define IDC_EDIT8                       1008
 #define IDC_STATIC_INFO                 1009
-#define IDC_STATIC_A2R_RESULT           1010
 #define ID_MODIFY                       1011
 #define IDC_EDIT11                      1016
 #define IDC_EDIT12                      1017

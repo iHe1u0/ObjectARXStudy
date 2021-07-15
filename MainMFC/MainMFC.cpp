@@ -5,7 +5,7 @@
 #include "pch.h"
 #include "framework.h"
 #include "MainMFC.h"
-#include "StartDlg.h"
+#include "SplashDlg.h"
 
 
 #ifdef _DEBUG
@@ -72,7 +72,7 @@ BOOL CMainMFCApp::InitInstance()
 	// 例如修改为公司或组织名
 	SetRegistryKey(_T("应用程序向导生成的本地应用程序"));
 
-	StartDlg dlg;
+	SplashDlg dlg;
 	m_pMainWnd = &dlg;
 	INT_PTR nResponse = dlg.DoModal();
 	if (nResponse == IDOK)
