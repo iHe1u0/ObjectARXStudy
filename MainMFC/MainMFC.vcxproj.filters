@@ -33,9 +33,6 @@
     <ClInclude Include="pch.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="MyData.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="CAboutDlg.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -54,9 +51,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="MyData.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="CAboutDlg.cpp">
@@ -84,6 +78,9 @@
       <Filter>资源文件</Filter>
     </Image>
     <Image Include="..\..\..\..\..\Pictures\Projects\angel_to_radian.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\A2RMFC.ico">
       <Filter>资源文件</Filter>
     </Image>
   </ItemGroup>

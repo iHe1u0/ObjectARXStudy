@@ -19,6 +19,9 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
 	DECLARE_MESSAGE_MAP()
 	virtual BOOL OnInitDialog();
+	HICON	icon;
+	afx_msg void OnPaint();
+	afx_msg HCURSOR OnQueryDragIcon();
 public:
 	// 度数
 	NumEditText Deg;
@@ -28,7 +31,7 @@ public:
 	NumEditText Sec;
 	// 显示结果的static text
 	double result;
-	afx_msg void OnDataChanged();
+	void OnDataChanged();
 	//角度转换为弧度
 	double angle_to_radian(double degree, double min, double second);
 	void calculateResult();

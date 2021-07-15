@@ -1,15 +1,15 @@
 ﻿
 // MainMFCDlg.cpp: 实现文件
 //
-
 #include "pch.h"
 #include "framework.h"
 #include "MainMFC.h"
 #include "MainMFCDlg.h"
 #include "afxdialogex.h"
-#include "MyData.h"
 #include "CAboutDlg.h"
 #include "CA2RMFCDlg.h"
+#include <string>
+#include <iostream>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -22,7 +22,6 @@ CMainMFCDlg::CMainMFCDlg(CWnd* pParent /*=nullptr*/)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 	angelToRadianDlg = NULL;
-
 }
 
 CMainMFCDlg::~CMainMFCDlg()
@@ -158,65 +157,74 @@ HCURSOR CMainMFCDlg::OnQueryDragIcon()
 }
 
 //加载指定文件
-void CMainMFCDlg::InitData(CString fileName)
+void CMainMFCDlg::ReadData(CString fileName)
 {
-	DataStruct dataStruct(fileName);
-	double data[14]{ 0 };
-	dataStruct.Read(dataStruct, data);
-	int version = data[0];
-	R1 = data[1];
-	R2 = data[2];
-	R3 = data[3];
-	R4 = data[4];
-	R5 = data[5];
-	H1 = data[6];
-	H2 = data[7];
-	H_2 = data[8];
-	RADIUS1 = data[9];
-	RADIUS_1 = data[10];
-	RADIUS2 = data[11];
-	RADIUS3 = data[12];
-	RADIUS4 = data[13];
-	RADIUS5 = data[14];
-
+	FILE* file;
+	CStringA stra(fileName.GetBuffer(0));
+	std::string path = stra.GetBuffer(0);
+	stra.ReleaseBuffer();
+	int errCode = fopen_s(&file, path.c_str(), "r");
+	double* data = new double[20];
+	if (errCode != 0)
+	{
+		AfxMessageBox(L"打开文件失败！");
+		return;
+	}
+	for (int index = 0; index <= 14; index++) {
+		fscanf_s(file, "%lf", &data[index]);
+	}
+	fclose(file);
+	double version = *data;
+	R1 = *(data + 1);
+	R2 = *(data + 2);
+	R3 = *(data + 3);
+	R4 = *(data + 4);
+	R5 = *(data + 5);
+	H1 = *(data + 6);
+	H2 = *(data + 7);
+	H_2 = *(data + 8);
+	RADIUS1 = *(data + 9);
+	RADIUS_1 = *(data + 10);
+	RADIUS2 = *(data + 11);
+	RADIUS3 = *(data + 12);
+	RADIUS4 = *(data + 13);
+	RADIUS5 = *(data + 14);
+	this->SetWindowTextW(fileName);
 	UpdateData(FALSE);
 }
 
 //保存各项数据到文件
 void CMainMFCDlg::OnSave()
 {
-	UpdateData(TRUE);
-	if (mydata == NULL)
+	//如果输入的数据不符合要求
+	if (!UpdateData(TRUE))
 	{
-		CFileDialog dlg(FALSE);
-		dlg.m_ofn.lpstrTitle = L"保存文件";
-		dlg.m_ofn.lpstrFilter = CONFIG_EXT_NAME;
-		CString fileName;
-		if (dlg.DoModal() == IDOK)
-		{
-			fileName = dlg.GetPathName() + CONFIG_EXT;
-			mydata = new DataStruct(fileName);
-		}
-		else
-		{
-			return;
-		}
+		return;
 	}
-	mydata->r1 = R1;
-	mydata->r2 = R2;
-	mydata->r3 = R3;
-	mydata->r4 = R4;
-	mydata->r5 = R5;
-	mydata->h1 = H1;
-	mydata->h2 = H2;
-	mydata->h_2 = H_2;
-	mydata->radius1 = RADIUS1;
-	mydata->radius_1 = RADIUS_1;
-	mydata->radius2 = RADIUS2;
-	mydata->radius3 = RADIUS3;
-	mydata->radius4 = RADIUS4;
-	mydata->radius5 = RADIUS5;
-	mydata->Save(*mydata);
+	CString fileName;
+	CFileDialog dlg(FALSE, L".txt", nullptr, OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, L"配置文件|*.txt");
+	if (dlg.DoModal() == IDOK)
+	{
+		CString ext = dlg.GetFileExt();
+		fileName = dlg.GetPathName();
+		MessageBox(fileName);
+	}
+	else
+	{
+		return;
+	}
+	CStdioFile file;
+	file.Open(fileName, CFile::modeCreate | CFile::modeWrite);
+	//写入文件
+	CString str;
+	str.Format(L"%lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf",
+		VERSION,
+		R1, R2, R3, R4, R5,
+		H1, H2, H_2,
+		RADIUS1, RADIUS_1, RADIUS2, RADIUS3, RADIUS4, RADIUS5);
+	file.Seek(0, CFile::end);
+	file.WriteString(str);
+	file.Close();
 	MessageBox(L"保存成功", L"提示", MB_OK);
 }
 
@@ -251,12 +259,13 @@ void CMainMFCDlg::OnMenuOpen()
 {
 	CFileDialog dlg(TRUE);
 	dlg.m_ofn.lpstrTitle = L"选择配置文件";
-	dlg.m_ofn.lpstrFilter = CONFIG_EXT_NAME;
+	dlg.m_ofn.lpstrFilter = L"配置文件(*.txt)\0*.txt\0";
 	if (dlg.DoModal() == IDOK)
 	{
 		CString path = dlg.GetPathName();
-		InitData(path);
+		ReadData(path);
 	}
+	delete[] dlg;
 }
 
 

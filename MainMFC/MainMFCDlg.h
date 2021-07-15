@@ -4,8 +4,6 @@
 #pragma once
 
 #include "CA2RMFCDlg.h"
-#include "MyData.h"
-
 // CMainMFCDlg 对话框
 class CMainMFCDlg : public CDialogEx
 {
@@ -34,7 +32,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	CA2RMFCDlg* angelToRadianDlg;
-	afx_msg void InitData(CString fileName);
+	afx_msg void ReadData(CString fileName);
 	afx_msg void OnSave();
 	CBrush m_brush;
 	CFont m_font;
@@ -44,7 +42,6 @@ public:
 	//更改提示文本框颜色
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	//当前文件
-	DataStruct* mydata;
 	double R1 = 0.0;
 	double R2 = 0.0;
 	double R3 = 0.0;
