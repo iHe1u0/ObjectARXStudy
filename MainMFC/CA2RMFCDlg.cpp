@@ -28,7 +28,6 @@ BOOL CA2RMFCDlg::OnInitDialog()
 	CDialogEx::OnInitDialog();
 	//SetIcon(icon, TRUE); // Set big icon 
 	SetIcon(icon, TRUE); // Set small icon;
-
 	return 0;
 }
 
@@ -119,4 +118,9 @@ void CA2RMFCDlg::OnResultClicked()
 		SetClipboardData(CF_TEXT, hglbCopy);
 	}
 	CloseClipboard();
+}
+
+void CA2RMFCDlg::OnCancel()
+{
+	DestroyWindow();
 }

@@ -24,22 +24,19 @@
     <ClInclude Include="framework.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="targetver.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Resource.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="pch.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="CAboutDlg.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="NumEditText.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="CA2RMFCDlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SdNeiKuo.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SplashDlg.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -53,13 +50,13 @@
     <ClCompile Include="pch.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="CAboutDlg.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="NumEditText.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="CA2RMFCDlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SdNeiKuo.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SplashDlg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

@@ -36,4 +36,5 @@ public:
 	double angle_to_radian(double degree, double min, double second);
 	void calculateResult();
 	afx_msg void OnResultClicked();
+	virtual void OnCancel();
 };
