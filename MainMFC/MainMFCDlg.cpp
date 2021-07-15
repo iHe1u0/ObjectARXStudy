@@ -207,7 +207,7 @@ void CMainMFCDlg::OnSave()
 	{
 		CString ext = dlg.GetFileExt();
 		fileName = dlg.GetPathName();
-		MessageBox(fileName);
+		//MessageBox(fileName);
 	}
 	else
 	{
