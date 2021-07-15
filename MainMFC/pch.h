@@ -10,6 +10,7 @@
 // 添加要在此处预编译的标头
 #include "framework.h"
 #include "resource.h"
+
 #include "SdNeiKuo.h"
 
 constexpr double PI = 3.1415926535897932384626;

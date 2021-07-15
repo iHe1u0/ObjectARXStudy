@@ -1,6 +1,5 @@
 #pragma once
 
-
 class SdProp
 {
 public:
@@ -12,9 +11,9 @@ public:
 	~SdProp();
 
 public:
-	virtual BOOL  Read(CFile* pFile);
-	virtual BOOL  Write(CFile* pFile);
-	virtual BOOL  Modify();
+	virtual BOOL Read(CFile* pFile);
+	virtual BOOL Write(CFile* pFile);
+	virtual BOOL Modify();
 };
 
 
