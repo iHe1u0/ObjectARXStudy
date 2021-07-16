@@ -37,119 +37,110 @@ SdNeiKuo::~SdNeiKuo()
 SdNeiKuo& SdNeiKuo::operator=(const SdNeiKuo& data)
 {
 	R1 = data.R1;
-
+	R2 = data.R2;
+	R3 = data.R3;
+	R4 = data.R4;
+	R5 = data.R5;
+	H1 = data.H1;
+	H2 = data.H2;
+	H_2 = data.H_2;
+	RADIUS1 = data.RADIUS1;
+	RADIUS_1 = data.RADIUS_1;
+	RADIUS2 = data.RADIUS2;
+	RADIUS3 = data.RADIUS3;
+	RADIUS4 = data.RADIUS4;
+	RADIUS5 = data.RADIUS5;
 	return *this;
 }
 
-BOOL SdNeiKuo::Read(FILE* pFile)
+BOOL SdNeiKuo::Read(CString filePath, SdNeiKuo* data)
 {
-	///////////////////
-
-	CMainMFCDlg  readDlg;
-	readDlg.m_Data = *this;
-	if (readDlg.DoModal() == IDOK)
-	{
-		*this = readDlg.m_Data;
-		CFileDialog dlg(FALSE, L".txt", nullptr, OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, L"配置文件|*.txt");
-		if (dlg.DoModal() == IDOK)
-		{
-			CString fileName = dlg.GetPathName();
-			CStdioFile file;
-			file.Open(fileName, CStdioFile::modeCreate | CStdioFile::modeWrite);
-			if (Write(&file))
-			{
-				file.Close();
-				AfxMessageBox(L"保存成功", MB_OK);
-				return TRUE;
-			}
-			else {
-				AfxMessageBox(L"保存失败", MB_OK);
-			}
-		}
-	}
-	return FALSE;
-
-
-
-	/////////////////
 	FILE* file;
-	CFileDialog fileDlg(TRUE, L".txt", nullptr,
-		OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT| OFN_FILEMUSTEXIST,
-		L"文本文件(*.txt)|*.txt");
-	if (fileDlg.DoModal() == IDOK)
+	CStringA stra(filePath.GetBuffer(0));
+	std::string path = stra.GetBuffer(0);
+	stra.ReleaseBuffer();
+	int errorCode = fopen_s(&file, path.c_str(), "r");
+	if (!errorCode)
 	{
-		CString fileName = fileDlg.GetFileName();
-		CStringA stra(fileName.GetBuffer(0));
-		std::string path = stra.GetBuffer(0);
-		stra.ReleaseBuffer();
-		if (fopen_s(&file, path.c_str(), "r") == 0)
-		{
-			Tunnel::m_Sd.m_nk.Read(file);
-			//this->SetWindowTextW(fileName);
-			//UpdateData(FALSE);
+		double* resultData = new double[20];
+		for (int index = 0; index <= 14; index++) {
+			fscanf_s(file, "%lf", &resultData[index]);
 		}
+		fclose(file);
+		double version = *resultData;
+		R1 = *(resultData + 1);
+		R2 = *(resultData + 2);
+		R3 = *(resultData + 3);
+		R4 = *(resultData + 4);
+		R5 = *(resultData + 5);
+		H1 = *(resultData + 6);
+		H2 = *(resultData + 7);
+		H_2 = *(resultData + 8);
+		RADIUS1 = *(resultData + 9);
+		RADIUS_1 = *(resultData + 10);
+		RADIUS2 = *(resultData + 11);
+		RADIUS3 = *(resultData + 12);
+		RADIUS4 = *(resultData + 13);
+		RADIUS5 = *(resultData + 14);
+		if (data == NULL)
+		{
+			CMainMFCDlg  readDlg;
+			readDlg.m_Data = *this;
+			readDlg.DoModal();
+		}
+		else {
+			*data = *this;
+		}
+		return TRUE;
 	}
-	double* data = new double[20];
-	for (int index = 0; index <= 14; index++) {
-		fscanf_s(pFile, "%lf", &data[index]);
+	else {
+		CString errorMsg;
+		errorMsg.Format(L"无法打开%S，错误码：%d", filePath, errorCode);
+		AfxMessageBox(errorMsg);
+		return FALSE;
 	}
-	fclose(pFile);
-	double version = *data;
-	R1 = *(data + 1);
-	R2 = *(data + 2);
-	R3 = *(data + 3);
-	R4 = *(data + 4);
-	R5 = *(data + 5);
-	H1 = *(data + 6);
-	H2 = *(data + 7);
-	H_2 = *(data + 8);
-	RADIUS1 = *(data + 9);
-	RADIUS_1 = *(data + 10);
-	RADIUS2 = *(data + 11);
-	RADIUS3 = *(data + 12);
-	RADIUS4 = *(data + 13);
-	RADIUS5 = *(data + 14);
-	return 0;
 }
 
 BOOL SdNeiKuo::Write(CStdioFile* pFile)
 {
-	//写入文件
-	CString str;
-	str.Format(L"%lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf",
-		VERSION,
-		R1, R2, R3, R4, R5,
-		H1, H2, H_2,
-		RADIUS1, RADIUS_1, RADIUS2, RADIUS3, RADIUS4, RADIUS5);
-	pFile->Seek(0, CStdioFile::end);
-	pFile->WriteString(str);
-	return TRUE;
+	CMainMFCDlg writeDlg;
+	if (writeDlg.DoModal() == IDOK)
+	{
+		*this = writeDlg.m_Data;
+		//写入文件
+		CString str;
+		str.Format(L"%lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf",
+			VERSION,
+			R1, R2, R3, R4, R5,
+			H1, H2, H_2,
+			RADIUS1, RADIUS_1, RADIUS2, RADIUS3, RADIUS4, RADIUS5);
+		pFile->Seek(0, CStdioFile::end);
+		pFile->WriteString(str);
+		pFile->Close();
+		return TRUE;
+	}
 }
 
 
-BOOL SdNeiKuo::Modify()
+BOOL SdNeiKuo::Modify(CString filePath)
 {
 	CMainMFCDlg  modifyDlg;
-	modifyDlg.m_Data = *this;
+	Read(filePath, &modifyDlg.m_Data);
 	if (modifyDlg.DoModal() == IDOK)
 	{
 		*this = modifyDlg.m_Data;
-		CFileDialog dlg(FALSE, L".txt", nullptr, OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, L"配置文件|*.txt");
-		if (dlg.DoModal() == IDOK)
+		CStdioFile file;
+		file.Open(filePath, CStdioFile::modeWrite);
+		if (Write(&file))
 		{
-			CString fileName = dlg.GetPathName();
-			CStdioFile file;
-			file.Open(fileName, CStdioFile::modeCreate | CStdioFile::modeWrite);
-			if (Write(&file))
-			{
-				file.Close();
-				AfxMessageBox(L"保存成功", MB_OK);
-				return TRUE;
-			}
-			else {
-				AfxMessageBox(L"保存失败", MB_OK);
-			}
+			file.Close();
+			AfxMessageBox(L"保存成功", MB_OK);
+			return TRUE;
 		}
+		else {
+			AfxMessageBox(L"保存失败", MB_OK);
+		}
+
 	}
 	return FALSE;
 }

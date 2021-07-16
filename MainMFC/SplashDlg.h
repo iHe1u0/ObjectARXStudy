@@ -6,7 +6,6 @@
 class SplashDlg : public CDialogEx
 {
 	DECLARE_DYNAMIC(SplashDlg)
-
 public:
 	SplashDlg(CWnd* pParent = nullptr);   // 标准构造函数
 	virtual ~SplashDlg();
@@ -18,8 +17,9 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
 
 public:
+	DECLARE_MESSAGE_MAP()
 	afx_msg void OnBnClickedWrite();
 	afx_msg void OnBnClickedRead();
 	afx_msg void OnBnClickedModify();
-	DECLARE_MESSAGE_MAP()
+
 };

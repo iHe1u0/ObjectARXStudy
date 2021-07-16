@@ -19,6 +19,7 @@ SplashDlg::SplashDlg(CWnd* pParent /*=nullptr*/)
 
 SplashDlg::~SplashDlg()
 {
+
 }
 
 void SplashDlg::DoDataExchange(CDataExchange* pDX)
@@ -37,22 +38,33 @@ END_MESSAGE_MAP()
 // SplashDlg 消息处理程序
 
 
-void SplashDlg::OnBnClickedWrite()
-{
-	CStdioFile TFile;
-
-	Tunnel::m_Sd.Write(&TFile);
-}
-
 
 void SplashDlg::OnBnClickedRead()
 {
+	CFileDialog fileDlg(TRUE, L".txt", nullptr, OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_FILEMUSTEXIST, L"文本文件(*.txt)|*.txt");
+	if (fileDlg.DoModal() == IDOK)
+	{
+		Tunnel::m_Sd.m_nk.Read(fileDlg.GetPathName(), NULL);
+	}
+}
 
-	Tunnel::m_Sd.m_nk.Read(NULL);
+void SplashDlg::OnBnClickedWrite()
+{
+	CFileDialog fileDlg(FALSE, L".txt", L"default.txt", OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_CREATEPROMPT, L"文本文件(*.txt)|*.txt");
+	if (fileDlg.DoModal() == IDOK)
+	{
+		CStdioFile writeFile;
+		writeFile.Open(fileDlg.GetPathName(), CFile::modeCreate | CFile::modeWrite);
+		Tunnel::m_Sd.m_nk.Write(&writeFile);
+	}
 }
 
 
 void SplashDlg::OnBnClickedModify()
 {
-	Tunnel::m_Sd.m_nk.Modify();
+	CFileDialog fileDlg(TRUE, L".txt", nullptr, OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_FILEMUSTEXIST, L"文本文件(*.txt)|*.txt");
+	if (fileDlg.DoModal() == IDOK)
+	{
+		Tunnel::m_Sd.m_nk.Modify(fileDlg.GetPathName());
+	}
 }
