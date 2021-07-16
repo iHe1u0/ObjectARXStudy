@@ -5,6 +5,7 @@
 #include "SplashDlg.h"
 #include "afxdialogex.h"
 #include "SdNeiKuo.h"
+#include <string>
 
 // SplashDlg 对话框
 
@@ -38,7 +39,7 @@ END_MESSAGE_MAP()
 
 void SplashDlg::OnBnClickedWrite()
 {
-	CFile TFile;
+	CStdioFile TFile;
 
 	Tunnel::m_Sd.Write(&TFile);
 }
@@ -46,9 +47,8 @@ void SplashDlg::OnBnClickedWrite()
 
 void SplashDlg::OnBnClickedRead()
 {
-	CFile TFile;
 
-	Tunnel::m_Sd.Read(&TFile);
+	Tunnel::m_Sd.m_nk.Read(NULL);
 }
 
 

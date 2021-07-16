@@ -11,8 +11,8 @@ public:
 	~SdProp();
 
 public:
-	virtual BOOL Read(CFile* pFile);
-	virtual BOOL Write(CFile* pFile);
+	virtual BOOL Read(CStdioFile* pFile);
+	virtual BOOL Write(CStdioFile* pFile);
 	virtual BOOL Modify();
 };
 
@@ -41,8 +41,8 @@ public:
 
 public:
 	SdNeiKuo& operator=(const SdNeiKuo& data);
-	virtual BOOL  Read(CFile* pFile);
-	virtual void  Write(CFile* pFile);
+	virtual BOOL  Read(FILE* pFile);
+	virtual BOOL  Write(CStdioFile* pFile);
 	virtual BOOL  Modify();
 };
 
@@ -60,8 +60,8 @@ public:
 	~Tunnel();
 
 public:
-	virtual BOOL  Read(CFile* pFile);
-	virtual void  Write(CFile* pFile);
+	virtual BOOL  Read(CStdioFile* pFile);
+	virtual BOOL  Write(CStdioFile* pFile);
 };
 
 class Draw_Tunnel

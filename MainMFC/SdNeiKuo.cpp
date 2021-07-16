@@ -15,13 +15,14 @@ Tunnel::~Tunnel()
 
 }
 
-BOOL Tunnel::Read(CFile* pFile)
+BOOL Tunnel::Read(CStdioFile* pFile)
 {
 	return 0;
 }
 
-void Tunnel::Write(CFile* pFile)
+BOOL Tunnel::Write(CStdioFile* pFile)
 {
+	return TRUE;
 }
 
 
@@ -40,24 +41,115 @@ SdNeiKuo& SdNeiKuo::operator=(const SdNeiKuo& data)
 	return *this;
 }
 
-BOOL SdNeiKuo::Read(CFile* pFile)
+BOOL SdNeiKuo::Read(FILE* pFile)
 {
+	///////////////////
+
+	CMainMFCDlg  readDlg;
+	readDlg.m_Data = *this;
+	if (readDlg.DoModal() == IDOK)
+	{
+		*this = readDlg.m_Data;
+		CFileDialog dlg(FALSE, L".txt", nullptr, OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, L"配置文件|*.txt");
+		if (dlg.DoModal() == IDOK)
+		{
+			CString fileName = dlg.GetPathName();
+			CStdioFile file;
+			file.Open(fileName, CStdioFile::modeCreate | CStdioFile::modeWrite);
+			if (Write(&file))
+			{
+				file.Close();
+				AfxMessageBox(L"保存成功", MB_OK);
+				return TRUE;
+			}
+			else {
+				AfxMessageBox(L"保存失败", MB_OK);
+			}
+		}
+	}
+	return FALSE;
+
+
+
+	/////////////////
+	FILE* file;
+	CFileDialog fileDlg(TRUE, L".txt", nullptr,
+		OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT| OFN_FILEMUSTEXIST,
+		L"文本文件(*.txt)|*.txt");
+	if (fileDlg.DoModal() == IDOK)
+	{
+		CString fileName = fileDlg.GetFileName();
+		CStringA stra(fileName.GetBuffer(0));
+		std::string path = stra.GetBuffer(0);
+		stra.ReleaseBuffer();
+		if (fopen_s(&file, path.c_str(), "r") == 0)
+		{
+			Tunnel::m_Sd.m_nk.Read(file);
+			//this->SetWindowTextW(fileName);
+			//UpdateData(FALSE);
+		}
+	}
+	double* data = new double[20];
+	for (int index = 0; index <= 14; index++) {
+		fscanf_s(pFile, "%lf", &data[index]);
+	}
+	fclose(pFile);
+	double version = *data;
+	R1 = *(data + 1);
+	R2 = *(data + 2);
+	R3 = *(data + 3);
+	R4 = *(data + 4);
+	R5 = *(data + 5);
+	H1 = *(data + 6);
+	H2 = *(data + 7);
+	H_2 = *(data + 8);
+	RADIUS1 = *(data + 9);
+	RADIUS_1 = *(data + 10);
+	RADIUS2 = *(data + 11);
+	RADIUS3 = *(data + 12);
+	RADIUS4 = *(data + 13);
+	RADIUS5 = *(data + 14);
 	return 0;
 }
 
-void SdNeiKuo::Write(CFile* pFile)
+BOOL SdNeiKuo::Write(CStdioFile* pFile)
 {
+	//写入文件
+	CString str;
+	str.Format(L"%lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf",
+		VERSION,
+		R1, R2, R3, R4, R5,
+		H1, H2, H_2,
+		RADIUS1, RADIUS_1, RADIUS2, RADIUS3, RADIUS4, RADIUS5);
+	pFile->Seek(0, CStdioFile::end);
+	pFile->WriteString(str);
+	return TRUE;
 }
 
 
-BOOL  SdNeiKuo::Modify()
+BOOL SdNeiKuo::Modify()
 {
-	CMainMFCDlg  TDlg;
-	TDlg.m_Data = *this;
-	if (TDlg.DoModal() == IDOK)
+	CMainMFCDlg  modifyDlg;
+	modifyDlg.m_Data = *this;
+	if (modifyDlg.DoModal() == IDOK)
 	{
-		*this = TDlg.m_Data;
-		return TRUE;
+		*this = modifyDlg.m_Data;
+		CFileDialog dlg(FALSE, L".txt", nullptr, OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, L"配置文件|*.txt");
+		if (dlg.DoModal() == IDOK)
+		{
+			CString fileName = dlg.GetPathName();
+			CStdioFile file;
+			file.Open(fileName, CStdioFile::modeCreate | CStdioFile::modeWrite);
+			if (Write(&file))
+			{
+				file.Close();
+				AfxMessageBox(L"保存成功", MB_OK);
+				return TRUE;
+			}
+			else {
+				AfxMessageBox(L"保存失败", MB_OK);
+			}
+		}
 	}
 	return FALSE;
 }
@@ -75,77 +167,6 @@ BOOL  Draw_Tunnel::Draw()
 
 
 
-//加载指定文件
-void ReadData(CString fileName)
-{
-	//FILE* file;
-	//CStringA stra(fileName.GetBuffer(0));
-	//std::string path = stra.GetBuffer(0);
-	//stra.ReleaseBuffer();
-	//int errCode = fopen_s(&file, path.c_str(), "r");
-	//double* data = new double[20];
-	//if (errCode != 0)
-	//{
-	//	AfxMessageBox(L"打开文件失败！");
-	//	return;
-	//}
-	//for (int index = 0; index <= 14; index++) {
-	//	fscanf_s(file, "%lf", &data[index]);
-	//}
-	//fclose(file);
-	//double version = *data;
-	//R1 = *(data + 1);
-	//R2 = *(data + 2);
-	//R3 = *(data + 3);
-	//R4 = *(data + 4);
-	//R5 = *(data + 5);
-	//H1 = *(data + 6);
-	//H2 = *(data + 7);
-	//H_2 = *(data + 8);
-	//RADIUS1 = *(data + 9);
-	//RADIUS_1 = *(data + 10);
-	//RADIUS2 = *(data + 11);
-	//RADIUS3 = *(data + 12);
-	//RADIUS4 = *(data + 13);
-	//RADIUS5 = *(data + 14);
-	//this->SetWindowTextW(fileName);
-	//UpdateData(FALSE);
-}
-
-//保存各项数据到文件
-void  OnSave()
-{
-	//如果输入的数据不符合要求
-	//if (!UpdateData(TRUE))
-	//{
-	//	return;
-	//}
-	//CString fileName;
-	//CFileDialog dlg(FALSE, L".txt", nullptr, OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, L"配置文件|*.txt");
-	//if (dlg.DoModal() == IDOK)
-	//{
-	//	CString ext = dlg.GetFileExt();
-	//	fileName = dlg.GetPathName();
-	//}
-	//else
-	//{
-	//	return;
-	//}
-	//CStdioFile file;
-	//file.Open(fileName, CFile::modeCreate | CFile::modeWrite);
-	////写入文件
-	//CString str;
-	//str.Format(L"%lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf",
-	//	VERSION,
-	//	R1, R2, R3, R4, R5,
-	//	H1, H2, H_2,
-	//	RADIUS1, RADIUS_1, RADIUS2, RADIUS3, RADIUS4, RADIUS5);
-	//file.Seek(0, CFile::end);
-	//file.WriteString(str);
-	//file.Close();
-	//MessageBox(L"保存成功", L"提示", MB_OK);
-}
-
 BOOL Draw_SdNeiKuo::Draw()
 {
 	return 0;
@@ -159,12 +180,12 @@ SdProp::~SdProp()
 {
 }
 
-BOOL SdProp::Read(CFile* pFile)
+BOOL SdProp::Read(CStdioFile* pFile)
 {
 	return 0;
 }
 
-BOOL SdProp::Write(CFile* pFile)
+BOOL SdProp::Write(CStdioFile* pFile)
 {
 	return FALSE;
 }
