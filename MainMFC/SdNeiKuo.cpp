@@ -53,7 +53,7 @@ SdNeiKuo& SdNeiKuo::operator=(const SdNeiKuo& data)
 	return *this;
 }
 
-BOOL SdNeiKuo::Read(CString filePath, SdNeiKuo* data)
+BOOL SdNeiKuo::Read(CString filePath, SdNeiKuo* pData)
 {
 	FILE* file;
 	CStringA stra(filePath.GetBuffer(0));
@@ -82,14 +82,14 @@ BOOL SdNeiKuo::Read(CString filePath, SdNeiKuo* data)
 		RADIUS3 = *(resultData + 12);
 		RADIUS4 = *(resultData + 13);
 		RADIUS5 = *(resultData + 14);
-		if (data == NULL)
+		if (pData == NULL)
 		{
 			CMainMFCDlg  readDlg;
 			readDlg.m_Data = *this;
 			readDlg.DoModal();
 		}
 		else {
-			*data = *this;
+			*pData = *this;
 		}
 		return TRUE;
 	}
@@ -100,6 +100,35 @@ BOOL SdNeiKuo::Read(CString filePath, SdNeiKuo* data)
 		return FALSE;
 	}
 }
+
+
+BOOL SdNeiKuo::Modify(CString filePath)
+{
+	SdNeiKuo* pData=new SdNeiKuo;
+	CMainMFCDlg  modifyDlg;
+	Read(filePath, pData);
+	modifyDlg.m_Data = *pData;
+	if (modifyDlg.DoModal() == IDOK)
+	{
+		CStdioFile pFile;
+		pFile.Open(filePath, CFile::modeWrite);
+		*this = *pData;
+		CString str;
+		str.Format(L"%lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf",
+			VERSION,
+			R1, R2, R3, R4, R5,
+			H1, H2, H_2,
+			RADIUS1, RADIUS_1, RADIUS2, RADIUS3, RADIUS4, RADIUS5);
+		//AfxMessageBox(str);
+		pFile.Seek(0, CStdioFile::end);
+		pFile.WriteString(str);
+		pFile.Close();
+		AfxMessageBox(L"保存成功", MB_OK);
+		return TRUE;
+	}
+	return FALSE;
+}
+
 
 BOOL SdNeiKuo::Write(CStdioFile* pFile)
 {
@@ -117,37 +146,14 @@ BOOL SdNeiKuo::Write(CStdioFile* pFile)
 		pFile->Seek(0, CStdioFile::end);
 		pFile->WriteString(str);
 		pFile->Close();
+		AfxMessageBox(L"保存成功", MB_OK);
 		return TRUE;
 	}
+	return false;
 }
 
 
-BOOL SdNeiKuo::Modify(CString filePath)
-{
-	CMainMFCDlg  modifyDlg;
-	Read(filePath, &modifyDlg.m_Data);
-	if (modifyDlg.DoModal() == IDOK)
-	{
-		*this = modifyDlg.m_Data;
-		CStdioFile file;
-		file.Open(filePath, CStdioFile::modeWrite);
-		if (Write(&file))
-		{
-			file.Close();
-			AfxMessageBox(L"保存成功", MB_OK);
-			return TRUE;
-		}
-		else {
-			AfxMessageBox(L"保存失败", MB_OK);
-		}
-
-	}
-	return FALSE;
-}
-
-
-
-BOOL  Draw_Tunnel::Draw()
+BOOL Draw_Tunnel::Draw()
 {
 	Draw_SdNeiKuo  TmpDraw;
 	TmpDraw.m_data = m_data.m_nk;

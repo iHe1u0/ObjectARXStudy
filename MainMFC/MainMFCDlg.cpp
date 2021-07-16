@@ -55,10 +55,6 @@ BOOL CMainMFCDlg::OnInitDialog()
 	[[maybe_unused]] BOOL tmp = tips.LoadStringW(IDS_STRING_INFO);
 	GetDlgItem(IDC_STATIC_INFO)->SetWindowTextW(tips);
 
-	//if (m_Data.Modify() != NULL)
-	//{
-	//	AfxMessageBox(L"read or modify");
-	//}
 	return CDialog::OnInitDialog();
 }
 

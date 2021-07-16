@@ -62,6 +62,8 @@ void SplashDlg::OnBnClickedWrite()
 
 void SplashDlg::OnBnClickedModify()
 {
+
+	
 	CFileDialog fileDlg(TRUE, L".txt", nullptr, OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_FILEMUSTEXIST, L"文本文件(*.txt)|*.txt");
 	if (fileDlg.DoModal() == IDOK)
 	{

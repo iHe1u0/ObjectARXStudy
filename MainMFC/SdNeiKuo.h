@@ -42,8 +42,8 @@ public:
 public:
 	SdNeiKuo& operator=(const SdNeiKuo& data);
 	virtual BOOL  Read(CString filePath,SdNeiKuo *data);
+	virtual BOOL  Modify(CString filePath);
 	virtual BOOL  Write(CStdioFile* pFile);
-	virtual BOOL  Modify(CString pFilePath);
 
 private:
 	CString filePath = NULL;
