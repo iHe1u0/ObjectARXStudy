@@ -93,34 +93,28 @@ BOOL SdNeiKuo::Read(CString filePath, SdNeiKuo* pData)
 		}
 		return TRUE;
 	}
-	else {
-		CString errorMsg;
-		errorMsg.Format(L"无法打开%S，错误码：%d", filePath, errorCode);
-		AfxMessageBox(errorMsg);
-		return FALSE;
-	}
+	return FALSE;
 }
 
 
 BOOL SdNeiKuo::Modify(CString filePath)
 {
-	SdNeiKuo* pData=new SdNeiKuo;
 	CMainMFCDlg  modifyDlg;
-	Read(filePath, pData);
-	modifyDlg.m_Data = *pData;
+	Read(filePath, this);
+	modifyDlg.m_Data = *this;
 	if (modifyDlg.DoModal() == IDOK)
 	{
 		CStdioFile pFile;
 		pFile.Open(filePath, CFile::modeWrite);
-		*this = *pData;
+		*this = modifyDlg.m_Data;
 		CString str;
 		str.Format(L"%lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf",
 			VERSION,
 			R1, R2, R3, R4, R5,
 			H1, H2, H_2,
 			RADIUS1, RADIUS_1, RADIUS2, RADIUS3, RADIUS4, RADIUS5);
-		//AfxMessageBox(str);
-		pFile.Seek(0, CStdioFile::end);
+		AfxMessageBox(str);
+		pFile.Seek(0, CStdioFile::begin);
 		pFile.WriteString(str);
 		pFile.Close();
 		AfxMessageBox(L"保存成功", MB_OK);
