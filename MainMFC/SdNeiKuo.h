@@ -44,9 +44,6 @@ public:
 	virtual BOOL  Read(CString filePath,SdNeiKuo *data);
 	virtual BOOL  Modify(CString filePath);
 	virtual BOOL  Write(CStdioFile* pFile);
-
-private:
-	CString filePath = NULL;
 };
 
 

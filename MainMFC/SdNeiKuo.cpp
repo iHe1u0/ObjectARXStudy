@@ -3,6 +3,9 @@
 #include "MainMFCDlg.h"
 #include <iostream>
 
+
+
+
 Tunnel  Tunnel::m_Sd;
 
 Tunnel::Tunnel()
@@ -55,6 +58,9 @@ SdNeiKuo& SdNeiKuo::operator=(const SdNeiKuo& data)
 
 BOOL SdNeiKuo::Read(CString filePath, SdNeiKuo* pData)
 {
+#ifdef __cplusplus
+	std::cout << "cpp";
+#endif // DEBUG
 	FILE* file;
 	CStringA stra(filePath.GetBuffer(0));
 	std::string path = stra.GetBuffer(0);
