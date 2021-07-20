@@ -7,6 +7,7 @@
 #define IDS_PROJNAME                    100
 #define IDS_STRING_INFO                 101
 #define IDD_MAINMFC_DIALOG              102
+#define IDD_MAINARX_DLG                 104
 #define IDR_MAINFRAME                   128
 #define IDD_DIALOG_SPLASH               138
 #define IDC_EDIT1                       1000
@@ -31,9 +32,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        106
+#define _APS_NEXT_RESOURCE_VALUE        107
 #define _APS_NEXT_COMMAND_VALUE         32768
 #define _APS_NEXT_CONTROL_VALUE         100
-#define _APS_NEXT_SYMED_VALUE           104
+#define _APS_NEXT_SYMED_VALUE           105
 #endif
 #endif

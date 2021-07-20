@@ -24,19 +24,7 @@
     <ClCompile Include="acrxEntryPoint.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="MainARX.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="MainMFCDlg.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="SdNeiKuo.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="MainArxDlg.cpp">
-      <Filter>头文件</Filter>
-    </ClCompile>
-    <ClCompile Include="CCreateEntity.cpp">
+    <ClCompile Include="UnloadApp.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -50,36 +38,13 @@
     <ClInclude Include="Resource.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="framework.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="MainMFCDlg.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="SdNeiKuo.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="targetver.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="MainArxDlg.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="CCreateEntity.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="MainARX.rc">
+    <ResourceCompile Include="UnloadApp.rc">
       <Filter>资源文件</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\MainMFC.ico">
-      <Filter>资源文件</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include=".clang-format" />
+    <Text Include="ReadMe.txt" />
   </ItemGroup>
 </Project>

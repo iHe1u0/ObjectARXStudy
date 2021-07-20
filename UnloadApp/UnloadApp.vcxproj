@@ -12,14 +12,14 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ArxAppType>arx</ArxAppType>
-    <RDS>ADSK</RDS>
+    <RDS>IMOR</RDS>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <CLRSupport>false</CLRSupport>
-    <UseOfMfc>Dynamic</UseOfMfc>
+    <UseOfMfc>false</UseOfMfc>
     <!-- <UseOfAtl>false</UseOfAtl> -->
     <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
@@ -34,7 +34,7 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <PropertyGroup Label="Globals">
     <TargetName Condition="'$(RDS)'!=''">$(RDS)$(ProjectName)</TargetName>
-    <ProjectGuid>{F87873B0-2B5D-4D52-8FD5-BE1CDC50B2E3}</ProjectGuid>
+    <ProjectGuid>{6DDA2DB1-D9FF-4208-AD05-0D7C45261E0A}</ProjectGuid>
     <!--For Visual Studio 2019, you can specify the most recent version of the Windows 10 SDK by using a value of 10.0-->
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -60,8 +60,6 @@
       <AdditionalOptions>/Wv:17.00.61030 %(AdditionalOptions)</AdditionalOptions>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdcpp17</LanguageStandard>
-      <LanguageStandard_C Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdc11</LanguageStandard_C>
     </ClCompile>
     <Link>
     </Link>
@@ -72,36 +70,23 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="acrxEntryPoint.cpp" />
-    <ClCompile Include="CCreateEntity.cpp" />
     <ClCompile Include="DocData.cpp" />
-    <ClCompile Include="MainARX.cpp" />
-    <ClCompile Include="MainArxDlg.cpp" />
-    <ClCompile Include="MainMFCDlg.cpp" />
-    <ClCompile Include="SdNeiKuo.cpp" />
     <ClCompile Include="StdAfx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="UnloadApp.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CCreateEntity.h" />
     <ClInclude Include="DocData.h" />
-    <ClInclude Include="framework.h" />
-    <ClInclude Include="MainArxDlg.h" />
-    <ClInclude Include="MainMFCDlg.h" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="SdNeiKuo.h" />
     <ClInclude Include="StdAfx.h" />
-    <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="MainARX.rc" />
+    <ResourceCompile Include="UnloadApp.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\MainMFC.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include=".clang-format" />
+    <Text Include="ReadMe.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
