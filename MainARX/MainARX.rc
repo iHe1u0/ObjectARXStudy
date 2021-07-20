@@ -1,0 +1,211 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// 中文(简体，中国) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "FileDescription", "MainARX ObjectARX application"
+            VALUE "FileVersion", "1, 0, 0, 1"
+            VALUE "InternalName", "MainARX"
+            VALUE "LegalCopyright", "Copyright ?2012"
+            VALUE "OriginalFilename", "ADSKMainARX.arx"
+            VALUE "ProductName", "MainARX Application"
+            VALUE "ProductVersion", "1, 0, 0, 1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_DIALOG_SPLASH, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 302
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 169
+    END
+
+    IDD_MAINMFC_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 463
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 285
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_DIALOG_SPLASH AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_MAINMFC_DIALOG AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_DIALOG_SPLASH DIALOGEX 0, 0, 309, 176
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "欢迎使用"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    PUSHBUTTON      "读",IDC_READ,123,70,50,14
+    PUSHBUTTON      "写",ID_WRITE,123,54,50,14
+    PUSHBUTTON      "修改",ID_MODIFY,123,86,50,14
+END
+
+IDD_MAINMFC_DIALOG DIALOGEX 0, 0, 470, 292
+STYLE DS_SETFONT | DS_MODALFRAME | DS_3DLOOK | DS_FIXEDSYS | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+FONT 9, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    LTEXT           "R1",IDC_STATIC,41,23,10,8
+    EDITTEXT        IDC_EDIT1,63,21,79,14,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "R2",IDC_STATIC,41,42,10,8
+    EDITTEXT        IDC_EDIT2,63,40,78,14,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "R3",IDC_STATIC,41,61,10,8
+    EDITTEXT        IDC_EDIT3,63,59,79,14,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "R4",IDC_STATIC,41,81,10,8
+    EDITTEXT        IDC_EDIT4,63,79,77,14,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "R5",IDC_STATIC,41,105,10,8
+    EDITTEXT        IDC_EDIT5,63,102,77,14,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "H1",IDC_STATIC,187,22,10,8
+    EDITTEXT        IDC_EDIT6,207,19,79,14,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "H2",IDC_STATIC,187,41,10,8
+    EDITTEXT        IDC_EDIT7,207,38,78,14,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "H'2",IDC_STATIC,187,60,10,8
+    EDITTEXT        IDC_EDIT8,207,57,79,14,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "θ1",IDC_STATIC,341,21,10,8
+    EDITTEXT        IDC_EDIT11,361,18,79,14,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "θ‘1",IDC_STATIC,341,40,10,8
+    EDITTEXT        IDC_EDIT12,361,37,78,14,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "θ2",IDC_STATIC,341,59,10,8
+    EDITTEXT        IDC_EDIT13,361,56,79,14,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "θ3",IDC_STATIC,341,79,10,8
+    EDITTEXT        IDC_EDIT14,361,76,77,14,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "θ4",IDC_STATIC,341,103,10,8
+    EDITTEXT        IDC_EDIT15,361,99,77,14,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "θ5",IDC_STATIC,341,127,10,8
+    EDITTEXT        IDC_EDIT16,361,123,77,14,ES_AUTOHSCROLL,WS_EX_RIGHT
+    LTEXT           "",IDC_STATIC_INFO,23,173,440,65
+    PUSHBUTTON      "保存",IDC_BUTTON1,199,257,50,14
+    LTEXT           "°",IDC_STATIC,441,18,8,8
+    LTEXT           "°",IDC_STATIC,441,37,8,8
+    LTEXT           "°",IDC_STATIC,441,56,8,8
+    LTEXT           "°",IDC_STATIC,441,76,8,8
+    LTEXT           "°",IDC_STATIC,441,99,8,8
+    LTEXT           "°",IDC_STATIC,441,123,8,8
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\MainMFC.ico"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_PROJNAME            "MainARX"
+    IDS_STRING_INFO         "R1-拱部圆弧半径；R2-侧墙圆弧半径；R3-侧墙与仰拱连接段圆弧半径；R4-仰拱圆弧半径；H1-路面至起拱线的高度；H2-侧墙结构高度；H'2-设仰拱时的侧墙结构高度(侧墙与仰拱连接点至起拱线的高度)；θ1-起拱线与R2的夹角；θ'1-设仰拱时起拱线与R2的夹角；θ2-隧道结构中心线与R4的夹角；θ3=90°-(θ'1+θ2)；R5-紧急停车带拱部圆弧半径；θ4-半径为R5的拱部圆弧段夹角；θ5-半径为R1的圆弧段夹角。"
+END
+
+#endif    // 中文(简体，中国) resources
+/////////////////////////////////////////////////////////////////////////////
+
+

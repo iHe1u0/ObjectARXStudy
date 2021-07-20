@@ -1,4 +1,4 @@
-#include "pch.h"
+#include "StdAfx.h"
 #include "SdNeiKuo.h"
 #include "MainMFCDlg.h"
 #include <iostream>
