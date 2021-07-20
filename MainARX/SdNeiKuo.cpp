@@ -3,31 +3,25 @@
 #include "MainMFCDlg.h"
 #include <iostream>
 
-
-
-
-Tunnel  Tunnel::m_Sd;
+Tunnel Tunnel::m_Sd;
 
 Tunnel::Tunnel()
 {
-
 }
 
 Tunnel::~Tunnel()
 {
-
 }
 
-BOOL Tunnel::Read(CStdioFile* pFile)
+BOOL Tunnel::Read(CStdioFile *pFile)
 {
 	return 0;
 }
 
-BOOL Tunnel::Write(CStdioFile* pFile)
+BOOL Tunnel::Write(CStdioFile *pFile)
 {
 	return TRUE;
 }
-
 
 SdNeiKuo::SdNeiKuo()
 {
@@ -37,8 +31,9 @@ SdNeiKuo::~SdNeiKuo()
 {
 }
 
-SdNeiKuo& SdNeiKuo::operator=(const SdNeiKuo& data)
+SdNeiKuo &SdNeiKuo::operator=(const SdNeiKuo &data)
 {
+	Version = data.Version;
 	R1 = data.R1;
 	R2 = data.R2;
 	R3 = data.R3;
@@ -56,21 +51,20 @@ SdNeiKuo& SdNeiKuo::operator=(const SdNeiKuo& data)
 	return *this;
 }
 
-BOOL SdNeiKuo::Read(CString filePath, SdNeiKuo* pData)
+BOOL SdNeiKuo::Read(CString filePath, SdNeiKuo *pData)
 {
-	FILE* file;
+	FILE *file;
 	CStringA stra(filePath.GetBuffer(0));
 	std::string path = stra.GetBuffer(0);
 	stra.ReleaseBuffer();
 	int errorCode = fopen_s(&file, path.c_str(), "r");
-	if (!errorCode)
-	{
-		double* resultData = new double[20];
+	if (!errorCode) {
+		double *resultData = new double[20];
 		for (int index = 0; index <= 14; index++) {
 			fscanf_s(file, "%lf", &resultData[index]);
 		}
 		fclose(file);
-		double version = *resultData;
+		Version = *resultData;
 		R1 = *(resultData + 1);
 		R2 = *(resultData + 2);
 		R3 = *(resultData + 3);
@@ -85,13 +79,11 @@ BOOL SdNeiKuo::Read(CString filePath, SdNeiKuo* pData)
 		RADIUS3 = *(resultData + 12);
 		RADIUS4 = *(resultData + 13);
 		RADIUS5 = *(resultData + 14);
-		if (pData == NULL)
-		{
-			CMainMFCDlg  readDlg;
+		if (pData == NULL) {
+			CMainMFCDlg readDlg;
 			readDlg.m_Data = *this;
 			readDlg.DoModal();
-		}
-		else {
+		} else {
 			*pData = *this;
 		}
 		return TRUE;
@@ -99,23 +91,19 @@ BOOL SdNeiKuo::Read(CString filePath, SdNeiKuo* pData)
 	return FALSE;
 }
 
-
 BOOL SdNeiKuo::Modify(CString filePath)
 {
-	CMainMFCDlg  modifyDlg;
+	CMainMFCDlg modifyDlg;
 	Read(filePath, this);
 	modifyDlg.m_Data = *this;
-	if (modifyDlg.DoModal() == IDOK)
-	{
+	if (modifyDlg.DoModal() == IDOK) {
 		CStdioFile pFile;
 		pFile.Open(filePath, CFile::modeWrite);
 		*this = modifyDlg.m_Data;
 		CString str;
-		str.Format(L"%lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf",
-			VERSION,
-			R1, R2, R3, R4, R5,
-			H1, H2, H_2,
-			RADIUS1, RADIUS_1, RADIUS2, RADIUS3, RADIUS4, RADIUS5);
+		str.Format(L"%lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf", VERSION,
+			   R1, R2, R3, R4, R5, H1, H2, H_2, RADIUS1, RADIUS_1, RADIUS2, RADIUS3,
+			   RADIUS4, RADIUS5);
 		AfxMessageBox(str);
 		pFile.Seek(0, CStdioFile::begin);
 		pFile.WriteString(str);
@@ -126,20 +114,16 @@ BOOL SdNeiKuo::Modify(CString filePath)
 	return FALSE;
 }
 
-
-BOOL SdNeiKuo::Write(CStdioFile* pFile)
+BOOL SdNeiKuo::Write(CStdioFile *pFile)
 {
 	CMainMFCDlg writeDlg;
-	if (writeDlg.DoModal() == IDOK)
-	{
+	if (writeDlg.DoModal() == IDOK) {
 		*this = writeDlg.m_Data;
 		//Ð´ÈëÎÄ¼þ
 		CString str;
-		str.Format(L"%lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf",
-			VERSION,
-			R1, R2, R3, R4, R5,
-			H1, H2, H_2,
-			RADIUS1, RADIUS_1, RADIUS2, RADIUS3, RADIUS4, RADIUS5);
+		str.Format(L"%lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf", VERSION,
+			   R1, R2, R3, R4, R5, H1, H2, H_2, RADIUS1, RADIUS_1, RADIUS2, RADIUS3,
+			   RADIUS4, RADIUS5);
 		pFile->Seek(0, CStdioFile::end);
 		pFile->WriteString(str);
 		pFile->Close();
@@ -149,20 +133,23 @@ BOOL SdNeiKuo::Write(CStdioFile* pFile)
 	return false;
 }
 
-
 BOOL Draw_Tunnel::Draw()
 {
-	Draw_SdNeiKuo  TmpDraw;
+	Draw_SdNeiKuo TmpDraw;
 	TmpDraw.m_data = m_data.m_nk;
 	TmpDraw.Draw();
 
 	return FALSE;
 }
 
-
-
 BOOL Draw_SdNeiKuo::Draw()
 {
+	CString m_fmtData;
+	m_fmtData.Format(L"%lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf",
+			 m_data.Version, m_data.R1, m_data.R2, m_data.R3, m_data.R4, m_data.R5,
+			 m_data.H1, m_data.H2, m_data.H_2, m_data.RADIUS1, m_data.RADIUS_1,
+			 m_data.RADIUS2, m_data.RADIUS3, m_data.RADIUS4, m_data.RADIUS5);
+	acutPrintf(m_fmtData);
 	return 0;
 }
 
@@ -174,12 +161,12 @@ SdProp::~SdProp()
 {
 }
 
-BOOL SdProp::Read(CStdioFile* pFile)
+BOOL SdProp::Read(CStdioFile *pFile)
 {
 	return 0;
 }
 
-BOOL SdProp::Write(CStdioFile* pFile)
+BOOL SdProp::Write(CStdioFile *pFile)
 {
 	return FALSE;
 }

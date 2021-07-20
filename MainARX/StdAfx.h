@@ -35,7 +35,7 @@ constexpr double VERSION = 20210715.154300;
 
 #pragma pack(push, 8)
 #pragma warning(disable : 4786 4996)
-//#pragma warning(disable: 4098)
+#pragma warning(disable : 6001)
 
 //-----------------------------------------------------------------------------
 #define STRICT
