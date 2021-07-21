@@ -1,5 +1,8 @@
 #include "stdafx.h"
 #include "CCreateEntity.h"
+#include <CLineUtil.h>
+#include <CArcUtil.h>
+
 
 //"起点，圆心，圆弧角度"创建圆弧
 Acad::ErrorStatus CCreateEntity::CreateArc(AcGePoint2d ptStartPoint, AcGePoint2d ptEndPoint, AcGePoint2d ptCenterPoint)
@@ -8,7 +11,8 @@ Acad::ErrorStatus CCreateEntity::CreateArc(AcGePoint2d ptStartPoint, AcGePoint2d
 	msg.Format(L"生成圆心(%lf,%lf)的圆弧 \n", ptCenterPoint.x, ptCenterPoint.y);
 	acutPrintf(msg);
 
-	return Acad::eNullHandle;
+	CArcUtil::addArc(ptStartPoint, ptCenterPoint, ptEndPoint);
+	return Acad::eOk;
 }
 
 Acad::ErrorStatus CCreateEntity::CreateLine(AcGePoint3d ptStart, AcGePoint3d ptEnd)
@@ -17,20 +21,7 @@ Acad::ErrorStatus CCreateEntity::CreateLine(AcGePoint3d ptStart, AcGePoint3d ptE
 	msg.Format(L"起点:(%f，%f)\n", ptStart.x, ptStart.y);
 	acutPrintf(msg);
 
-	AcDbLine *pLine = new AcDbLine(ptStart, ptEnd);
-	//打开块表
-	AcDbBlockTable *pBlockTable;
-	acdbHostApplicationServices()->workingDatabase()->getSymbolTable(pBlockTable, AcDb::kForRead);
-	//打开模型空间块表段，获取当前块表记录，并关闭块表
-	AcDbBlockTableRecord *pBlockTableRecord;
-	pBlockTable->getAt(ACDB_MODEL_SPACE, pBlockTableRecord, AcDb::kForWrite);
-	pBlockTable->close();
-	//向当前记录表中添加直线对象
-	AcDbObjectId lineId;
-	pBlockTableRecord->appendAcDbEntity(lineId, pLine);
-	//关闭块表记录及直线对象
-	pBlockTableRecord->close();
-	pLine->close();
+	CLineUtil::add(ptStart, ptEnd);
 
 	msg.Format(L"终点:(%f，%f)\n", ptEnd.x, ptEnd.y);
 	acutPrintf(msg);

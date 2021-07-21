@@ -148,14 +148,14 @@ BOOL Draw_SdNeiKuo::Draw()
 			 m_data.R2, m_data.R3, m_data.R4, m_data.R5, m_data.H1, m_data.H2, m_data.H_2, m_data.RADIUS1,
 			 m_data.RADIUS_1, m_data.RADIUS2, m_data.RADIUS3, m_data.RADIUS4, m_data.RADIUS5);
 
-	//AcGePoint2d ptStart(-m_data.R1, m_data.H1);
-	//AcGePoint2d ptCenter(0, m_data.H1);
-	//AcGePoint2d ptEnd(m_data.R1, m_data.H1);
-	//CCreateEntity::CreateArc(ptStart, ptCenter, ptEnd);
+	AcGePoint2d ptStart(-m_data.R1, m_data.H1);
+	AcGePoint2d ptCenter(0, m_data.H1);
+	AcGePoint2d ptEnd(m_data.R1, m_data.H1);
+	CCreateEntity::CreateArc(ptStart, ptCenter, ptEnd);
 
-	AcGePoint3d ptStart(-m_data.R1, m_data.H1, 0);
-	AcGePoint3d ptEnd(m_data.R1, m_data.H1, 0);
-	CCreateEntity::CreateLine(ptStart, ptEnd);
+	//ptStart.set(-m_data.R1, m_data.H1, 0);
+	//ptEnd.set(m_data.R1, m_data.H1, 0);
+	//CCreateEntity::CreateLine(ptStart, ptEnd);
 
 	return 0;
 }

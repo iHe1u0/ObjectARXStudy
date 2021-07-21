@@ -1,4 +1,6 @@
 #pragma once
+
+
 class CCreateEntity {
     public:
 	static Acad::ErrorStatus CreateArc(AcGePoint2d ptStart, AcGePoint2d ptCenter, AcGePoint2d ptCenterPoint);

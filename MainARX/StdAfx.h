@@ -31,6 +31,8 @@
 #define _ALLOW_RTCc_IN_STL
 #endif
 
+#pragma comment(lib,"ObjectArxUtilsLib.lib")
+
 // 一些常量
 constexpr double PI = 3.1415926535897932384626;
 constexpr double VERSION = 20210715.154300;
