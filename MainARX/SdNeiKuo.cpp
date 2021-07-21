@@ -1,8 +1,8 @@
 #include "StdAfx.h"
 #include "SdNeiKuo.h"
-#include "MainMFCDlg.h"
-#include <iostream>
 #include "CCreateEntity.h"
+#include "EditorDlg.h"
+#include <iostream>
 
 Tunnel Tunnel::m_Sd;
 
@@ -81,7 +81,7 @@ BOOL SdNeiKuo::Read(CString filePath, SdNeiKuo *pData)
 		RADIUS4 = *(resultData + 13);
 		RADIUS5 = *(resultData + 14);
 		if (pData == NULL) {
-			CMainMFCDlg readDlg;
+			CEditorDlg readDlg;
 			readDlg.m_Data = *this;
 			readDlg.DoModal();
 		} else {
@@ -94,7 +94,7 @@ BOOL SdNeiKuo::Read(CString filePath, SdNeiKuo *pData)
 
 BOOL SdNeiKuo::Modify(CString filePath)
 {
-	CMainMFCDlg modifyDlg;
+	CEditorDlg modifyDlg;
 	Read(filePath, this);
 	modifyDlg.m_Data = *this;
 	if (modifyDlg.DoModal() == IDOK) {
@@ -116,7 +116,7 @@ BOOL SdNeiKuo::Modify(CString filePath)
 
 BOOL SdNeiKuo::Write(CStdioFile *pFile)
 {
-	CMainMFCDlg writeDlg;
+	CEditorDlg writeDlg;
 	if (writeDlg.DoModal() == IDOK) {
 		*this = writeDlg.m_Data;
 		//Ð´ÈëÎÄ¼þ
