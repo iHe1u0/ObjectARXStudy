@@ -12,14 +12,14 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ArxAppType>arx</ArxAppType>
-    <RDS>ADSK</RDS>
+    <RDS>UTIL</RDS>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <CLRSupport>false</CLRSupport>
-    <UseOfMfc>Dynamic</UseOfMfc>
+    <UseOfMfc>false</UseOfMfc>
     <!-- <UseOfAtl>false</UseOfAtl> -->
     <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
@@ -34,7 +34,7 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <PropertyGroup Label="Globals">
     <TargetName Condition="'$(RDS)'!=''">$(RDS)$(ProjectName)</TargetName>
-    <ProjectGuid>{F87873B0-2B5D-4D52-8FD5-BE1CDC50B2E3}</ProjectGuid>
+    <ProjectGuid>{B3661B5F-0211-4B09-A065-CDC40ECC4F51}</ProjectGuid>
     <!--For Visual Studio 2019, you can specify the most recent version of the Windows 10 SDK by using a value of 10.0-->
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -58,10 +58,19 @@
       <PreprocessorDefinitions Condition="'$(UseOfMfc)'=='Dynamic'">_AFXEXT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <!-- Added to avoid Narrow conversion warnings introduced in VS2015 /Wv:xx[.yy[.zzzzz],  is CL version -->
       <AdditionalOptions>/Wv:17.00.61030 %(AdditionalOptions)</AdditionalOptions>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|x64'">stdcpp17</LanguageStandard>
+      <LanguageStandard_C Condition="'$(Configuration)|$(Platform)'=='Release|x64'">stdc11</LanguageStandard_C>
+      <DebugInformationFormat Condition="'$(Configuration)|$(Platform)'=='Release|x64'">None</DebugInformationFormat>
+      <TreatWarningAsError Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</TreatWarningAsError>
+      <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Full</Optimization>
+      <DebugInformationFormat Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">None</DebugInformationFormat>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">TurnOffAllWarnings</WarningLevel>
+      <TreatWarningAsError Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</TreatWarningAsError>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdcpp17</LanguageStandard>
       <LanguageStandard_C Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdc11</LanguageStandard_C>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">TurnOffAllWarnings</WarningLevel>
     </ClCompile>
     <Link>
     </Link>
@@ -72,41 +81,57 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="acrxEntryPoint.cpp" />
-    <ClCompile Include="CCreateEntity.cpp" />
+    <ClCompile Include="CBlockUtil.cpp" />
+    <ClCompile Include="CCircleUtil.cpp" />
+    <ClCompile Include="CDimensionUtil.cpp" />
+    <ClCompile Include="CDwgDatebaseUtil.cpp" />
+    <ClCompile Include="CEntityUtil.cpp" />
+    <ClCompile Include="CGetInputUtil.cpp" />
+    <ClCompile Include="CGetPointUtil.cpp" />
+    <ClCompile Include="CHatchUtil.cpp" />
+    <ClCompile Include="CIOUtil.cpp" />
+    <ClCompile Include="CJig.cpp" />
+    <ClCompile Include="CLayerUtil.cpp" />
+    <ClCompile Include="CLineUtil.cpp" />
+    <ClCompile Include="CPolylineUtil.cpp" />
+    <ClCompile Include="CStringUtil.cpp" />
+    <ClCompile Include="CTextFileUtil.cpp" />
+    <ClCompile Include="CTextUtil.cpp" />
+    <ClCompile Include="CViewUtil.cpp" />
     <ClCompile Include="DocData.cpp" />
-    <ClCompile Include="MainARX.cpp" />
-    <ClCompile Include="MainArxDlg.cpp" />
-    <ClCompile Include="EditorDlg.cpp" />
-    <ClCompile Include="SdNeiKuo.cpp" />
+    <ClCompile Include="ObjectArxUtils.cpp" />
     <ClCompile Include="StdAfx.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CCreateEntity.h" />
+    <ClInclude Include="CBlockUtil.h" />
+    <ClInclude Include="CCircleUtil.h" />
+    <ClInclude Include="CDimensionUtil.h" />
+    <ClInclude Include="CDwgDatebaseUtil.h" />
+    <ClInclude Include="CEntityUtil.h" />
+    <ClInclude Include="CGetInputUtil.h" />
+    <ClInclude Include="CGetPointUtil.h" />
+    <ClInclude Include="CHatchUtil.h" />
+    <ClInclude Include="CIOUtil.h" />
+    <ClInclude Include="CJig.h" />
+    <ClInclude Include="CLayerUtil.h" />
+    <ClInclude Include="CLineUtil.h" />
+    <ClInclude Include="CPolylineUtil.h" />
+    <ClInclude Include="CStringUtil.h" />
+    <ClInclude Include="CTextFileUtil.h" />
+    <ClInclude Include="CTextUtil.h" />
+    <ClInclude Include="CViewUtil.h" />
     <ClInclude Include="DocData.h" />
-    <ClInclude Include="framework.h" />
-    <ClInclude Include="MainArxDlg.h" />
-    <ClInclude Include="EditorDlg.h" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="SdNeiKuo.h" />
     <ClInclude Include="StdAfx.h" />
-    <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="MainARX.rc" />
+    <ResourceCompile Include="ObjectArxUtils.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\MainMFC.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include=".clang-format" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ObjectArxUtils\ObjectArxUtils.vcxproj">
-      <Project>{b3661b5f-0211-4b09-a065-cdc40ecc4f51}</Project>
-    </ProjectReference>
+    <Text Include="ReadMe.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -27,16 +27,16 @@
     <ClCompile Include="MainARX.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="MainMFCDlg.cpp">
+    <ClCompile Include="EditorDlg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="SdNeiKuo.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="MainArxDlg.cpp">
-      <Filter>头文件</Filter>
-    </ClCompile>
     <ClCompile Include="CCreateEntity.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MainArxDlg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -53,7 +53,7 @@
     <ClInclude Include="framework.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="MainMFCDlg.h">
+    <ClInclude Include="EditorDlg.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="SdNeiKuo.h">

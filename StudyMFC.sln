@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.31313.79
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MainARX", "MainARX\MainARX.vcxproj", "{F87873B0-2B5D-4D52-8FD5-BE1CDC50B2E3}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnloadApp", "UnloadApp\UnloadApp.vcxproj", "{6DDA2DB1-D9FF-4208-AD05-0D7C45261E0A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ObjectArxUtils", "ObjectArxUtils\ObjectArxUtils.vcxproj", "{B3661B5F-0211-4B09-A065-CDC40ECC4F51}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -19,6 +23,18 @@ Global
 		{F87873B0-2B5D-4D52-8FD5-BE1CDC50B2E3}.Release|x64.ActiveCfg = Release|x64
 		{F87873B0-2B5D-4D52-8FD5-BE1CDC50B2E3}.Release|x64.Build.0 = Release|x64
 		{F87873B0-2B5D-4D52-8FD5-BE1CDC50B2E3}.Release|x86.ActiveCfg = Release|x64
+		{6DDA2DB1-D9FF-4208-AD05-0D7C45261E0A}.Debug|x64.ActiveCfg = Debug|x64
+		{6DDA2DB1-D9FF-4208-AD05-0D7C45261E0A}.Debug|x64.Build.0 = Debug|x64
+		{6DDA2DB1-D9FF-4208-AD05-0D7C45261E0A}.Debug|x86.ActiveCfg = Debug|x64
+		{6DDA2DB1-D9FF-4208-AD05-0D7C45261E0A}.Release|x64.ActiveCfg = Release|x64
+		{6DDA2DB1-D9FF-4208-AD05-0D7C45261E0A}.Release|x64.Build.0 = Release|x64
+		{6DDA2DB1-D9FF-4208-AD05-0D7C45261E0A}.Release|x86.ActiveCfg = Release|x64
+		{B3661B5F-0211-4B09-A065-CDC40ECC4F51}.Debug|x64.ActiveCfg = Debug|x64
+		{B3661B5F-0211-4B09-A065-CDC40ECC4F51}.Debug|x64.Build.0 = Debug|x64
+		{B3661B5F-0211-4B09-A065-CDC40ECC4F51}.Debug|x86.ActiveCfg = Debug|x64
+		{B3661B5F-0211-4B09-A065-CDC40ECC4F51}.Release|x64.ActiveCfg = Release|x64
+		{B3661B5F-0211-4B09-A065-CDC40ECC4F51}.Release|x64.Build.0 = Release|x64
+		{B3661B5F-0211-4B09-A065-CDC40ECC4F51}.Release|x86.ActiveCfg = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -25,35 +25,22 @@
 //-      but are changed infrequently
 //-----------------------------------------------------------------------------
 #pragma once
-#define MAINARX_MODULE
+#define OBJECTARXUTILS_MODULE
 
-#ifndef _ALLOW_RTCc_IN_ST
+#ifndef _ALLOW_RTCc_IN_STL
 #define _ALLOW_RTCc_IN_STL
 #endif
 
-// 一些常量
-constexpr double PI = 3.1415926535897932384626;
-constexpr double VERSION = 20210715.154300;
-
-// 定义文件默认名
-#ifndef FILE_EXT
-#define FILE_EXT L".txt"
-#define FILE_EXT_DESCRIPTION L"文本文件(*.txt)|*.txt"
-#endif // !FILE_EXT
-
 #pragma pack(push, 8)
 #pragma warning(disable : 4786 4996 4099)
-#pragma warning(disable : 6001)
+#pragma warning(disable: 4098)
 
-//-----------------------------------------------------------------------------
-#define STRICT
+
 
 #ifndef VC_EXTRALEAN
 #define VC_EXTRALEAN //- Exclude rarely-used stuff from Windows headers
 #endif
 
-//- Modify the following defines if you have to target a platform prior to the ones specified below.
-//- Refer to MSDN for the latest info on corresponding values for different platforms.
 #ifndef WINVER //- Allow use of features specific to Windows 95 and Windows NT 4 or later.
 #define WINVER 0x0601 //- Change this to the appropriate value to target Windows 98 and Windows 2000 or later.
 #endif
@@ -61,32 +48,30 @@ constexpr double VERSION = 20210715.154300;
 #define _WIN32_WINNT 0x0601
 #endif
 
-//- ObjectARX and OMF headers needs this
+	//- ObjectARX and OMF headers needs this
 #include <map>
 
-//-----------------------------------------------------------------------------
 #include <afxwin.h> //- MFC core and standard components
 #include <afxext.h> //- MFC extensions
 #include <afxcmn.h> //- MFC support for Windows Common Controls
-#include "framework.h"
-//-----------------------------------------------------------------------------
-//- Include ObjectDBX/ObjectARX headers
-//- Uncomment one of the following lines to bring a given library in your project.
-//#define _BREP_SUPPORT_					//- Support for the BRep API
-//#define _HLR_SUPPORT_						//- Support for the Hidden Line Removal API
-//#define _AMODELER_SUPPORT_				//- Support for the AModeler API
-//#define _ASE_SUPPORT_							//- Support for the ASI/ASE API
-//#define _RENDER_SUPPORT_					//- Support for the AutoCAD Render API
-//#define _ARX_CUSTOM_DRAG_N_DROP_	//- Support for the ObjectARX Drag'n Drop API
-//#define _INC_LEAGACY_HEADERS_			//- Include legacy headers in this project
+	//-----------------------------------------------------------------------------
+	//- Include ObjectDBX/ObjectARX headers
+	//- Uncomment one of the following lines to bring a given library in your project.
+	//#define _BREP_SUPPORT_					//- Support for the BRep API
+	//#define _HLR_SUPPORT_						//- Support for the Hidden Line Removal API
+	//#define _AMODELER_SUPPORT_				//- Support for the AModeler API
+		//#define _ASE_SUPPORT_							//- Support for the ASI/ASE API
+	//#define _RENDER_SUPPORT_					//- Support for the AutoCAD Render API
+		//#define _ARX_CUSTOM_DRAG_N_DROP_	//- Support for the ObjectARX Drag'n Drop API
+	//#define _INC_LEAGACY_HEADERS_			//- Include legacy headers in this project
 #include "arxHeaders.h"
+
 
 //-----------------------------------------------------------------------------
 #include "DocData.h" //- Your document specific data class holder
 
-#include "resource.h"
-#include "SdNeiKuo.h"
-//- Declare it as an extern here so that it becomes available in all modules
+	//- Declare it as an extern here so that it becomes available in all modules
 extern AcApDataManager<CDocData> DocVars;
 
 #pragma pack(pop)
+
