@@ -107,7 +107,6 @@ BOOL SdNeiKuo::Modify(CString filePath)
 		str.Format(L"%lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf", VERSION, R1, R2, R3, R4, R5,
 			   H1, H2, H_2, RADIUS1, RADIUS_1, RADIUS2, RADIUS3, RADIUS4, RADIUS5);
 		pFile.Seek(0, CStdioFile::begin);
-		pFile.WriteString(str);
 		pFile.Close();
 		AfxMessageBox(L"保存成功", MB_OK);
 		return TRUE;
@@ -154,11 +153,12 @@ BOOL Draw_SdNeiKuo::Draw()
 
 	// 拱部
 	AcGePoint3d ptCenter(0, m_data.H1, 0);
-	CArcUtil::add(ptCenter, m_data.R1, 0, 180);
+	CArcUtil::add(ptCenter, m_data.R1, 0, 180, FALSE);
 
 	//添加仰拱
-	//ptStart.set()
-	CArcUtil::add(ptStart, ptCenter, ptEnd);
+	ptCenter.set(0, m_data.H1, 0);
+	ptStart.set(-m_data.R1, m_data.H1, 0);
+	CArcUtil::add(ptStart, ptCenter, m_data.RADIUS1);
 
 	return 0;
 }

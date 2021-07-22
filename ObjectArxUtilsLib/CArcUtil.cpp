@@ -3,14 +3,14 @@
 #include "CCalculation.h"
 #include "CDwgDatebaseUtil.h"
 
-AcDbObjectId CArcUtil::add(AcGePoint3d ptCenter, double radius, double startRadius, double endRadius, bool isAngel)
+AcDbObjectId CArcUtil::add(AcGePoint3d ptCenter, double radius, double startAngel, double endAngel, bool isRadian)
 {
-	if (!isAngel)
+	if (!isRadian)
 	{
-		startRadius = CCalculation::radiusToAngel(startRadius);
-		endRadius = CCalculation::radiusToAngel(endRadius);
+		startAngel = CCalculation::radiusToAngel(startAngel);
+		endAngel = CCalculation::radiusToAngel(endAngel);
 	}
-	AcDbArc* pArc = new AcDbArc(ptCenter, radius, startRadius, endRadius);
+	AcDbArc* pArc = new AcDbArc(ptCenter, radius, startAngel, endAngel);
 	if (pArc == NULL)
 		return NULL;
 
@@ -46,4 +46,17 @@ AcDbObjectId CArcUtil::add(AcGePoint3d ptStart, AcGePoint3d ptCenter, AcGePoint3
 	double endAngle = vecEnd.angle();
 	//创建圆弧
 	return CArcUtil::add(ptCenter, radius, startAngle, endAngle, TRUE);
+}
+
+AcDbObjectId CArcUtil::add(AcGePoint3d ptStart, AcGePoint3d ptCenter, double angle)
+{
+	//计算半径
+	double radius = ptCenter.distanceTo(ptStart);
+	//计算起点，终点角度
+	AcGeVector2d vecStart(ptStart.x - ptCenter.x, ptStart.y - ptCenter.y);
+	double startAngle = vecStart.angle();
+	double endAngle = startAngle + angle;
+
+	//创建圆弧
+	return CArcUtil::add(ptCenter, radius, startAngle, endAngle, false);
 }

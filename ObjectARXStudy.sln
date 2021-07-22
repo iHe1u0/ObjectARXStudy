@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.31313.79
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MainARX", "MainARX\MainARX.vcxproj", "{F87873B0-2B5D-4D52-8FD5-BE1CDC50B2E3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BE7D6FAC-F6EB-4FE3-B4FF-27253EC6F1AE} = {BE7D6FAC-F6EB-4FE3-B4FF-27253EC6F1AE}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ObjectArxUtilsLib", "ObjectArxUtilsLib\ObjectArxUtilsLib.vcxproj", "{BE7D6FAC-F6EB-4FE3-B4FF-27253EC6F1AE}"
 EndProject
