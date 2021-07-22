@@ -9,5 +9,12 @@ It's a good util for ObjectArx,however,not enough to me.And I add some additiona
 
 Maybe I will continue to maintain this project in the funture ^-^
 
+Notice
+------
+
+This project is only for ObjectARX2021,so it only supports 64bit(Autodesk abandoned the 32-bit library in ObjectArx2021).
+
 Features
 --------
+
+* [`CArcUtil`](CArcUtil.h) an util for draw arc.
