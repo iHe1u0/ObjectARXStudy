@@ -5,34 +5,6 @@
 #include <CCalculation.h>
 
 
-//"起点，圆心，圆弧角度"创建圆弧
-Acad::ErrorStatus CCreateEntity::CreateArc(AcGePoint3d ptCenter, double radius, double startRadius, double endRadius)
-{
-	CString msg;
-	msg.Format(L"生成圆心(%lf,%lf)的圆弧 \n", ptCenter.x, ptCenter.y);
-	acutPrintf(msg);
-
-	CArcUtil::add(ptCenter, radius, startRadius, endRadius);
-	//CArcUtil::add(ptStartPoint, ptCenterPoint, ptEndPoint);
-	return Acad::eOk;
-}
-
-Acad::ErrorStatus CCreateEntity::CreateLine(AcGePoint2d ptStart, AcGePoint2d ptEnd)
-{
-	AcGePoint3d pointStart = CCalculation::Pt2dTo3d(ptStart), pointEnd = CCalculation::Pt2dTo3d(ptEnd);
-	CString msg;
-	msg.Format(L"起点:(%f，%f)\n", ptStart.x, ptStart.y);
-	acutPrintf(msg);
-
-	CLineUtil::add(pointStart, pointEnd);
-
-	msg.Format(L"终点:(%f，%f)\n", ptEnd.x, ptEnd.y);
-	acutPrintf(msg);
-
-	return Acad::eOk;
-
-}
-
 Acad::ErrorStatus CCreateEntity::CreateLayer(const TCHAR *layerName, AcDbObjectId &layerId)
 {
 	Acad::ErrorStatus errorStatus;

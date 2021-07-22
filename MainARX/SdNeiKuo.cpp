@@ -3,6 +3,8 @@
 #include "CCreateEntity.h"
 #include "EditorDlg.h"
 #include <iostream>
+#include <CArcUtil.h>
+#include <CLineUtil.h>
 
 Tunnel Tunnel::m_Sd;
 
@@ -104,7 +106,6 @@ BOOL SdNeiKuo::Modify(CString filePath)
 		CString str;
 		str.Format(L"%lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf", VERSION, R1, R2, R3, R4, R5,
 			   H1, H2, H_2, RADIUS1, RADIUS_1, RADIUS2, RADIUS3, RADIUS4, RADIUS5);
-		AfxMessageBox(str);
 		pFile.Seek(0, CStdioFile::begin);
 		pFile.WriteString(str);
 		pFile.Close();
@@ -143,29 +144,23 @@ BOOL Draw_Tunnel::Draw()
 
 BOOL Draw_SdNeiKuo::Draw()
 {
-	CString m_fmtData;
-	m_fmtData.Format(L"%lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf", m_data.Version, m_data.R1,
-			 m_data.R2, m_data.R3, m_data.R4, m_data.R5, m_data.H1, m_data.H2, m_data.H_2, m_data.RADIUS1,
-			 m_data.RADIUS_1, m_data.RADIUS2, m_data.RADIUS3, m_data.RADIUS4, m_data.RADIUS5);
+	AcGePoint3d ptStart(-m_data.R1, m_data.H1, 0);
+	AcGePoint3d ptEnd(m_data.R1, m_data.H1, 0);
 
-	AcGePoint2d ptStart(-m_data.R1, m_data.H1);
+	// 起拱线
+	ptStart.set(-m_data.R1, 0, 0);
+	ptEnd.set(m_data.R1, 0, 0);
+	CLineUtil::add(ptStart, ptEnd);
+
+	// 拱部
 	AcGePoint3d ptCenter(0, m_data.H1, 0);
-	AcGePoint2d ptEnd(m_data.R1, m_data.H1);
-	CCreateEntity::CreateArc(ptCenter, m_data.R1, 0, 180);
+	CArcUtil::add(ptCenter, m_data.R1, 0, 180);
 
-	ptStart.set(-m_data.R1, 0);
-	ptEnd.set(m_data.R1, 0);
-	CCreateEntity::CreateLine(ptStart, ptEnd);
+	//添加仰拱
+	//ptStart.set()
+	CArcUtil::add(ptStart, ptCenter, ptEnd);
 
 	return 0;
-}
-
-SdProp::SdProp()
-{
-}
-
-SdProp::~SdProp()
-{
 }
 
 BOOL SdProp::Read(CStdioFile *pFile)
