@@ -108,7 +108,7 @@ BOOL SdNeiKuo::Modify(CString filePath)
 		pFile.Seek(0, CStdioFile::begin);
 		pFile.WriteString(str);
 		pFile.Close();
-		AfxMessageBox(L"保存成功", MB_OK);
+		ads_prompt(L"保存成功");
 		return TRUE;
 	}
 	return FALSE;
@@ -126,7 +126,7 @@ BOOL SdNeiKuo::Write(CStdioFile *pFile)
 		pFile->Seek(0, CStdioFile::end);
 		pFile->WriteString(str);
 		pFile->Close();
-		AfxMessageBox(L"保存成功", MB_OK);
+		ads_prompt(L"保存成功");
 		return TRUE;
 	}
 	return false;
@@ -149,10 +149,16 @@ BOOL Draw_SdNeiKuo::Draw()
 	double radius;
 
 	// 起拱线
+	//CLayerUtil::add(L"起拱线", AcCmColor::colorIndex);
+	AcDbObjectId layerId = CLayerUtil::GetLayerID(L"起拱线");
 
 	ptStart.set(-m_data.R1, m_data.H1, 0);
 	ptEnd.set(m_data.R1, m_data.H1, 0);
-	CLineUtil::add(ptStart, ptEnd);
+	AcDbObjectId objId = CLineUtil::add(ptStart, ptEnd);
+
+	CEntityUtil::setLayer(objId, L"起拱线");
+	CEntityUtil::setLineType(objId, L"");
+
 
 	// 拱部
 	ptCenter.set(0, m_data.H1, 0);
@@ -165,9 +171,6 @@ BOOL Draw_SdNeiKuo::Draw()
 	//acutPrintf(L"半径为：%lf \n", radius);
 
 	CArcUtil::add(ptEnd, radius, 180, 180 + m_data.ANGLE1, false);
-	//ptCenter.set(0, m_data.H1, 0);
-	//ptStart.set(-m_data.R1, m_data.H1, 0);
-	//CArcUtil::add(ptStart, ptCenter, m_data.ANGLE1);
 
 	return 0;
 }
