@@ -52,6 +52,7 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
     <UseOfMfc>Dynamic</UseOfMfc>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -92,6 +93,7 @@
     <LibraryPath>D:\Autodesk\ObjectARX2021\lib-x64;D:\Autodesk\ObjectARX2021\utils\HlrApi\lib-x64;D:\Autodesk\ObjectARX2021\utils\amodeler\lib-x64;D:\Autodesk\ObjectARX2021\utils\brep\lib-x64;$(LibraryPath)</LibraryPath>
     <OutDir>$(ProjectDir)</OutDir>
     <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
+    <IntDir>$(TargetDir)$(IntDir)</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -162,6 +164,13 @@
       <LanguageStandard_C>stdc11</LanguageStandard_C>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WholeProgramOptimization>false</WholeProgramOptimization>
+      <AssemblerListingLocation>$(TargetDir)$(IntDir)</AssemblerListingLocation>
+      <ModuleOutputFile>$(TargetDir)$(IntDir)</ModuleOutputFile>
+      <ModuleDependenciesFile>$(TargetDir)$(IntDir)</ModuleDependenciesFile>
+      <ObjectFileName>$(TargetDir)$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>$(TargetDir)$(IntDir)$(TargetName).pdb</ProgramDataBaseFileName>
+      <XMLDocumentationFileName>$(TargetDir)$(IntDir)</XMLDocumentationFileName>
+      <SourceDependenciesFile>$(TargetDir)$(IntDir)</SourceDependenciesFile>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -186,12 +195,14 @@
     <ClInclude Include="CJig.h" />
     <ClInclude Include="CLayerUtil.h" />
     <ClInclude Include="CLineUtil.h" />
+    <ClInclude Include="CPointUtil.h" />
     <ClInclude Include="CPolylineUtil.h" />
     <ClInclude Include="CStringUtil.h" />
     <ClInclude Include="CTextFileUtil.h" />
     <ClInclude Include="CTextUtil.h" />
     <ClInclude Include="CViewUtil.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="objectarxutilslib.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
@@ -209,6 +220,7 @@
     <ClCompile Include="CJig.cpp" />
     <ClCompile Include="CLayerUtil.cpp" />
     <ClCompile Include="CLineUtil.cpp" />
+    <ClCompile Include="CPointUtil.cpp" />
     <ClCompile Include="CPolylineUtil.cpp" />
     <ClCompile Include="CStringUtil.cpp" />
     <ClCompile Include="CTextFileUtil.cpp" />
@@ -222,6 +234,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="generate_all_header.bat" />
     <None Include="Readme.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

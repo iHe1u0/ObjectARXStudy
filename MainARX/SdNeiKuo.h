@@ -26,12 +26,12 @@ class SdNeiKuo {
 	double H1 = 0.0;
 	double H2 = 0.0;
 	double H_2 = 0.0;
-	double RADIUS1 = 0.0;
-	double RADIUS_1 = 0.0;
-	double RADIUS2 = 0.0;
-	double RADIUS3 = 0.0;
-	double RADIUS4 = 0.0;
-	double RADIUS5 = 0.0;
+	double ANGLE1 = 0.0;
+	double ANGLE_1 = 0.0;
+	double ANGLE2 = 0.0;
+	double ANGLE3 = 0.0;
+	double ANGLE4 = 0.0;
+	double ANGLE5 = 0.0;
 
     public:
 	SdNeiKuo();

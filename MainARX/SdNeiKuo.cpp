@@ -3,8 +3,7 @@
 #include "CCreateEntity.h"
 #include "EditorDlg.h"
 #include <iostream>
-#include <CArcUtil.h>
-#include <CLineUtil.h>
+#include <objectarxutilslib.h>
 
 Tunnel Tunnel::m_Sd;
 
@@ -45,12 +44,12 @@ SdNeiKuo &SdNeiKuo::operator=(const SdNeiKuo &data)
 	H1 = data.H1;
 	H2 = data.H2;
 	H_2 = data.H_2;
-	RADIUS1 = data.RADIUS1;
-	RADIUS_1 = data.RADIUS_1;
-	RADIUS2 = data.RADIUS2;
-	RADIUS3 = data.RADIUS3;
-	RADIUS4 = data.RADIUS4;
-	RADIUS5 = data.RADIUS5;
+	ANGLE1 = data.ANGLE1;
+	ANGLE_1 = data.ANGLE_1;
+	ANGLE2 = data.ANGLE2;
+	ANGLE3 = data.ANGLE3;
+	ANGLE4 = data.ANGLE4;
+	ANGLE5 = data.ANGLE5;
 	return *this;
 }
 
@@ -76,12 +75,12 @@ BOOL SdNeiKuo::Read(CString filePath, SdNeiKuo *pData)
 		H1 = *(resultData + 6);
 		H2 = *(resultData + 7);
 		H_2 = *(resultData + 8);
-		RADIUS1 = *(resultData + 9);
-		RADIUS_1 = *(resultData + 10);
-		RADIUS2 = *(resultData + 11);
-		RADIUS3 = *(resultData + 12);
-		RADIUS4 = *(resultData + 13);
-		RADIUS5 = *(resultData + 14);
+		ANGLE1 = *(resultData + 9);
+		ANGLE_1 = *(resultData + 10);
+		ANGLE2 = *(resultData + 11);
+		ANGLE3 = *(resultData + 12);
+		ANGLE4 = *(resultData + 13);
+		ANGLE5 = *(resultData + 14);
 		if (pData == NULL) {
 			CEditorDlg readDlg;
 			readDlg.m_Data = *this;
@@ -105,8 +104,9 @@ BOOL SdNeiKuo::Modify(CString filePath)
 		*this = modifyDlg.m_Data;
 		CString str;
 		str.Format(L"%lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf", VERSION, R1, R2, R3, R4, R5,
-			   H1, H2, H_2, RADIUS1, RADIUS_1, RADIUS2, RADIUS3, RADIUS4, RADIUS5);
+			   H1, H2, H_2, ANGLE1, ANGLE_1, ANGLE2, ANGLE3, ANGLE4, ANGLE5);
 		pFile.Seek(0, CStdioFile::begin);
+		pFile.WriteString(str);
 		pFile.Close();
 		AfxMessageBox(L"保存成功", MB_OK);
 		return TRUE;
@@ -122,7 +122,7 @@ BOOL SdNeiKuo::Write(CStdioFile *pFile)
 		//写入文件
 		CString str;
 		str.Format(L"%lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf %lf", VERSION, R1, R2, R3, R4, R5,
-			   H1, H2, H_2, RADIUS1, RADIUS_1, RADIUS2, RADIUS3, RADIUS4, RADIUS5);
+			   H1, H2, H_2, ANGLE1, ANGLE_1, ANGLE2, ANGLE3, ANGLE4, ANGLE5);
 		pFile->Seek(0, CStdioFile::end);
 		pFile->WriteString(str);
 		pFile->Close();
@@ -143,22 +143,31 @@ BOOL Draw_Tunnel::Draw()
 
 BOOL Draw_SdNeiKuo::Draw()
 {
-	AcGePoint3d ptStart(-m_data.R1, m_data.H1, 0);
-	AcGePoint3d ptEnd(m_data.R1, m_data.H1, 0);
+	AcGePoint3d ptStart;
+	AcGePoint3d ptEnd;
+	AcGePoint3d ptCenter;
+	double radius;
 
 	// 起拱线
-	ptStart.set(-m_data.R1, 0, 0);
-	ptEnd.set(m_data.R1, 0, 0);
+
+	ptStart.set(-m_data.R1, m_data.H1, 0);
+	ptEnd.set(m_data.R1, m_data.H1, 0);
 	CLineUtil::add(ptStart, ptEnd);
 
 	// 拱部
-	AcGePoint3d ptCenter(0, m_data.H1, 0);
+	ptCenter.set(0, m_data.H1, 0);
 	CArcUtil::add(ptCenter, m_data.R1, 0, 180, FALSE);
 
 	//添加仰拱
-	ptCenter.set(0, m_data.H1, 0);
 	ptStart.set(-m_data.R1, m_data.H1, 0);
-	CArcUtil::add(ptStart, ptCenter, m_data.RADIUS1);
+	ptEnd.set(m_data.R1, m_data.H1, 0);
+	radius = CPointUtil::getDistanceOfTwoPoints(ptStart, ptEnd);
+	//acutPrintf(L"半径为：%lf \n", radius);
+
+	CArcUtil::add(ptEnd, radius, 180, 180 + m_data.ANGLE1, false);
+	//ptCenter.set(0, m_data.H1, 0);
+	//ptStart.set(-m_data.R1, m_data.H1, 0);
+	//CArcUtil::add(ptStart, ptCenter, m_data.ANGLE1);
 
 	return 0;
 }

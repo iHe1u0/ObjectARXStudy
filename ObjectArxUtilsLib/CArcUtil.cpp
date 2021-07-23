@@ -11,27 +11,7 @@ AcDbObjectId CArcUtil::add(AcGePoint3d ptCenter, double radius, double startAnge
 		endAngel = CCalculation::radiusToAngel(endAngel);
 	}
 	AcDbArc* pArc = new AcDbArc(ptCenter, radius, startAngel, endAngel);
-	if (pArc == NULL)
-		return NULL;
-
-	//将实体添加到模型空间是固定的代码，
-	AcDbDatabase* pDb = NULL;
-	pDb = acdbHostApplicationServices()->workingDatabase();
-	if (pDb == NULL)
-		return NULL;
-	AcDbBlockTable* pBlkTable;
-	if (pDb->getBlockTable(pBlkTable, AcDb::kForRead) != Acad::eOk)
-		return NULL;
-	AcDbBlockTableRecord* pRec;
-	if (pBlkTable->getAt(ACDB_MODEL_SPACE, pRec, AcDb::kForWrite) != Acad::eOk)
-		return NULL;
-	pBlkTable->close();
-	AcDbObjectId objId = AcDbObjectId::kNull;
-	if (pRec->appendAcDbEntity(objId, pArc) != Acad::eOk)
-		return NULL;
-	pArc->close();
-	pRec->close();
-	return AcDbObjectId();
+	return CDwgDatebaseUtil::PostToModelSpace(pArc);
 }
 
 AcDbObjectId CArcUtil::add(AcGePoint3d ptStart, AcGePoint3d ptCenter, AcGePoint3d ptEnd)
@@ -56,7 +36,8 @@ AcDbObjectId CArcUtil::add(AcGePoint3d ptStart, AcGePoint3d ptCenter, double ang
 	AcGeVector2d vecStart(ptStart.x - ptCenter.x, ptStart.y - ptCenter.y);
 	double startAngle = vecStart.angle();
 	double endAngle = startAngle + angle;
-
+	
+	acutPrintf(L"起始角度：%f，结束角度：%f \n", startAngle, endAngle);
 	//创建圆弧
-	return CArcUtil::add(ptCenter, radius, startAngle, endAngle, false);
+	return CArcUtil::add(ptCenter, radius, startAngle, endAngle, true);
 }

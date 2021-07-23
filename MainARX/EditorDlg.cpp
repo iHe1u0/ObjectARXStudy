@@ -41,12 +41,12 @@ void CEditorDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT6, m_Data.H1);
 	DDX_Text(pDX, IDC_EDIT7, m_Data.H2);
 	DDX_Text(pDX, IDC_EDIT8, m_Data.H_2);
-	DDX_Text(pDX, IDC_EDIT11, m_Data.RADIUS1);
-	DDX_Text(pDX, IDC_EDIT12, m_Data.RADIUS_1);
-	DDX_Text(pDX, IDC_EDIT13, m_Data.RADIUS2);
-	DDX_Text(pDX, IDC_EDIT14, m_Data.RADIUS3);
-	DDX_Text(pDX, IDC_EDIT15, m_Data.RADIUS4);
-	DDX_Text(pDX, IDC_EDIT16, m_Data.RADIUS5);
+	DDX_Text(pDX, IDC_EDIT11, m_Data.ANGLE1);
+	DDX_Text(pDX, IDC_EDIT12, m_Data.ANGLE_1);
+	DDX_Text(pDX, IDC_EDIT13, m_Data.ANGLE2);
+	DDX_Text(pDX, IDC_EDIT14, m_Data.ANGLE3);
+	DDX_Text(pDX, IDC_EDIT15, m_Data.ANGLE4);
+	DDX_Text(pDX, IDC_EDIT16, m_Data.ANGLE5);
 }
 
 BOOL CEditorDlg::OnInitDialog()
