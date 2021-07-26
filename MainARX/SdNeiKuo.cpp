@@ -167,26 +167,38 @@ BOOL Draw_SdNeiKuo::Draw()
 	CArcUtil::add(ptCenter, m_data.R1, 0, 180, FALSE);
 
 	//添加仰拱
+	//左侧
 	ptStart.set(-m_data.R1, m_data.H1, 0);
 	ptCenter.set(m_data.R1, m_data.H1, 0);
 	radius = CPointUtil::getDistanceOfTwoPoints(ptStart, ptCenter);
 	//acutPrintf(L"半径为：%lf \n", radius);
-	CArcUtil::add(ptCenter, radius, 180, 180 + m_data.ANGLE1, false);
-	
+	CArcUtil::add(ptCenter, radius, 180, 180 + m_data.ANGLE1);
+	//右侧
 	ptCenter.set(-m_data.R1, m_data.H1, 0);
 	//acutPrintf(L"半径为：%lf \n", radius);
-	CArcUtil::add(ptCenter, radius, -m_data.ANGLE1, 0, false);
-	
+	//CArcUtil::add(ptCenter, radius, -m_data.ANGLE1, 0);
+	ads_real startAngel = CCalculation::GtoR(-m_data.ANGLE1);
+	ads_real endAngel = CCalculation::GtoR(0);
+	AcDbArc *pArc = new AcDbArc(ptCenter, radius, startAngel, endAngel);
+	CDwgDatebaseUtil::PostToModelSpace(pArc);
+	pArc->close();
+
 	//绘制R3
-	//ACDB_PORT ADESK_SEALED_VIRTUAL Acad::ErrorStatus getOsnapPoints(
-	//	AcDb::OsnapMode osnapMode, Adesk::GsMarker gsSelectionMark, const AcGePoint3d &pickPoint,
-	//	const AcGePoint3d &lastPoint, const AcGeMatrix3d &viewXform, AcGePoint3dArray &snapPoints,
-	//	AcDbIntArray &geomIds) const;
-	
+	//获取R3的起点
+	AcGePoint3dArray snapPoints;
+	AcDbIntArray geomIds;
+	pArc->getOsnapPoints(OsnapMode::kOsModeEnd, 0, ptCenter, ptCenter, AcGeMatrix3d::kIdentity, snapPoints,
+			     geomIds);
+	radius = m_data.R3;
+	ptStart.set(snapPoints[0].x, snapPoints[0].y, 0);
+	ptCenter.set(snapPoints[0].x - radius, snapPoints[0].y, 0);
+	startAngel = CCalculation::GtoR(0 - m_data.ANGLE3);
+	endAngel = CCalculation::GtoR(0);
+	pArc = new AcDbArc(ptCenter, radius, startAngel, endAngel);
+	CDwgDatebaseUtil::PostToModelSpace(pArc);
+	pArc->close();
 
-
-
-	return 0;
+	return true;
 }
 
 BOOL SdProp::Read(CStdioFile *pFile)

@@ -7,8 +7,8 @@ AcDbObjectId CArcUtil::add(AcGePoint3d ptCenter, double radius, double startAnge
 {
 	if (!isRadian)
 	{
-		startAngel = CCalculation::radiusToAngel(startAngel);
-		endAngel = CCalculation::radiusToAngel(endAngel);
+		startAngel = CCalculation::GtoR(startAngel);
+		endAngel = CCalculation::GtoR(endAngel);
 	}
 	AcDbArc* pArc = new AcDbArc(ptCenter, radius, startAngel, endAngel);
 	return CDwgDatebaseUtil::PostToModelSpace(pArc);
@@ -36,7 +36,7 @@ AcDbObjectId CArcUtil::add(AcGePoint3d ptStart, AcGePoint3d ptCenter, double ang
 	AcGeVector2d vecStart(ptStart.x - ptCenter.x, ptStart.y - ptCenter.y);
 	double startAngle = vecStart.angle();
 	double endAngle = startAngle + angle;
-	
+
 	acutPrintf(L"起始角度：%f，结束角度：%f \n", startAngle, endAngle);
 	//创建圆弧
 	return CArcUtil::add(ptCenter, radius, startAngle, endAngle, true);

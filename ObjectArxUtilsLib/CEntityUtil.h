@@ -30,6 +30,7 @@ public:
 	static Acad::ErrorStatus Scale(AcDbObjectId objectID, const AcGePoint3d& pBasePoint, double scaleSize);
 
 	//根据实体id获取实体
-	static AcDbEntity getEntityByID(AcDbObjectId objectID);
+	static AcDbObjectId getEntityID(ads_name entity);
+
 };
 

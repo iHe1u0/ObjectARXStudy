@@ -14,7 +14,13 @@ AcGePoint2d CCalculation::Pt3dTo2d(AcGePoint3d pt)
 	return ptTemp;
 }
 
-double CCalculation::radiusToAngel(double radius)
+// 弧度转成角度
+double CCalculation::RtoG(double angle)
 {
-	return radius * PI / 180.0;
+	return angle * 180 / PI;
+}
+// 角度转成弧度
+double CCalculation::GtoR(double angle)
+{
+	return angle * PI / 180;
 }

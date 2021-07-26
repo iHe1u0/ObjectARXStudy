@@ -8,7 +8,11 @@ public:
 	// 三维坐标转为二维
 	static AcGePoint2d Pt3dTo2d(AcGePoint3d pt);
 
-	// 角度转为弧度
-	static double radiusToAngel(double radius);
+
+	// 弧度转成角度
+	static double RtoG(double angle);
+
+	// 角度转成弧度
+	static double GtoR(double angle);
 };
 
