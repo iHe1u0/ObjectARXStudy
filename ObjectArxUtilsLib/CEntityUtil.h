@@ -1,9 +1,16 @@
 #pragma once
+
+
 class CEntityUtil
 {
 public:
 	CEntityUtil();
 	~CEntityUtil();
+
+	enum Color {
+		ByBlock = 0, Red, Yellow, Green, Cyan, Blue, Magenta, White, Black = 7, ByLayer = 256
+	};
+
 	//修改实体颜色
 	static void setColor(AcDbObjectId objectID, int ColorIndex);
 
@@ -14,12 +21,15 @@ public:
 	static void setLineType(AcDbObjectId objectID, const TCHAR* LineType);
 
 	//按照指定角度沿一点旋转指定的实体
-	static Acad::ErrorStatus Rotate(AcDbObjectId objectID, const AcGePoint2d &pBasePoint, double rotationAngle);
+	static Acad::ErrorStatus Rotate(AcDbObjectId objectID, const AcGePoint2d& pBasePoint, double rotationAngle);
 
 	//把实体从一点移动到另外一点
-	static Acad::ErrorStatus Move(AcDbObjectId objectID, AcGePoint3d &pBasePoint, AcGePoint3d &pDest);
+	static Acad::ErrorStatus Move(AcDbObjectId objectID, AcGePoint3d& pBasePoint, AcGePoint3d& pDest);
 
 	//沿一点按比列缩放指定的实体
-	static Acad::ErrorStatus Scale(AcDbObjectId objectID, const AcGePoint3d &pBasePoint, double scaleSize);
+	static Acad::ErrorStatus Scale(AcDbObjectId objectID, const AcGePoint3d& pBasePoint, double scaleSize);
+
+	//根据实体id获取实体
+	static AcDbEntity getEntityByID(AcDbObjectId objectID);
 };
 

@@ -10,31 +10,33 @@ CLayerUtil::~CLayerUtil()
 {
 }
 
-void CLayerUtil::add(TCHAR * LayerName, int colorindex)
+
+void CLayerUtil::add(TCHAR* LayerName, int colorindex)
 {
 	assert(LayerName != NULL);
-	assert(colorindex >= 1 && colorindex <= 255);
-	AcDbLayerTable *pLayerTable = NULL;
+	AcDbLayerTable* pLayerTable = NULL;
 	acdbHostApplicationServices()->workingDatabase()->getLayerTable(pLayerTable, AcDb::kForWrite);
 	if (!pLayerTable->has(LayerName))
 	{
-		AcDbLayerTableRecord *pLayerTableRecord = new AcDbLayerTableRecord();
+		AcDbLayerTableRecord* pLayerTableRecord = new AcDbLayerTableRecord();
 		pLayerTableRecord->setName(LayerName);
-		AcCmColor color;
-		color.setColorIndex(colorindex);
-		pLayerTableRecord->setColor(color);
+		if (colorindex >= 1 && colorindex <= 255)
+		{
+			AcCmColor color;
+			color.setColorIndex(colorindex);
+			pLayerTableRecord->setColor(color);
+		}
 		pLayerTable->add(pLayerTableRecord);
 		pLayerTableRecord->close();
 	}
 	pLayerTable->close();
 
-
 }
 
-AcDbObjectId CLayerUtil::GetLayerID(TCHAR * LayerName)
+AcDbObjectId CLayerUtil::GetLayerID(TCHAR* LayerName)
 {
 	assert(LayerName);
-	AcDbLayerTable *pLayerTable = NULL;
+	AcDbLayerTable* pLayerTable = NULL;
 	acdbHostApplicationServices()->workingDatabase()->getLayerTable(pLayerTable);
 	AcDbObjectId Layerid = AcDbObjectId::kNull;
 	if (pLayerTable->has(LayerName))
@@ -45,13 +47,13 @@ AcDbObjectId CLayerUtil::GetLayerID(TCHAR * LayerName)
 	return Layerid;
 }
 
-bool CLayerUtil::SetLayerColor(TCHAR * layerName, int colorindex)
+bool CLayerUtil::SetLayerColor(TCHAR* layerName, int colorindex)
 {
 	bool result = false;
 	AcDbObjectId layerid = GetLayerID(layerName);
 
-	AcDbLayerTableRecord *pLayerTableRecord = NULL;
-	if (acdbOpenObject(pLayerTableRecord,layerid,AcDb::kForWrite)==Acad::eOk)
+	AcDbLayerTableRecord* pLayerTableRecord = NULL;
+	if (acdbOpenObject(pLayerTableRecord, layerid, AcDb::kForWrite) == Acad::eOk)
 	{
 		AcCmColor color;
 		color.setColorIndex(colorindex);
@@ -62,15 +64,15 @@ bool CLayerUtil::SetLayerColor(TCHAR * layerName, int colorindex)
 	return result;
 }
 
-void CLayerUtil::GetAllLayerIDList(AcDbObjectIdArray & layerids)
+void CLayerUtil::GetAllLayerIDList(AcDbObjectIdArray& layerids)
 {
-	AcDbLayerTable *pLayerTable = NULL;
+	AcDbLayerTable* pLayerTable = NULL;
 	acdbHostApplicationServices()->workingDatabase()->getLayerTable(pLayerTable);
-	AcDbLayerTableIterator *it;
+	AcDbLayerTableIterator* it;
 	pLayerTable->newIterator(it);
-	for (it->start();!it->done();it->step())
+	for (it->start(); !it->done(); it->step())
 	{
-		AcDbLayerTableRecord *pLayerTableRecord = NULL;
+		AcDbLayerTableRecord* pLayerTableRecord = NULL;
 		if (it->getRecord(pLayerTableRecord) == Acad::eOk)
 		{
 			layerids.append(pLayerTableRecord->objectId());
@@ -81,11 +83,11 @@ void CLayerUtil::GetAllLayerIDList(AcDbObjectIdArray & layerids)
 	pLayerTable->close();
 }
 
-void CLayerUtil::DeleteLayer(TCHAR * LayerName)
+void CLayerUtil::DeleteLayer(TCHAR* LayerName)
 {
 	AcDbObjectId Layerid = GetLayerID(LayerName);
-	AcDbLayerTableRecord *pLayerRecord = NULL;
-	if (acdbOpenObject(pLayerRecord,Layerid,AcDb::kForWrite)==Acad::eOk)
+	AcDbLayerTableRecord* pLayerRecord = NULL;
+	if (acdbOpenObject(pLayerRecord, Layerid, AcDb::kForWrite) == Acad::eOk)
 	{
 		pLayerRecord->erase();
 		pLayerRecord->close();

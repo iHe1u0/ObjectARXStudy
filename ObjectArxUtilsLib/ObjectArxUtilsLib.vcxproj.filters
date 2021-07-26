@@ -153,5 +153,8 @@
   <ItemGroup>
     <None Include="Readme.md" />
     <None Include="generate_all_header.bat" />
+    <None Include="CADObjects\acadiso.lin">
+      <Filter>资源文件</Filter>
+    </None>
   </ItemGroup>
 </Project>

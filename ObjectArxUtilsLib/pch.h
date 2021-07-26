@@ -8,7 +8,6 @@
 #ifndef PCH_H
 #define PCH_H
 
-
 #define OBJECTARX_UTILS
 // 添加要在此处预编译的标头
 #include "framework.h"
@@ -44,7 +43,15 @@
 #include <afxext.h> //- MFC extensions
 #include <afxcmn.h> //- MFC support for Windows Common Controls
 
-
 #include <arxHeaders.h>
+
+#ifdef __GNUC__
+#define DEPRECATED(func) func __attribute__ ((deprecated))
+#elif defined(_MSC_VER)
+#define DEPRECATED(func) __declspec(deprecated) func
+#else
+#pragma message("WARNING: You need to implement DEPRECATED for this compiler")
+#define DEPRECATED(func) func
+#endif
 
 #endif //PCH_H

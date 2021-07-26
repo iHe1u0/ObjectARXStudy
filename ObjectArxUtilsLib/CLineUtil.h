@@ -7,5 +7,8 @@ public:
 	~CLineUtil();
 	//通过起点和终点构建一条直线
 	static AcDbObjectId add(const AcGePoint3d &pStartPoint,const AcGePoint3d &pEndPoint);
+
+	//通过起点和终点构建一条直线，并使用指定的线型
+	static AcDbObjectId add(const AcGePoint3d& pStartPoint, const AcGePoint3d& pEndPoint, TCHAR* lineType);
 };
 

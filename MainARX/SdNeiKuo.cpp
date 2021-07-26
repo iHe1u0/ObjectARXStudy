@@ -2,6 +2,7 @@
 #include "SdNeiKuo.h"
 #include "CCreateEntity.h"
 #include "EditorDlg.h"
+#include <acedCmdNF.h>
 #include <iostream>
 #include <objectarxutilslib.h>
 
@@ -148,17 +149,18 @@ BOOL Draw_SdNeiKuo::Draw()
 	AcGePoint3d ptCenter;
 	double radius;
 
-	// 起拱线
-	//CLayerUtil::add(L"起拱线", AcCmColor::colorIndex);
-	AcDbObjectId layerId = CLayerUtil::GetLayerID(L"起拱线");
+	// 路基
+	ptStart.set(-m_data.R1, 0, 0);
+	ptEnd.set(m_data.R1, 0, 0);
+	CLineUtil::add(ptStart, ptEnd);
 
+	// 起拱线
+	CLayerUtil::add(L"起拱线", CEntityUtil::Color::Green);
+	AcDbObjectId layerId = CLayerUtil::GetLayerID(L"起拱线");
 	ptStart.set(-m_data.R1, m_data.H1, 0);
 	ptEnd.set(m_data.R1, m_data.H1, 0);
-	AcDbObjectId objId = CLineUtil::add(ptStart, ptEnd);
-
+	AcDbObjectId objId = CLineUtil::add(ptStart, ptEnd, L"DASHED");
 	CEntityUtil::setLayer(objId, L"起拱线");
-	CEntityUtil::setLineType(objId, L"");
-
 
 	// 拱部
 	ptCenter.set(0, m_data.H1, 0);
@@ -166,11 +168,23 @@ BOOL Draw_SdNeiKuo::Draw()
 
 	//添加仰拱
 	ptStart.set(-m_data.R1, m_data.H1, 0);
-	ptEnd.set(m_data.R1, m_data.H1, 0);
-	radius = CPointUtil::getDistanceOfTwoPoints(ptStart, ptEnd);
+	ptCenter.set(m_data.R1, m_data.H1, 0);
+	radius = CPointUtil::getDistanceOfTwoPoints(ptStart, ptCenter);
 	//acutPrintf(L"半径为：%lf \n", radius);
+	CArcUtil::add(ptCenter, radius, 180, 180 + m_data.ANGLE1, false);
+	
+	ptCenter.set(-m_data.R1, m_data.H1, 0);
+	//acutPrintf(L"半径为：%lf \n", radius);
+	CArcUtil::add(ptCenter, radius, -m_data.ANGLE1, 0, false);
+	
+	//绘制R3
+	//ACDB_PORT ADESK_SEALED_VIRTUAL Acad::ErrorStatus getOsnapPoints(
+	//	AcDb::OsnapMode osnapMode, Adesk::GsMarker gsSelectionMark, const AcGePoint3d &pickPoint,
+	//	const AcGePoint3d &lastPoint, const AcGeMatrix3d &viewXform, AcGePoint3dArray &snapPoints,
+	//	AcDbIntArray &geomIds) const;
+	
 
-	CArcUtil::add(ptEnd, radius, 180, 180 + m_data.ANGLE1, false);
+
 
 	return 0;
 }
