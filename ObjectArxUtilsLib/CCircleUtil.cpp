@@ -2,6 +2,8 @@
 #include "CCircleUtil.h"
 #include "CDwgDatebaseUtil.h"
 #include "CGetPointUtil.h"
+#include "CCalculation.h"
+
 CCircleUtil::CCircleUtil()
 {
 }
@@ -37,4 +39,16 @@ AcDbObjectId CCircleUtil::add(AcGePoint2d & FirstPoint, AcGePoint2d & SecondPoin
 	AcGePoint3d CenterPoint3d(geArc.center().x, geArc.center().y, 0);
 
 	return add(CenterPoint3d, geArc.radius());
+}
+
+AcGePoint2d CCircleUtil::getPoint(AcGePoint2d pointCenter, ads_real radius, ads_real angel, bool isDegree)
+{
+	AcGePoint2d point;
+	if (isDegree)
+	{
+		angel = CCalculation::GtoR(angel);
+	}
+	point.x = pointCenter.x - radius * cos(angel);
+	point.y = pointCenter.y + radius * sin(angel);
+	return point;
 }

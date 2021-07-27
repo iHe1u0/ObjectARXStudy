@@ -78,9 +78,6 @@
     <ClInclude Include="CViewUtil.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="CPointUtil.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="objectarxutilslib.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -146,15 +143,9 @@
     <ClCompile Include="CViewUtil.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="CPointUtil.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Readme.md" />
     <None Include="generate_all_header.bat" />
-    <None Include="CADObjects\acadiso.lin">
-      <Filter>资源文件</Filter>
-    </None>
   </ItemGroup>
 </Project>

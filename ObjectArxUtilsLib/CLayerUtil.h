@@ -5,8 +5,8 @@ public:
 	CLayerUtil();
 	~CLayerUtil();
 
-	//根据输入的名字和颜色代号创建新的图层
-	static void add(TCHAR *LayerName, int colorindex);
+	//根据输入的名字、线型、颜色代号创建新的图层
+	static void add(TCHAR* LayerName, TCHAR* lineType, int colorindex);
 
 	//根据图层名称获取图层的ID
 	static AcDbObjectId GetLayerID(TCHAR *LayerName);

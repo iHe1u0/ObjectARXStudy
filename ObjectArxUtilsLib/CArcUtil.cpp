@@ -3,9 +3,9 @@
 #include "CCalculation.h"
 #include "CDwgDatebaseUtil.h"
 
-AcDbObjectId CArcUtil::add(AcGePoint3d ptCenter, double radius, double startAngel, double endAngel, bool isRadian)
+AcDbObjectId CArcUtil::add(AcGePoint3d ptCenter, double radius, double startAngel, double endAngel, bool isGra)
 {
-	if (!isRadian)
+	if (!isGra)
 	{
 		startAngel = CCalculation::GtoR(startAngel);
 		endAngel = CCalculation::GtoR(endAngel);

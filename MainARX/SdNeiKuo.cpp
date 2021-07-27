@@ -147,19 +147,18 @@ BOOL Draw_SdNeiKuo::Draw()
 	AcGePoint3d ptStart;
 	AcGePoint3d ptEnd;
 	AcGePoint3d ptCenter;
-	double radius;
-
-	// 路基
-	ptStart.set(-m_data.R1, 0, 0);
-	ptEnd.set(m_data.R1, 0, 0);
-	CLineUtil::add(ptStart, ptEnd);
+	ads_real radius, x, y, startDegree, endDegree;
 
 	// 起拱线
-	CLayerUtil::add(L"起拱线", CEntityUtil::Color::Green);
+	//添加新图层
+	CLayerUtil::add(L"起拱线", L"DASHED", CEntityUtil::Blue);
+	CLayerUtil::add(L"中心线", L"CENTER", CEntityUtil::Color::Red);
 	AcDbObjectId layerId = CLayerUtil::GetLayerID(L"起拱线");
 	ptStart.set(-m_data.R1, m_data.H1, 0);
 	ptEnd.set(m_data.R1, m_data.H1, 0);
-	AcDbObjectId objId = CLineUtil::add(ptStart, ptEnd, L"DASHED");
+	//加载线型文件
+	//acdbLoadLineTypeFile(_T("DASHED"), _T("ACADISO.LIN"), acdbHostApplicationServices()->workingDatabase());
+	AcDbObjectId objId = CLineUtil::add(ptStart, ptEnd);
 	CEntityUtil::setLayer(objId, L"起拱线");
 
 	// 拱部
@@ -170,33 +169,88 @@ BOOL Draw_SdNeiKuo::Draw()
 	//左侧
 	ptStart.set(-m_data.R1, m_data.H1, 0);
 	ptCenter.set(m_data.R1, m_data.H1, 0);
-	radius = CPointUtil::getDistanceOfTwoPoints(ptStart, ptCenter);
-	//acutPrintf(L"半径为：%lf \n", radius);
-	CArcUtil::add(ptCenter, radius, 180, 180 + m_data.ANGLE1);
+	radius = ptStart.distanceTo(ptCenter);
+	startDegree = CCalculation::GtoR(180.0);
+	endDegree = CCalculation::GtoR(180.0 + m_data.ANGLE1);
+	AcDbArc *leftArc = new AcDbArc(ptCenter, radius, startDegree, endDegree);
+	CDwgDatebaseUtil::PostToModelSpace(leftArc);
+	//CArcUtil::add(ptCenter, radius, 180, 180 + m_data.ANGLE1);
+	leftArc->close();
 	//右侧
 	ptCenter.set(-m_data.R1, m_data.H1, 0);
-	//acutPrintf(L"半径为：%lf \n", radius);
-	//CArcUtil::add(ptCenter, radius, -m_data.ANGLE1, 0);
-	ads_real startAngel = CCalculation::GtoR(-m_data.ANGLE1);
-	ads_real endAngel = CCalculation::GtoR(0);
-	AcDbArc *pArc = new AcDbArc(ptCenter, radius, startAngel, endAngel);
-	CDwgDatebaseUtil::PostToModelSpace(pArc);
-	pArc->close();
+	startDegree = CCalculation::GtoR(-m_data.ANGLE1);
+	endDegree = CCalculation::GtoR(0);
+	AcDbArc *rightArc = new AcDbArc(ptCenter, radius, startDegree, endDegree);
+	CDwgDatebaseUtil::PostToModelSpace(rightArc);
+	rightArc->close();
 
 	//绘制R3
 	//获取R3的起点
 	AcGePoint3dArray snapPoints;
 	AcDbIntArray geomIds;
-	pArc->getOsnapPoints(OsnapMode::kOsModeEnd, 0, ptCenter, ptCenter, AcGeMatrix3d::kIdentity, snapPoints,
-			     geomIds);
+	rightArc->getOsnapPoints(OsnapMode::kOsModeEnd, 0, ptCenter, ptCenter, AcGeMatrix3d::kIdentity, snapPoints,
+				 geomIds);
 	radius = m_data.R3;
-	ptStart.set(snapPoints[0].x, snapPoints[0].y, 0);
-	ptCenter.set(snapPoints[0].x - radius, snapPoints[0].y, 0);
-	startAngel = CCalculation::GtoR(0 - m_data.ANGLE3);
-	endAngel = CCalculation::GtoR(0);
-	pArc = new AcDbArc(ptCenter, radius, startAngel, endAngel);
-	CDwgDatebaseUtil::PostToModelSpace(pArc);
-	pArc->close();
+	x = snapPoints[0].x;
+	y = snapPoints[0].y;
+	ptStart.set(x, y, 0);
+	ptCenter.set(x - radius, y, 0);
+	startDegree = CCalculation::GtoR(0 - m_data.ANGLE3);
+	endDegree = CCalculation::GtoR(0);
+	//R3
+	AcDbArc *pR3Arc = new AcDbArc(ptCenter, radius, startDegree, endDegree);
+	CDwgDatebaseUtil::PostToModelSpace(pR3Arc);
+	pR3Arc->close();
+
+	//绘制R4
+	if (!snapPoints.isEmpty()) {
+		snapPoints.removeAll();
+	}
+	pR3Arc->getOsnapPoints(OsnapMode::kOsModeEnd, 1, ptCenter, ptCenter, AcGeMatrix3d::kIdentity, snapPoints,
+			       geomIds);
+	x = snapPoints[0].x;
+	y = snapPoints[0].y;
+	radius = m_data.R4;
+	//acutPrintf(L"端点：(%lf,%lf) \n", x, y);
+	ptCenter = CCalculation::Pt2dTo3d(CCircleUtil::getPoint(AcGePoint2d(x, y), radius, 90.0 - m_data.ANGLE2));
+	//acutPrintf(L"圆心：(%lf,%lf) \n", ptCenter.x, ptCenter.y);
+	startDegree = CCalculation::GtoR(0.0 - 90.0);
+	endDegree = CCalculation::GtoR(0.0 - 90.0 + m_data.ANGLE2);
+	AcDbArc *pR4Arc = new AcDbArc(ptCenter, radius, startDegree, endDegree);
+	//CArcUtil::add(ptCenter, radius, 0.0 - 90.0, 0.0 - 90.0 + m_data.ANGLE2);
+	CDwgDatebaseUtil::PostToModelSpace(pR4Arc);
+	pR4Arc->close();
+
+	// 路面
+	ptStart.set(-m_data.R1, 0, 0);
+	ptEnd.set(m_data.R1, 0, 0);
+	AcDbLine *pRoadLine = new AcDbLine(ptStart, ptEnd);
+	if (!snapPoints.isEmpty()) {
+		snapPoints.removeAll();
+	}
+	pRoadLine->intersectWith(leftArc, kExtendThis, snapPoints);
+	x = snapPoints[0].x, y = snapPoints[0].y;
+	pRoadLine->setStartPoint(AcGePoint3d(-x, y, 0));
+	pRoadLine->setEndPoint(AcGePoint3d(x, y, 0));
+	//把直线实体添加到模型空间
+	CDwgDatebaseUtil::PostToModelSpace(pRoadLine);
+	pRoadLine->close();
+
+	//绘制中心线
+	layerId = CLayerUtil::GetLayerID(L"中心线");
+	AcDbLine *centerLine = new AcDbLine;
+	if (!snapPoints.isEmpty()) {
+		snapPoints.removeAll();
+	}
+	pR4Arc->getOsnapPoints(OsnapMode::kOsModeEnd, 1, ptCenter, ptCenter, AcGeMatrix3d::kIdentity, snapPoints,
+			       geomIds);
+	x = snapPoints[0].x, y = snapPoints[0].y - 20;
+	centerLine->setStartPoint(AcGePoint3d(x, y, 0));
+	y = y + m_data.R1 * 2;
+	centerLine->setEndPoint(AcGePoint3d(x, y, 0));
+	CDwgDatebaseUtil::PostToModelSpace(centerLine);
+	centerLine->close();
+	CEntityUtil::setLayer(centerLine->id(), L"中心线");
 
 	return true;
 }

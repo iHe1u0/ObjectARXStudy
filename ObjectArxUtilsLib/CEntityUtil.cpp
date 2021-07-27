@@ -103,15 +103,3 @@ Acad::ErrorStatus CEntityUtil::Scale(AcDbObjectId objectID, const AcGePoint3d& p
 	}
 	return es;
 }
-
-AcDbObjectId CEntityUtil::getEntityID(ads_name entity)
-{
-	AcDbObjectId objectID;
-	if (acdbGetObjectId(objectID, entity) == Acad::eOk)
-	{
-		return objectID;
-
-	}
-	return NULL;
-}
-

@@ -195,7 +195,6 @@
     <ClInclude Include="CJig.h" />
     <ClInclude Include="CLayerUtil.h" />
     <ClInclude Include="CLineUtil.h" />
-    <ClInclude Include="CPointUtil.h" />
     <ClInclude Include="CPolylineUtil.h" />
     <ClInclude Include="CStringUtil.h" />
     <ClInclude Include="CTextFileUtil.h" />
@@ -220,7 +219,6 @@
     <ClCompile Include="CJig.cpp" />
     <ClCompile Include="CLayerUtil.cpp" />
     <ClCompile Include="CLineUtil.cpp" />
-    <ClCompile Include="CPointUtil.cpp" />
     <ClCompile Include="CPolylineUtil.cpp" />
     <ClCompile Include="CStringUtil.cpp" />
     <ClCompile Include="CTextFileUtil.cpp" />
@@ -234,7 +232,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="CADObjects\acadiso.lin" />
     <None Include="generate_all_header.bat" />
     <None Include="Readme.md" />
   </ItemGroup>

@@ -17,10 +17,10 @@ AcGePoint2d CCalculation::Pt3dTo2d(AcGePoint3d pt)
 // 弧度转成角度
 double CCalculation::RtoG(double angle)
 {
-	return angle * 180 / PI;
+	return angle * 180.0 / PI;
 }
 // 角度转成弧度
 double CCalculation::GtoR(double angle)
 {
-	return angle * PI / 180;
+	return angle * PI / 180.0;
 }

@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "CLayerUtil.h"
+#include "CEntityUtil.h"
 
 CLayerUtil::CLayerUtil()
 {
@@ -11,11 +12,13 @@ CLayerUtil::~CLayerUtil()
 }
 
 
-void CLayerUtil::add(TCHAR* LayerName, int colorindex)
+void CLayerUtil::add(TCHAR* LayerName, TCHAR* lineType, int colorindex = CEntityUtil::Color::White)
 {
 	assert(LayerName != NULL);
 	AcDbLayerTable* pLayerTable = NULL;
-	acdbHostApplicationServices()->workingDatabase()->getLayerTable(pLayerTable, AcDb::kForWrite);
+	AcDbDatabase* pDatabase;
+	pDatabase = acdbHostApplicationServices()->workingDatabase();
+	pDatabase->getLayerTable(pLayerTable, AcDb::kForWrite);
 	if (!pLayerTable->has(LayerName))
 	{
 		AcDbLayerTableRecord* pLayerTableRecord = new AcDbLayerTableRecord();
@@ -26,11 +29,23 @@ void CLayerUtil::add(TCHAR* LayerName, int colorindex)
 			color.setColorIndex(colorindex);
 			pLayerTableRecord->setColor(color);
 		}
+		if (lineType != NULL)
+		{
+			AcDbLinetypeTable* pLinetypeTbl;
+			AcDbObjectId layerId;
+			//加载线型文件
+			acdbLoadLineTypeFile(lineType, _T("acadiso.lin"), pDatabase);
+			pLinetypeTbl = new AcDbLinetypeTable;
+			pDatabase->getLinetypeTable(pLinetypeTbl, AcDb::kForRead);
+			pLinetypeTbl->getAt(lineType, layerId);
+			pLayerTableRecord->setLinetypeObjectId(layerId);
+			pLinetypeTbl->close();
+
+		}
 		pLayerTable->add(pLayerTableRecord);
 		pLayerTableRecord->close();
 	}
 	pLayerTable->close();
-
 }
 
 AcDbObjectId CLayerUtil::GetLayerID(TCHAR* LayerName)

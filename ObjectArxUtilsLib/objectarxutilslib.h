@@ -13,7 +13,6 @@
 #include "CJig.h" 
 #include "CLayerUtil.h" 
 #include "CLineUtil.h" 
-#include "CPointUtil.h" 
 #include "CPolylineUtil.h" 
 #include "CStringUtil.h" 
 #include "CTextFileUtil.h" 
