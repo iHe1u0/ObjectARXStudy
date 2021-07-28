@@ -149,10 +149,14 @@ BOOL Draw_SdNeiKuo::Draw()
 	AcGePoint3d ptCenter;
 	ads_real radius, x, y, startDegree, endDegree;
 
-	// 起拱线
 	//添加新图层
 	CLayerUtil::add(L"起拱线", L"DASHED", CEntityUtil::Blue);
-	CLayerUtil::add(L"中心线", L"CENTER", CEntityUtil::Color::Red);
+	CLayerUtil::add(L"中心线", L"CENTER", CEntityUtil::Color::Magenta);
+	CLayerUtil::add(L"建筑限界", L"CENTER", CEntityUtil::Color::Red);
+	CLayerUtil::add(L"标注", L"CONTINUOUS", CEntityUtil::Color::Green);
+
+	// 起拱线
+
 	AcDbObjectId layerId = CLayerUtil::GetLayerID(L"起拱线");
 	ptStart.set(-m_data.R1, m_data.H1, 0);
 	ptEnd.set(m_data.R1, m_data.H1, 0);
@@ -236,7 +240,9 @@ BOOL Draw_SdNeiKuo::Draw()
 	CDwgDatebaseUtil::PostToModelSpace(pRoadLine);
 	pRoadLine->close();
 
-	//绘制中心线
+	
+
+	//标注//绘制中心线
 	layerId = CLayerUtil::GetLayerID(L"中心线");
 	AcDbLine *centerLine = new AcDbLine;
 	if (!snapPoints.isEmpty()) {
@@ -251,6 +257,9 @@ BOOL Draw_SdNeiKuo::Draw()
 	CDwgDatebaseUtil::PostToModelSpace(centerLine);
 	centerLine->close();
 	CEntityUtil::setLayer(centerLine->id(), L"中心线");
+	CEntityUtil::setColor(centerLine->id(), CEntityUtil::Color::Green);
+
+
 
 	return true;
 }

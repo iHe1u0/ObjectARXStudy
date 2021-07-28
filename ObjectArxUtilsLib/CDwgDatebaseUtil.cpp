@@ -39,9 +39,9 @@ AcDbObjectId CDwgDatebaseUtil::PostToModelSpace(AcDbEntity * pEntity)
 	}
 
 	//关闭模型空间和实体
-	pBlockTable->close();
-	pBlockTableRecord->close();
 	pEntity->close();
+	pBlockTableRecord->close();
+	pBlockTable->close();
 
 	return ObjectID;
 }
