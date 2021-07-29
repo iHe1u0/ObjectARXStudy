@@ -81,7 +81,7 @@
     <ClInclude Include="objectarxutilslib.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Dimension.h">
+    <ClInclude Include="CGePointUtil.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -146,7 +146,7 @@
     <ClCompile Include="CViewUtil.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Dimension.cpp">
+    <ClCompile Include="CGePointUtil.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

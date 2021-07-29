@@ -188,6 +188,7 @@
     <ClInclude Include="CDimensionUtil.h" />
     <ClInclude Include="CDwgDatebaseUtil.h" />
     <ClInclude Include="CEntityUtil.h" />
+    <ClInclude Include="CGePointUtil.h" />
     <ClInclude Include="CGetInputUtil.h" />
     <ClInclude Include="CGetPointUtil.h" />
     <ClInclude Include="CHatchUtil.h" />
@@ -200,7 +201,6 @@
     <ClInclude Include="CTextFileUtil.h" />
     <ClInclude Include="CTextUtil.h" />
     <ClInclude Include="CViewUtil.h" />
-    <ClInclude Include="Dimension.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="objectarxutilslib.h" />
     <ClInclude Include="pch.h" />
@@ -213,6 +213,7 @@
     <ClCompile Include="CDimensionUtil.cpp" />
     <ClCompile Include="CDwgDatebaseUtil.cpp" />
     <ClCompile Include="CEntityUtil.cpp" />
+    <ClCompile Include="CGePointUtil.cpp" />
     <ClCompile Include="CGetInputUtil.cpp" />
     <ClCompile Include="CGetPointUtil.cpp" />
     <ClCompile Include="CHatchUtil.cpp" />
@@ -225,7 +226,6 @@
     <ClCompile Include="CTextFileUtil.cpp" />
     <ClCompile Include="CTextUtil.cpp" />
     <ClCompile Include="CViewUtil.cpp" />
-    <ClCompile Include="Dimension.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

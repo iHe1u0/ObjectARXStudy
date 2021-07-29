@@ -2,6 +2,7 @@
 #include "SdNeiKuo.h"
 #include "CCreateEntity.h"
 #include "EditorDlg.h"
+#include <dbdim.h>
 #include <acedCmdNF.h>
 #include <iostream>
 #include <objectarxutilslib.h>
@@ -109,7 +110,7 @@ BOOL SdNeiKuo::Modify(CString filePath)
 		pFile.Seek(0, CStdioFile::begin);
 		pFile.WriteString(str);
 		pFile.Close();
-		ads_prompt(L"保存成功");
+		AfxMessageBox(L"保存成功", MB_OK | MB_ICONINFORMATION);
 		return TRUE;
 	}
 	return FALSE;
@@ -127,7 +128,7 @@ BOOL SdNeiKuo::Write(CStdioFile *pFile)
 		pFile->Seek(0, CStdioFile::end);
 		pFile->WriteString(str);
 		pFile->Close();
-		ads_prompt(L"保存成功");
+		AfxMessageBox(L"保存成功", MB_OK | MB_ICONINFORMATION);
 		return TRUE;
 	}
 	return false;
@@ -151,12 +152,11 @@ BOOL Draw_SdNeiKuo::Draw()
 
 	//添加新图层
 	CLayerUtil::add(L"起拱线", L"DASHED", CEntityUtil::Blue);
-	CLayerUtil::add(L"中心线", L"CENTER", CEntityUtil::Color::Magenta);
+	CLayerUtil::add(L"中心线", L"CENTER", CEntityUtil::Color::Red);
 	CLayerUtil::add(L"建筑限界", L"CENTER", CEntityUtil::Color::Red);
 	CLayerUtil::add(L"标注", L"CONTINUOUS", CEntityUtil::Color::Green);
 
 	// 起拱线
-
 	AcDbObjectId layerId = CLayerUtil::GetLayerID(L"起拱线");
 	ptStart.set(-m_data.R1, m_data.H1, 0);
 	ptEnd.set(m_data.R1, m_data.H1, 0);
@@ -167,8 +167,17 @@ BOOL Draw_SdNeiKuo::Draw()
 
 	// 拱部
 	ptCenter.set(0, m_data.H1, 0);
-	CArcUtil::add(ptCenter, m_data.R1, 0, 180, FALSE);
-
+	radius = m_data.R1;
+	objId = CArcUtil::add(ptCenter, m_data.R1, 0, 180, FALSE);
+	//进行标注
+	CDimensionUtil::AddDimRadial(ptCenter, ptTemp1, 0);
+	//AcDbRadialDimension *dim = new AcDbRadialDimension(ptCenter, AcGePoint3d(0, radius, 0), 12);
+	//CDwgDatebaseUtil::PostToModelSpace(dim);
+	//CDimensionUtil::AddDimRadial(
+	//	ptCenter, AcGePoint3d(ptCenter.x + 3 * cos(PI / 4.0), ptCenter.y + 3 * sin(PI / 4.0), ptCenter.z), -30);
+	//CString msg;
+	//msg.Format(L"圆周上的点的坐标：（%lf,%lf）", ptTemp1.x, ptTemp1.y);
+	//CTextUtil::addText(ptTemp1, msg);
 	//添加仰拱
 	//左侧
 	ptStart.set(-m_data.R1, m_data.H1, 0);
@@ -240,8 +249,6 @@ BOOL Draw_SdNeiKuo::Draw()
 	CDwgDatebaseUtil::PostToModelSpace(pRoadLine);
 	pRoadLine->close();
 
-	
-
 	//标注//绘制中心线
 	layerId = CLayerUtil::GetLayerID(L"中心线");
 	AcDbLine *centerLine = new AcDbLine;
@@ -258,8 +265,6 @@ BOOL Draw_SdNeiKuo::Draw()
 	centerLine->close();
 	CEntityUtil::setLayer(centerLine->id(), L"中心线");
 	CEntityUtil::setColor(centerLine->id(), CEntityUtil::Color::Green);
-
-
 
 	return true;
 }

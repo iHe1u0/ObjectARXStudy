@@ -6,6 +6,7 @@
 #include "CDimensionUtil.h" 
 #include "CDwgDatebaseUtil.h" 
 #include "CEntityUtil.h" 
+#include "CGePointUtil.h" 
 #include "CGetInputUtil.h" 
 #include "CGetPointUtil.h" 
 #include "CHatchUtil.h" 

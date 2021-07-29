@@ -10,25 +10,25 @@ CDwgDatebaseUtil::~CDwgDatebaseUtil()
 {
 }
 
-AcDbObjectId CDwgDatebaseUtil::PostToModelSpace(AcDbEntity * pEntity)
+AcDbObjectId CDwgDatebaseUtil::PostToModelSpace(AcDbEntity* pEntity)
 {
 	Acad::ErrorStatus es;
 	//检查输入参数有效性
 	assert(pEntity != NULL);
 
 	//获取当前图形数据库的块表
-	AcDbBlockTable *pBlockTable;
-	es=acdbHostApplicationServices()->workingDatabase()->getBlockTable(pBlockTable, AcDb::kForRead);
+	AcDbBlockTable* pBlockTable;
+	es = acdbHostApplicationServices()->workingDatabase()->getBlockTable(pBlockTable, AcDb::kForRead);
 
 	//获取模型空间对应的块表记录
-	AcDbBlockTableRecord *pBlockTableRecord;
-	es=pBlockTable->getAt(ACDB_MODEL_SPACE, pBlockTableRecord, AcDb::kForWrite);
+	AcDbBlockTableRecord* pBlockTableRecord;
+	es = pBlockTable->getAt(ACDB_MODEL_SPACE, pBlockTableRecord, AcDb::kForWrite);
 
 
 	//将实体添加到空间对应的块表记录中
 	AcDbObjectId ObjectID;
-	es=pBlockTableRecord->appendAcDbEntity(ObjectID, pEntity);
-	if (es!=Acad::eOk)
+	es = pBlockTableRecord->appendAcDbEntity(ObjectID, pEntity);
+	if (es != Acad::eOk)
 	{
 		pBlockTable->close();
 		pBlockTableRecord->close();
@@ -37,7 +37,7 @@ AcDbObjectId CDwgDatebaseUtil::PostToModelSpace(AcDbEntity * pEntity)
 		pEntity = NULL;
 		return AcDbObjectId::kNull;
 	}
-
+	//acutPrintf(L"添加:%d \n", pEntity->id());
 	//关闭模型空间和实体
 	pEntity->close();
 	pBlockTableRecord->close();
@@ -46,14 +46,14 @@ AcDbObjectId CDwgDatebaseUtil::PostToModelSpace(AcDbEntity * pEntity)
 	return ObjectID;
 }
 
-AcDbObjectIdArray CDwgDatebaseUtil::GetAllEntityIDs(const TCHAR * layerName)
+AcDbObjectIdArray CDwgDatebaseUtil::GetAllEntityIDs(const TCHAR* layerName)
 {
 	AcDbObjectIdArray EntityIDs;
 	bool bifFilterlayer = false;
 	AcDbObjectId layerid;
 	if (layerName != NULL)
 	{
-		AcDbLayerTable *layertable=NULL;
+		AcDbLayerTable* layertable = NULL;
 		acdbHostApplicationServices()->workingDatabase()->getSymbolTable(layertable, AcDb::kForRead);
 		if (!layertable->has(layerName))
 		{
@@ -66,19 +66,19 @@ AcDbObjectIdArray CDwgDatebaseUtil::GetAllEntityIDs(const TCHAR * layerName)
 		bifFilterlayer = true;
 	}
 
-	AcDbBlockTable *pBlockTable;
+	AcDbBlockTable* pBlockTable;
 	acdbHostApplicationServices()->workingDatabase()->getBlockTable(pBlockTable, AcDb::kForRead);
-	AcDbBlockTableRecord *PBlockTableRecoard;
+	AcDbBlockTableRecord* PBlockTableRecoard;
 	pBlockTable->getAt(ACDB_MODEL_SPACE, PBlockTableRecoard);
 	pBlockTable->close();
 
-	AcDbBlockTableRecordIterator *it=NULL;
+	AcDbBlockTableRecordIterator* it = NULL;
 	PBlockTableRecoard->newIterator(it);
-	for (it->start();!it->done();it->step())
+	for (it->start(); !it->done(); it->step())
 	{
-		AcDbEntity *pEntity = NULL;
+		AcDbEntity* pEntity = NULL;
 		Acad::ErrorStatus es = it->getEntity(pEntity, AcDb::kForRead);
-		if (Acad::eOk==es)
+		if (Acad::eOk == es)
 		{
 			if (bifFilterlayer)					//如果图层名不为空，过滤出符合图层名称的实体
 			{
