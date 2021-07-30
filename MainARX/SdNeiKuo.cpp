@@ -170,14 +170,9 @@ BOOL Draw_SdNeiKuo::Draw()
 	radius = m_data.R1;
 	objId = CArcUtil::add(ptCenter, m_data.R1, 0, 180, FALSE);
 	//进行标注
-	CDimensionUtil::AddDimRadial(ptCenter, ptTemp1, 0);
-	//AcDbRadialDimension *dim = new AcDbRadialDimension(ptCenter, AcGePoint3d(0, radius, 0), 12);
-	//CDwgDatebaseUtil::PostToModelSpace(dim);
-	//CDimensionUtil::AddDimRadial(
-	//	ptCenter, AcGePoint3d(ptCenter.x + 3 * cos(PI / 4.0), ptCenter.y + 3 * sin(PI / 4.0), ptCenter.z), -30);
-	//CString msg;
-	//msg.Format(L"圆周上的点的坐标：（%lf,%lf）", ptTemp1.x, ptTemp1.y);
-	//CTextUtil::addText(ptTemp1, msg);
+	objId = CDimensionUtil::AddDimRadial(ptCenter, radius, CCalculation::GtoR(45));
+	CEntityUtil::setLayer(objId, L"标注");
+
 	//添加仰拱
 	//左侧
 	ptStart.set(-m_data.R1, m_data.H1, 0);
@@ -187,8 +182,11 @@ BOOL Draw_SdNeiKuo::Draw()
 	endDegree = CCalculation::GtoR(180.0 + m_data.ANGLE1);
 	AcDbArc *leftArc = new AcDbArc(ptCenter, radius, startDegree, endDegree);
 	CDwgDatebaseUtil::PostToModelSpace(leftArc);
-	//CArcUtil::add(ptCenter, radius, 180, 180 + m_data.ANGLE1);
 	leftArc->close();
+	//添加标注
+	objId = CDimensionUtil::AddDimRadial(ptCenter, radius, (startDegree + endDegree) / 2.0);
+	CEntityUtil::setLayer(objId, L"标注");
+
 	//右侧
 	ptCenter.set(-m_data.R1, m_data.H1, 0);
 	startDegree = CCalculation::GtoR(-m_data.ANGLE1);
@@ -214,6 +212,8 @@ BOOL Draw_SdNeiKuo::Draw()
 	AcDbArc *pR3Arc = new AcDbArc(ptCenter, radius, startDegree, endDegree);
 	CDwgDatebaseUtil::PostToModelSpace(pR3Arc);
 	pR3Arc->close();
+	objId = CDimensionUtil::AddDimRadial(ptCenter, radius, (startDegree + endDegree) / 2.0);
+	CEntityUtil::setLayer(objId, L"标注");
 
 	//绘制R4
 	if (!snapPoints.isEmpty()) {
@@ -233,6 +233,8 @@ BOOL Draw_SdNeiKuo::Draw()
 	//CArcUtil::add(ptCenter, radius, 0.0 - 90.0, 0.0 - 90.0 + m_data.ANGLE2);
 	CDwgDatebaseUtil::PostToModelSpace(pR4Arc);
 	pR4Arc->close();
+	objId = CDimensionUtil::AddDimRadial(ptCenter, radius, (startDegree + endDegree) / 2.0);
+	CEntityUtil::setLayer(objId, L"标注");
 
 	// 路面
 	ptStart.set(-m_data.R1, 0, 0);
@@ -249,7 +251,7 @@ BOOL Draw_SdNeiKuo::Draw()
 	CDwgDatebaseUtil::PostToModelSpace(pRoadLine);
 	pRoadLine->close();
 
-	//标注//绘制中心线
+	//绘制中心线
 	layerId = CLayerUtil::GetLayerID(L"中心线");
 	AcDbLine *centerLine = new AcDbLine;
 	if (!snapPoints.isEmpty()) {
@@ -259,12 +261,14 @@ BOOL Draw_SdNeiKuo::Draw()
 			       geomIds);
 	x = snapPoints[0].x, y = snapPoints[0].y - 20;
 	centerLine->setStartPoint(AcGePoint3d(x, y, 0));
-	y = y + m_data.R1 * 2;
+	y = ptCenter.y;
 	centerLine->setEndPoint(AcGePoint3d(x, y, 0));
 	CDwgDatebaseUtil::PostToModelSpace(centerLine);
 	centerLine->close();
 	CEntityUtil::setLayer(centerLine->id(), L"中心线");
 	CEntityUtil::setColor(centerLine->id(), CEntityUtil::Color::Green);
+	ptStart.set(-6, 36, 0);
+	CTextUtil::addText(ptStart, L"隧道中心线", AcDbObjectId::kNull, 7.5, CCalculation::GtoR(90));
 
 	return true;
 }

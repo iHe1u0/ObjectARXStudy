@@ -30,7 +30,7 @@ public:
 		const TCHAR* dimText = NULL,
 		AcDbObjectId dimStyle = AcDbObjectId::kNull);
 	static AcDbObjectId AddDimRadial(const AcGePoint3d& ptCenter,
-		double radius, double angle, double leaderLength = 5);
+		double radius, double angle, double leaderLength = 7.5);
 
 	// Ö±¾¶±ê×¢
 	static AcDbObjectId AddDimDiametric(const AcGePoint3d& ptChord1,

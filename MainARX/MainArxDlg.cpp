@@ -69,7 +69,7 @@ void MainArxDlg::OnBnClickedWrite()
 
 void MainArxDlg::OnBnClickedRead()
 {
-	CFileDialog fileDlg(TRUE, FILE_EXT, nullptr, OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_FILEMUSTEXIST,
+	CFileDialog fileDlg(TRUE, FILE_EXT, L"default.txt", OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT | OFN_FILEMUSTEXIST,
 			    FILE_EXT_DESCRIPTION);
 	if (fileDlg.DoModal() == IDOK) {
 		Draw_SdNeiKuo *m_SdNeiKuo = new Draw_SdNeiKuo;

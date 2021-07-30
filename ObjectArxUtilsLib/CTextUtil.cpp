@@ -11,18 +11,18 @@ CTextUtil::~CTextUtil()
 {
 }
 
-AcDbObjectId CTextUtil::addText(const AcGePoint3d & InsertPoint, const TCHAR * text, AcDbObjectId stytle, double height, double rotation)
+AcDbObjectId CTextUtil::addText(const AcGePoint3d & InsertPoint, const TCHAR * text, AcDbObjectId style, double height, double rotation)
 {
-	AcDbText *pText = new AcDbText(InsertPoint, text, stytle, height, rotation);
+	AcDbText *pText = new AcDbText(InsertPoint, text, style, height, rotation);
 
 	return CDwgDatebaseUtil::PostToModelSpace(pText);
 }
 
-AcDbObjectId CTextUtil::addMText(const AcGePoint3d & InsertPoint, const TCHAR * text, AcDbObjectId stytle, double height, double width)
+AcDbObjectId CTextUtil::addMText(const AcGePoint3d & InsertPoint, const TCHAR * text, AcDbObjectId style, double height, double width)
 {
 	AcDbMText *pMText = new AcDbMText();
 	pMText->setLocation(InsertPoint);
-	pMText->setTextStyle(stytle);
+	pMText->setTextStyle(style);
 	pMText->setContents(text);
 	pMText->setHeight(height);
 	pMText->setWidth(width);

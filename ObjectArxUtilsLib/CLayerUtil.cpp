@@ -12,7 +12,7 @@ CLayerUtil::~CLayerUtil()
 }
 
 
-void CLayerUtil::add(TCHAR* LayerName, TCHAR* lineType, int colorindex = CEntityUtil::Color::White)
+void CLayerUtil::add(TCHAR* LayerName, TCHAR* lineType, int colorindex)
 {
 	assert(LayerName != NULL);
 	AcDbLayerTable* pLayerTable = NULL;
