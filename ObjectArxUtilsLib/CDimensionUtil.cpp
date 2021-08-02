@@ -32,10 +32,10 @@ AcDbObjectId CDimensionUtil::CreateStyle(TCHAR* StyleName)
 
 	pDimStyleTblRcd = new AcDbDimStyleTableRecord();
 	pDimStyleTblRcd->setName(StyleName);//样式名称
-	pDimStyleTblRcd->setDimasz(3);//箭头长度
+	pDimStyleTblRcd->setDimasz(8);//箭头长度
 	pDimStyleTblRcd->setDimexe(3);//尺寸界线与标注
 	pDimStyleTblRcd->setDimtad(1);//文字位于标注线的上方
-	pDimStyleTblRcd->setDimtxt(3);//标注文字的高度
+	pDimStyleTblRcd->setDimtxt(6);//标注文字的高度
 
 	pDimStyleTbl->add(pDimStyleTblRcd);
 	pDimStyleTblRcd->close();
@@ -92,6 +92,7 @@ AcDbObjectId CDimensionUtil::AddDimRotated(const AcGePoint3d& pt1, const AcGePoi
 AcDbObjectId CDimensionUtil::AddDimRadial(const AcGePoint3d& ptCenter, const AcGePoint3d& ptChord,
 	double leaderLength, const TCHAR* dimText, AcDbObjectId dimStyle)
 {
+	dimStyle = CDimensionUtil::CreateStyle(_T("我的自定义样式"));
 	AcDbRadialDimension* pDim = new AcDbRadialDimension(ptCenter, ptChord, leaderLength, dimText, dimStyle);
 	return CDwgDatebaseUtil::PostToModelSpace(pDim);
 }
@@ -100,7 +101,6 @@ AcDbObjectId CDimensionUtil::AddDimRadial(const AcGePoint3d& ptCenter, double ra
 	double angle, double leaderLength)
 {
 	AcGePoint3d ptChord = CGePointUtil::PolarPoint(ptCenter, angle, radius);
-
 	return AddDimRadial(ptCenter, ptChord, leaderLength);
 }
 

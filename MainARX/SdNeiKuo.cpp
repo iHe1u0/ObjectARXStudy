@@ -186,6 +186,7 @@ BOOL Draw_SdNeiKuo::Draw()
 	//添加标注
 	objId = CDimensionUtil::AddDimRadial(ptCenter, radius, (startDegree + endDegree) / 2.0);
 	CEntityUtil::setLayer(objId, L"标注");
+	
 
 	//右侧
 	ptCenter.set(-m_data.R1, m_data.H1, 0);
@@ -269,6 +270,7 @@ BOOL Draw_SdNeiKuo::Draw()
 	CEntityUtil::setColor(centerLine->id(), CEntityUtil::Color::Green);
 	ptStart.set(-6, 36, 0);
 	CTextUtil::addText(ptStart, L"隧道中心线", AcDbObjectId::kNull, 7.5, CCalculation::GtoR(90));
+
 
 	return true;
 }
