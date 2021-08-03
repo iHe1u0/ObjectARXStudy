@@ -4,6 +4,7 @@
 class CLayerUtil
 {
 public:
+
 	CLayerUtil();
 	~CLayerUtil();
 

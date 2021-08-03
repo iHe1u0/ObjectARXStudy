@@ -14,7 +14,7 @@ CDimensionUtil::~CDimensionUtil()
 
 }
 
-AcDbObjectId CDimensionUtil::CreateStyle(TCHAR* StyleName)
+AcDbObjectId CDimensionUtil::CreateStyle(const TCHAR* StyleName)
 {
 	assert(StyleName);
 	AcDbDimStyleTable* pDimStyleTbl;
@@ -22,25 +22,26 @@ AcDbObjectId CDimensionUtil::CreateStyle(TCHAR* StyleName)
 	acdbHostApplicationServices()->workingDatabase()
 		->getDimStyleTable(pDimStyleTbl, AcDb::kForWrite);
 
+	AcDbObjectId ObjectID;
 	if (pDimStyleTbl->has(StyleName))
 	{
-		AcDbObjectId ObjectID;
 		pDimStyleTbl->getIdAt(StyleName, ObjectID);
-		pDimStyleTbl->close();
-		return ObjectID;
 	}
-
-	pDimStyleTblRcd = new AcDbDimStyleTableRecord();
-	pDimStyleTblRcd->setName(StyleName);//样式名称
-	pDimStyleTblRcd->setDimasz(8);//箭头长度
-	pDimStyleTblRcd->setDimexe(3);//尺寸界线与标注
-	pDimStyleTblRcd->setDimtad(1);//文字位于标注线的上方
-	pDimStyleTblRcd->setDimtxt(6);//标注文字的高度
-
-	pDimStyleTbl->add(pDimStyleTblRcd);
-	pDimStyleTblRcd->close();
-
-	return pDimStyleTblRcd->id();
+	else {
+		pDimStyleTblRcd = new AcDbDimStyleTableRecord();
+		pDimStyleTbl->getAt(L"ISO-25", pDimStyleTblRcd, AcDb::kForWrite);
+		pDimStyleTblRcd->setName(StyleName);//样式名称
+		pDimStyleTblRcd->setDimasz(5);//箭头长度
+		pDimStyleTblRcd->setDimexe(3);//尺寸界线与标注
+		pDimStyleTblRcd->setDimtad(1);//文字位于标注线的上方
+		pDimStyleTblRcd->setDimtxt(6);//标注文字的高度
+		pDimStyleTblRcd->setDimdsep('.');
+		pDimStyleTbl->add(pDimStyleTblRcd);
+		ObjectID = pDimStyleTblRcd->id();
+		pDimStyleTblRcd->close();
+	}
+	pDimStyleTbl->close();
+	return ObjectID;
 }
 
 AcDbObjectId CDimensionUtil::AddDimAligned(const AcGePoint3d& pt1, const AcGePoint3d& pt2,
@@ -92,7 +93,7 @@ AcDbObjectId CDimensionUtil::AddDimRotated(const AcGePoint3d& pt1, const AcGePoi
 AcDbObjectId CDimensionUtil::AddDimRadial(const AcGePoint3d& ptCenter, const AcGePoint3d& ptChord,
 	double leaderLength, const TCHAR* dimText, AcDbObjectId dimStyle)
 {
-	dimStyle = CDimensionUtil::CreateStyle(_T("我的自定义样式"));
+	dimStyle = CDimensionUtil::CreateStyle(_T("自定义样式"));
 	AcDbRadialDimension* pDim = new AcDbRadialDimension(ptCenter, ptChord, leaderLength, dimText, dimStyle);
 	return CDwgDatebaseUtil::PostToModelSpace(pDim);
 }

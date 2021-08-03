@@ -8,7 +8,7 @@ public:
 	virtual ~CDimensionUtil();
 
 	// 新建标注样式
-	static AcDbObjectId CreateStyle(TCHAR* StyleName);
+	static AcDbObjectId CreateStyle(const TCHAR* StyleName);
 	// 对齐标注
 	static AcDbObjectId AddDimAligned(const AcGePoint3d& pt1,
 		const AcGePoint3d& pt2, const AcGePoint3d& ptLine, const TCHAR* dimText = NULL,

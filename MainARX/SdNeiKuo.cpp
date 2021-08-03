@@ -186,7 +186,6 @@ BOOL Draw_SdNeiKuo::Draw()
 	//添加标注
 	objId = CDimensionUtil::AddDimRadial(ptCenter, radius, (startDegree + endDegree) / 2.0);
 	CEntityUtil::setLayer(objId, L"标注");
-	
 
 	//右侧
 	ptCenter.set(-m_data.R1, m_data.H1, 0);
@@ -258,6 +257,7 @@ BOOL Draw_SdNeiKuo::Draw()
 	if (!snapPoints.isEmpty()) {
 		snapPoints.removeAll();
 	}
+	//
 	pR4Arc->getOsnapPoints(OsnapMode::kOsModeEnd, 1, ptCenter, ptCenter, AcGeMatrix3d::kIdentity, snapPoints,
 			       geomIds);
 	x = snapPoints[0].x, y = snapPoints[0].y - 20;
@@ -267,10 +267,9 @@ BOOL Draw_SdNeiKuo::Draw()
 	CDwgDatebaseUtil::PostToModelSpace(centerLine);
 	centerLine->close();
 	CEntityUtil::setLayer(centerLine->id(), L"中心线");
-	CEntityUtil::setColor(centerLine->id(), CEntityUtil::Color::Green);
+	CEntityUtil::setColor(centerLine->id(), CEntityUtil::Color::Red);
 	ptStart.set(-6, 36, 0);
 	CTextUtil::addText(ptStart, L"隧道中心线", AcDbObjectId::kNull, 7.5, CCalculation::GtoR(90));
-
 
 	return true;
 }
