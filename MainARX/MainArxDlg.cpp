@@ -53,7 +53,7 @@ void MainArxDlg::DoDataExchange(CDataExchange *pDX)
 //----- Return FALSE to not keep the focus, return TRUE to keep the focus
 LRESULT MainArxDlg::OnAcadKeepFocus(WPARAM, LPARAM)
 {
-	return (TRUE);
+	return (FALSE);
 }
 
 void MainArxDlg::OnBnClickedWrite()

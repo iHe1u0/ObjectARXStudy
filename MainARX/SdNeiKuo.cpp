@@ -156,6 +156,9 @@ BOOL Draw_SdNeiKuo::Draw()
 	CLayerUtil::add(L"建筑限界", L"CENTER", CEntityUtil::Color::Red);
 	CLayerUtil::add(L"标注", L"CONTINUOUS", CEntityUtil::Color::Green);
 
+	//新建标注样式
+	AcDbObjectId dimStyle = CDimensionUtil::CreateStyle(_T("自定义样式"));
+
 	// 起拱线
 	AcDbObjectId layerId = CLayerUtil::GetLayerID(L"起拱线");
 	ptStart.set(-m_data.R1, m_data.H1, 0);
@@ -257,7 +260,9 @@ BOOL Draw_SdNeiKuo::Draw()
 	if (!snapPoints.isEmpty()) {
 		snapPoints.removeAll();
 	}
+	
 	//
+
 	pR4Arc->getOsnapPoints(OsnapMode::kOsModeEnd, 1, ptCenter, ptCenter, AcGeMatrix3d::kIdentity, snapPoints,
 			       geomIds);
 	x = snapPoints[0].x, y = snapPoints[0].y - 20;

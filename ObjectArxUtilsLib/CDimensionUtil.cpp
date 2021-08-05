@@ -93,7 +93,6 @@ AcDbObjectId CDimensionUtil::AddDimRotated(const AcGePoint3d& pt1, const AcGePoi
 AcDbObjectId CDimensionUtil::AddDimRadial(const AcGePoint3d& ptCenter, const AcGePoint3d& ptChord,
 	double leaderLength, const TCHAR* dimText, AcDbObjectId dimStyle)
 {
-	dimStyle = CDimensionUtil::CreateStyle(_T("自定义样式"));
 	AcDbRadialDimension* pDim = new AcDbRadialDimension(ptCenter, ptChord, leaderLength, dimText, dimStyle);
 	return CDwgDatebaseUtil::PostToModelSpace(pDim);
 }
@@ -141,7 +140,7 @@ AcDbObjectId CDimensionUtil::AddDim3PtAngular(const AcGePoint3d& ptCenter, const
 {
 	AcDb3PointAngularDimension* pDim = new AcDb3PointAngularDimension(
 		ptCenter, ptEnd1, ptEnd2, ptArc, dimText, dimStyle);
-
+	//
 	return CDwgDatebaseUtil::PostToModelSpace(pDim);
 }
 
